@@ -1,34 +1,6 @@
 #include <gtkmm.h>
-//#include "sound.h"
-//#include "tempo.h"
+
 #include "metronome.h"
-
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
-
-
-
-Sound* sound;
-
-
-void first_tempo ()
-{
-    sound->play();
-    cout << "first" << endl;
-}
-
-
-void second_tempo()
-{
-    sound->stop();
-    cout << "second" << endl;
-}
-
-
-
 
 
 
@@ -135,26 +107,13 @@ mainTable.attach(tunerContainer, 1, 2, 1, 2);
 
 
 
-
-Tempo tempo;
-tempo.setFunctions(first_tempo, second_tempo);
-//tempo.start();
-
-sound = new Sound;
-
-
-start.signal_clicked().connect( sigc::mem_fun(tempo, &Tempo::start) );
-stop.signal_clicked().connect( sigc::mem_fun(tempo, &Tempo::stop) );
+Metronome metronome;
+metronome.start();
 
     //set the events
-/*
-start.signal_clicked().connect (sigc::bind<double, Sound*>(sigc::ptr_fun(&play_clicked),
-                                              440, &sound));
 
-stop.signal_clicked().connect (sigc::bind<Sound*>(sigc::ptr_fun(&stop_clicked),
-                                               &sound));
-
-*/
+start.signal_clicked().connect( sigc::mem_fun(metronome, &Metronome::start) );
+stop.signal_clicked().connect( sigc::mem_fun(metronome, &Metronome::stop) );
 
 
 

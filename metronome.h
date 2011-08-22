@@ -5,6 +5,10 @@
 #include "tempo.h"
 
 
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 
 class Metronome : public Tempo
@@ -13,12 +17,16 @@ class Metronome : public Tempo
 
         Metronome (int bpm = 60, int duration = 200, int frequency = 440);
 
+    protected:
+
+        virtual void firstFunction();
+        virtual void secondFunction();
+
+
     private:
 
-        friend void firstFunction ();
-        friend void secondFunction ();
+        Sound sound;
 
-        //Sound sound;
 };
 
 

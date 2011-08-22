@@ -11,12 +11,8 @@ class Tempo
         Tempo (int bpm = 60, int duration = 200);
 
 
-        void setFunctions (void (*startFunction)(), void (*stopFunction)());
-
-
         void start();
         void stop();
-
 
 
         void setBpm(int bpm);
@@ -25,6 +21,12 @@ class Tempo
 
         void operator ++ (int);
         void operator -- (int);
+
+    protected:
+
+        virtual void firstFunction() = 0;
+        virtual void secondFunction() = 0;
+
 
     private:
 
@@ -42,9 +44,6 @@ class Tempo
 		sigc::connection timer_obj;
 		bool isPlaying_obj;
 
-
-        void (*startFunction_obj) ();
-        void (*stopFunction_obj) ();
     };
 
 

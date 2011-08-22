@@ -32,16 +32,27 @@ sound.stop();
 
 Metronome::Metronome (int bpm, int duration, int frequency)
 
-    : Tempo (bpm, duration)//,
-      //sound (frequency)
+    : Tempo (bpm, duration),
+      sound (frequency)
 
 {
-//setFunctions (firstFunction, secondFunction);
 
-//setFunctions(firstCall, secondCall);
 }
 
 
 
+
+void Metronome::firstFunction()
+{
+sound.play();
+    cout << "function1" << endl;
+}
+
+
+void Metronome::secondFunction()
+{
+    sound.stop();
+    cout << "function2" << endl;
+}
 
 
