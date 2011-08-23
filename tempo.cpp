@@ -69,14 +69,13 @@ return false;
 
 
 
-
-
 void Tempo::setBpm(int bpm)
 {
 if (isPlaying_obj == true)
 	{
 	timer_obj.disconnect();
 	}
+
 
 calculate_miliseconds (bpm);
 
@@ -104,8 +103,19 @@ setBpm (bpm_obj - 1);
 }
 
 
+/*
+
+    bpm -> beats per minute
+    bps (or frequency) -> beats per second (cycles per second, actually)
+
+    bpm / 60 -> bps (or frequency)
+
+    interval (or period - in seconds) = 1 / frequency
+
+    In miliseconds -> interval * 1000
+ */
 
 void Tempo::calculate_miliseconds (int bpm)
 {
-inMiliseconds_obj = bpm / 60.0 * 1000;
+inMiliseconds_obj = (1 / (bpm / 60.0)) * 1000;
 }

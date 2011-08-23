@@ -60,6 +60,8 @@
 			<Add directory="/usr/lib64" />
 			<Add directory="/usr/lib64/gstreamer-0.10" />
 		</Linker>
+		<Unit filename="animation.cpp" />
+		<Unit filename="animation.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="metronome.cpp" />
 		<Unit filename="metronome.h" />

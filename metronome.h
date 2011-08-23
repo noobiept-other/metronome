@@ -27,6 +27,8 @@ class Metronome : public Tempo
 
         Sound sound;
 
+        //Animation animation;
+
 };
 
 

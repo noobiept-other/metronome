@@ -10142,9 +10142,10 @@
 	<glibmm.h>
 	<gtkmm/bin.h>
 
-1314055644 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
+1314064371 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
 	<gtkmm.h>
 	"metronome.h"
+	"animation.h"
 
 1304969571 /usr/include/gtkmm-3.0/gtkmm.h
 	<glibmm.h>
@@ -16967,17 +16968,24 @@
 1314047927 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.cpp
 	"sound.h"
 
-1314055113 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.cpp
+1314063106 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.cpp
 	"tempo.h"
 
 1314055707 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.h
 	<gtkmm.h>
 
-1314055739 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.h
+1314063604 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.h
 	"sound.h"
 	"tempo.h"
 	<iostream>
 
-1314055777 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.cpp
+1314063104 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.cpp
 	"metronome.h"
+
+1314065036 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.cpp
+	"animation.h"
+	<iostream>
+
+1314065004 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.h
+	<gtkmm.h>
 
