@@ -62,6 +62,8 @@
 		</Linker>
 		<Unit filename="animation.cpp" />
 		<Unit filename="animation.h" />
+		<Unit filename="animeWindow.cpp" />
+		<Unit filename="animeWindow.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="metronome.cpp" />
 		<Unit filename="metronome.h" />

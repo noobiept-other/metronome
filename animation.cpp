@@ -2,50 +2,117 @@
 
 
 Animation::Animation()
-{
 
-//animationWindow.add(animation);
+    : black ("black")
+
+{
+    //default: blue color
+activeColor.set_rgba(0, 0, 1, 1);
+
+strongBeatColor.set_rgba(1, 0, 1, 1);   //HERE
+
+tempColor.set_rgba(0, 0, 0, 1);
 }
 
 
 
-void Animation::open ()
+void Animation::start ()
 {
-//animation.show();
+tempColor = activeColor;
 
-//animationWindow.show();
+forceReDraw();
 }
 
 
-#include <iostream>
+
+void Animation::start_strongBeat()
+{
+tempColor = strongBeatColor;
+
+forceReDraw();
+}
 
 
-//HERE nao funciona/....
+
+
+void Animation::stop ()
+{
+tempColor = black;
+
+forceReDraw();
+}
+
+
 
 bool Animation::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
 {
-  Gtk::Allocation allocation = get_allocation();
-  const int width = allocation.get_width();
-  const int height = allocation.get_height();
+Gtk::Allocation allocation = get_allocation();
+
+const int width = allocation.get_width();
+const int height = allocation.get_height();
 
 
-std::cout << width << " " << height << std::endl;
+//cor : .set_source_rgba()
+//gravar : save() e restore()
 
-  // coordinates for the center of the window
-  int xc, yc;
-  xc = width / 2;
-  yc = height / 2;
+//parar desenhar: stroke() ou fill() ou clip()
 
-  cr->set_line_width(10.0);
+//.rectangle()
 
-  // draw red lines out from the center of the window
-  cr->set_source_rgb(0.8, 0.0, 0.0);
-  cr->move_to(0, 0);
-  cr->line_to(xc, yc);
-  cr->line_to(0, height);
-  cr->move_to(xc, yc);
-  cr->line_to(width, yc);
-  cr->stroke();
+cr->set_source_rgba(tempColor.get_red(), tempColor.get_green(), tempColor.get_blue(), tempColor.get_alpha());
 
-  return true;
+cr->rectangle(0, 0, width, height);
+
+cr->fill();
+
+
+return true;
+}
+
+
+
+void Animation::forceReDraw()
+{
+    // force our program to redraw the entire image
+Glib::RefPtr<Gdk::Window> win = get_window();
+
+if (win)
+    {
+    Gdk::Rectangle r(0, 0, get_allocation().get_width(), get_allocation().get_height());
+    win->invalidate_rect(r, false);
+    }
+}
+
+
+
+Gdk::RGBA Animation::getColor() const
+{
+return activeColor;
+}
+
+
+
+Gdk::RGBA Animation::getStrongColor() const
+{
+return strongBeatColor;
+}
+
+
+
+
+void Animation::setColor (Gdk::RGBA newColor)
+{
+activeColor = newColor;
+}
+
+
+void Animation::setColor (int red, int green, int blue, int alpha)
+{
+activeColor.set_rgba(red, green, blue, alpha);
+}
+
+
+void Animation::setStrongColor (Gdk::RGBA newColor)
+{
+strongBeatColor = newColor;
 }

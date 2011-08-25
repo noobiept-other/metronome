@@ -3,6 +3,13 @@
 
 #include <gtkmm.h>
 
+#include "random.h"
+
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
 class Animation : public Gtk::DrawingArea
 {
     public:
@@ -10,14 +17,27 @@ class Animation : public Gtk::DrawingArea
         Animation();
 
 
-            //opens the window
-        void open();
-
             //starts the animation
-        void show();
+        void start();
+
+        void start_strongBeat();
 
             //ends it
-        void hide();
+        void stop();
+
+
+        Gdk::RGBA getColor() const;
+
+        Gdk::RGBA getStrongColor() const;
+
+
+        void setColor (Gdk::RGBA newColor);
+
+            //values from 0 to 1
+        void setColor (int red, int green, int blue, int alpha);
+
+
+        void setStrongColor (Gdk::RGBA newColor);
 
 
     protected:
@@ -28,8 +48,20 @@ class Animation : public Gtk::DrawingArea
 
     private:
 
-        //Gtk::Window animationWindow;
-        //Gtk::DrawingArea animation;
+
+        void forceReDraw();
+
+            //when we're on the tempo, change to this color
+        Gdk::RGBA activeColor;
+
+            //or this, when its the strong beat
+        Gdk::RGBA strongBeatColor;
+
+            //otherwise, just draw the black color
+        const Gdk::RGBA black;
+
+        Gdk::RGBA tempColor;
+
 };
 
 

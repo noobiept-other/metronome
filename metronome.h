@@ -3,7 +3,8 @@
 
 #include "sound.h"
 #include "tempo.h"
-
+#include "animeWindow.h"
+#include "options.h"
 
 #include <iostream>
 
@@ -11,11 +12,21 @@ using std::cout;
 using std::endl;
 
 
-class Metronome : public Tempo
+//enum BeatType { normal, strong };
+
+
+
+class Metronome : public Tempo, public Sound
 {
     public:
 
-        Metronome (int bpm = 60, int duration = 200, int frequency = 440);
+        Metronome (int bpm = 60, int duration = 200, double frequency = 440, int strongBeats = 4);
+
+        void openAnimeWindow();
+
+        void openOptions();
+
+        void setStrongBeats (int strongBeats);
 
     protected:
 
@@ -25,9 +36,13 @@ class Metronome : public Tempo
 
     private:
 
-        Sound sound;
+        //Sound sound;
+        Options optionsPage;
 
-        //Animation animation;
+        AnimeWindow animeWindow;
+
+        int strongBeats_obj;
+        int countBeats_obj;
 
 };
 

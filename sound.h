@@ -4,15 +4,24 @@
 
 #include <gstreamermm.h>
 
+
 class Sound
 {
 	public:
-		Sound(int frequency = 440); //440 Hz - A4
 
-		void play();
-		void stop();
+		Sound(double normalFrequency = 440, int strongBeats = 4); //440 Hz - A4
+
 
         void setFrequency (int frequency);
+
+
+    protected:
+
+        void play();
+        void play_strongBeat();
+
+		void stopPlaying();
+
 
 	private:
 
@@ -20,7 +29,12 @@ class Sound
 		Glib::RefPtr<Gst::Element> m_source;
 		Glib::RefPtr<Gst::Element> m_sink;
 
-		double frequency_obj;
+
+		double normalFrequency_obj;
+		double strongFrequency_obj;
+
+            //the difference in the above frequencies
+        const int diffFrequency_obj;
 
 };
 

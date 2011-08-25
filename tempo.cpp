@@ -71,15 +71,17 @@ return false;
 
 void Tempo::setBpm(int bpm)
 {
+calculate_miliseconds (bpm);
+
+
+
 if (isPlaying_obj == true)
 	{
 	timer_obj.disconnect();
+
+	timer_obj = Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::keepRunning), inMiliseconds_obj);
 	}
 
-
-calculate_miliseconds (bpm);
-
-timer_obj = Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::keepRunning), inMiliseconds_obj);
 }
 
 
