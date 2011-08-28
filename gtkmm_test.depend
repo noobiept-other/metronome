@@ -10142,7 +10142,7 @@
 	<glibmm.h>
 	<gtkmm/bin.h>
 
-1314305437 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
+1314484410 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
 	<gtkmm.h>
 	"metronome.h"
 	"animeWindow.h"
@@ -15198,7 +15198,7 @@
 	<gtkmm/bin.h>
 	<gtkmm/scrollable.h>
 
-1314295193 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.h
+1314494295 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.h
 	<gstreamermm.h>
 
 1298848507 /usr/include/gstreamermm-0.10/gstreamermm.h
@@ -16965,47 +16965,63 @@
 
 1313468223 /usr/include/asm-generic/errno-base.h
 
-1314295207 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.cpp
+1314494308 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.cpp
 	"sound.h"
 
-1314151613 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.cpp
+1314494492 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.cpp
 	"tempo.h"
 
-1314055707 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.h
+1314494492 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.h
 	<gtkmm.h>
 
-1314305700 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.h
+1314494295 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.h
 	"sound.h"
 	"tempo.h"
 	"animeWindow.h"
 	"options.h"
+	"tuner.h"
 	<iostream>
 
-1314305810 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.cpp
+1314494491 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.cpp
 	"metronome.h"
 
 1314304163 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.cpp
 	"animation.h"
 
-1314304551 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.h
+1314307848 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.h
 	<gtkmm.h>
-	"random.h"
 	<iostream>
 
-1314305856 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.h
+1314376800 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.h
 	<gtkmm.h>
 	<iostream>
 	"animation.h"
-	"random.h"
 
-1314305856 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.cpp
+1314378324 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.cpp
 	"animeWindow.h"
 
 1314294926 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/random.h
 
-1314305770 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.h
+1314552690 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.h
 	<gtkmm.h>
 
-1314305685 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
+1314552967 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
 	"options.h"
+
+1314550243 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
+	<gtkmm.h>
+	"sound.h"
+	"note.h"
+	<iostream>
+
+1314553307 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
+	"tuner.h"
+	"note.h"
+
+1314555244 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.cpp
+	"note.h"
+	<cmath>
+
+1314554751 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
+	<iostream>
 

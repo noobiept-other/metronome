@@ -2,10 +2,11 @@
 
 
 
-Sound::Sound(double normalFrequency, int strongBeats)
+Sound::Sound(double normalFrequency)
 
 	: normalFrequency_obj (normalFrequency),
-      diffFrequency_obj   (150)
+      diffFrequency_obj   (150),
+      isPlaying_obj       (false)
 
 {
     //HERE
@@ -13,7 +14,7 @@ strongFrequency_obj = normalFrequency + diffFrequency_obj;
 
 
 
-m_pipeline = Gst::Pipeline::create("note");     //HERE ter que passar estes nomes como argumento, senao n consigo ter + k 1 objecto da classe
+m_pipeline = Gst::Pipeline::create("sound");     //HERE ter que passar estes nomes como argumento, senao n consigo ter + k 1 objecto da classe
 
 m_source = Gst::ElementFactory::create_element("audiotestsrc", "source");
 m_sink = Gst::ElementFactory::create_element ("autoaudiosink", "output");
@@ -32,6 +33,8 @@ void Sound::play ()
 m_source->set_property("freq", normalFrequency_obj);
 
 m_pipeline->set_state(Gst::STATE_PLAYING);
+
+isPlaying_obj = true;
 }
 
 
@@ -41,12 +44,28 @@ void Sound::play_strongBeat()
 m_source->set_property("freq", strongFrequency_obj);
 
 m_pipeline->set_state(Gst::STATE_PLAYING);
+
+isPlaying_obj = true;
 }
+
+
+
+void Sound::play (double frequency)
+{
+m_source->set_property("freq", frequency);
+
+m_pipeline->set_state(Gst::STATE_PLAYING);
+
+isPlaying_obj = true;
+}
+
 
 
 void Sound::stopPlaying()
 {
 m_pipeline->set_state(Gst::STATE_NULL);
+
+isPlaying_obj = false;
 }
 
 
@@ -65,4 +84,10 @@ normalFrequency_obj = frequency;
 strongFrequency_obj = frequency + diffFrequency_obj;
 
 m_source->set_property("freq", frequency);
+}
+
+
+bool Sound::isPlaying() const
+{
+return isPlaying_obj;
 }

@@ -10,7 +10,7 @@ using std::endl;
 
 #include "animation.h"
 
-#include "random.h"
+
 
 class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
 {
@@ -36,7 +36,7 @@ class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
 
     void onHide();
 
-    void onKeyRelease(GdkEventButton *event);
+    bool onKeyRelease(GdkEventKey *event);
 
         //override function from Gtk::Widget
     //virtual bool on_key_release_event (GdkEventKey* event);
@@ -48,20 +48,18 @@ class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
 
     Gtk::Table container;
 
+        Animation animation;
 
-    Gtk::HBox buttonsContainer;
+        Gtk::HBox buttonsContainer;
 
+            Gtk::Label normalColor;
+            Gtk::ColorButton selectNormalColor;
 
-    Gtk::Label normalColor;
-    Gtk::ColorButton selectNormalColor;
+            Gtk::Label strongBeatColor;
+            Gtk::ColorButton selectStrongColor;
 
-    Gtk::Label strongBeatColor;
-    Gtk::ColorButton selectStrongColor;
+            Gtk::Button changeFullScreen;
 
-
-    Gtk::Button changeFullScreen;
-
-    Animation animation;
 
 
     void fullScreen();

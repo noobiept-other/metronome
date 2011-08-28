@@ -9,18 +9,21 @@ class Sound
 {
 	public:
 
-		Sound(double normalFrequency = 440, int strongBeats = 4); //440 Hz - A4
+		Sound(double normalFrequency = 440); //440 Hz - A4
 
 
         void setFrequency (int frequency);
 
 
-    protected:
-
         void play();
         void play_strongBeat();
 
+        void play (double frequency);
+
 		void stopPlaying();
+
+
+		bool isPlaying() const;
 
 
 	private:
@@ -35,6 +38,9 @@ class Sound
 
             //the difference in the above frequencies
         const int diffFrequency_obj;
+
+
+        bool isPlaying_obj;
 
 };
 

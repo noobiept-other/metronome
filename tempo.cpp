@@ -31,7 +31,7 @@ timer_obj = Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::keepRunn
 
 
 	// stop it after 200ms
-	Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::stopFunction),
+Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::stopFunction),
 	                               200);
 }
 
@@ -89,6 +89,13 @@ if (isPlaying_obj == true)
 int Tempo::getBpm() const
 {
 return bpm_obj;
+}
+
+
+
+bool Tempo::isPlaying() const
+{
+return isPlaying_obj;
 }
 
 

@@ -11,8 +11,8 @@ class Tempo
         Tempo (int bpm = 60, int duration = 200);
 
 
-        void start();
-        void stop();
+        virtual void start();
+        virtual void stop();
 
 
         void setBpm(int bpm);
@@ -21,6 +21,9 @@ class Tempo
 
         void operator ++ (int);
         void operator -- (int);
+
+
+        bool isPlaying() const;
 
     protected:
 

@@ -13,6 +13,21 @@ Metronome::Metronome (int bpm, int duration, double frequency, int strongBeats)
 }
 
 
+void Metronome::start ()
+{
+    //don't start the metronome when the tuner is opened
+if (tuner.isOpened() == true)
+    {
+    return;
+    }
+
+    //carry on
+Tempo::start();
+}
+
+
+
+
 
 
 void Metronome::firstFunction()
@@ -79,6 +94,20 @@ void Metronome::openAnimeWindow()
 {
 animeWindow.open();
 }
+
+
+void Metronome::openTuner()
+{
+if (Tempo::isPlaying() == true)
+    {
+    this->stop();
+    }
+
+    //HERE ao fechar o tuner, era fixe se ele comeca-se a tocar o metronomo (caso estivesse nesse estado antes de abrir)
+    //por enquanto simplesmente estah parado
+tuner.open();
+}
+
 
 
 void Metronome::openOptions()

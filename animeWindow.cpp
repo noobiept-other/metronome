@@ -63,7 +63,9 @@ this->signal_hide().connect( sigc::mem_fun(*this, &AnimeWindow::onHide) );
 
 //add_events(Gdk::BUTTON_PRESS_MASK | Gdk::BUTTON_RELEASE_MASK);
 
-//this->signal_key_release_event().connect ( sigc::mem_fun(*this, &AnimeWindow::onKeyRelease) );
+add_events( Gdk::KEY_PRESS_MASK );
+
+this->signal_key_release_event().connect ( sigc::mem_fun(*this, &AnimeWindow::onKeyRelease) );
 
 
 
@@ -147,7 +149,19 @@ else
 
 void AnimeWindow::onHide()
 {
+    //reset stuff
 isOpened = false;
+
+    //take out the full screen (so that when opening again the animation window, it doesn't open in full screen mode)
+if (isFullScreen == true)
+    {
+    unfullscreen();
+
+        //when calling unfullscreen(), it leaves the window occupying the whole screen, so resize to the default values
+    resize (property_default_width(), property_default_height());
+
+    isFullScreen = false;
+    }
 }
 
 /*
@@ -163,11 +177,31 @@ return true;
 }
 */
 
-/*
-void AnimeWindow::onKeyRelease(GdkEventButton *event)
+
+bool AnimeWindow::onKeyRelease(GdkEventKey *event)
 {
-cout << "key" << endl;
-}*/
+if (event->keyval == GDK_KEY_Escape)
+    {
+        //we change the window back to the dimensions it had before
+    if (isFullScreen == true)
+        {
+        unfullscreen();
+
+            //when calling unfullscreen(), it leaves the window occupying the whole screen, so resize to the default values
+        resize (property_default_width(), property_default_height());
+
+        isFullScreen = false;
+        }
+
+        //we close the window
+    else
+        {
+        hide();
+        }
+    }
+
+return true;
+}
 
 
 

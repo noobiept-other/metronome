@@ -67,10 +67,16 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="metronome.cpp" />
 		<Unit filename="metronome.h" />
+		<Unit filename="note.cpp" />
+		<Unit filename="note.h" />
+		<Unit filename="options.cpp" />
+		<Unit filename="options.h" />
 		<Unit filename="sound.cpp" />
 		<Unit filename="sound.h" />
 		<Unit filename="tempo.cpp" />
 		<Unit filename="tempo.h" />
+		<Unit filename="tuner.cpp" />
+		<Unit filename="tuner.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

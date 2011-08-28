@@ -5,6 +5,7 @@
 #include "tempo.h"
 #include "animeWindow.h"
 #include "options.h"
+#include "tuner.h"
 
 #include <iostream>
 
@@ -22,7 +23,17 @@ class Metronome : public Tempo, public Sound
 
         Metronome (int bpm = 60, int duration = 200, double frequency = 440, int strongBeats = 4);
 
+
+            //overriding from Tempo (to add a bit more)
+        void start();
+
+
+
+            //other
+
         void openAnimeWindow();
+
+        void openTuner();
 
         void openOptions();
 
@@ -39,7 +50,11 @@ class Metronome : public Tempo, public Sound
         //Sound sound;
         Options optionsPage;
 
+        Tuner tuner;
+
         AnimeWindow animeWindow;
+
+
 
         int strongBeats_obj;
         int countBeats_obj;

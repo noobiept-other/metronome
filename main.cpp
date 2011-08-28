@@ -20,6 +20,9 @@
 
         gravar o estado das janelas (se a animacao estava aberta... etc)
 
+
+        window.set_icon() ou .set_icon_from_file()
+
  */
 
 
@@ -147,11 +150,16 @@ Gtk::HBox startStopContainer;
 Gtk::Button start ("start");
 
 
-/*
-Gdk::RGBA color("Blue");
+
+Gdk::RGBA color("blue");
 start.override_background_color(color);
-*/
-//start.override_background_color(blue);
+
+//HERE doesnt work
+start.override_background_color(blue, Gtk::STATE_FLAG_NORMAL | Gtk::STATE_FLAG_ACTIVE | Gtk::STATE_FLAG_PRELIGHT |
+                                Gtk::STATE_FLAG_SELECTED | Gtk::STATE_FLAG_INSENSITIVE | Gtk::STATE_FLAG_INCONSISTENT |
+                                Gtk::STATE_FLAG_FOCUSED );
+
+//start.override_color(blue);
 
 Gtk::Button stop ("stop");
 
@@ -168,14 +176,13 @@ Gtk::HBox otherContainer;
 Gtk::Button openOptions ("options");
 
 
-Gtk::Button tuner ("tuner");
-
+Gtk::Button openTuner ("tuner");
 
 Gtk::Button openAnimation ("animation");
 
 
 otherContainer.pack_start(openOptions);
-otherContainer.pack_start(tuner);
+otherContainer.pack_start(openTuner);
 otherContainer.pack_start(openAnimation);
 
 
@@ -188,8 +195,6 @@ mainTable.attach(otherContainer, 1, 2, 1, 2);
 
 Metronome metronome;
 metronome.start();
-
-
 
 
     //set the events
@@ -224,9 +229,13 @@ fourBeats.signal_clicked().connect ( sigc::bind<int>( sigc::mem_fun(metronome, &
 
 openOptions.signal_clicked().connect ( sigc::mem_fun(metronome, &Metronome::openOptions) );
 
+
+openTuner.signal_clicked().connect ( sigc::mem_fun(metronome, &Metronome::openTuner) );
+
 //openAnimation.signal_clicked().connect( sigc::mem_fun(anime, &Animation::open) );
 openAnimation.signal_clicked().connect( sigc::mem_fun(metronome, &Metronome::openAnimeWindow) );
 //HERE abrir a janela
+
 
 
 
