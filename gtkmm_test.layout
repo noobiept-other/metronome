@@ -19,8 +19,8 @@
 	<File name="metronome.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="1421" topLine="82" />
 	</File>
-	<File name="metronome.h" open="1" top="0" tabpos="6">
-		<Cursor position="489" topLine="20" />
+	<File name="metronome.h" open="1" top="1" tabpos="6">
+		<Cursor position="568" topLine="41" />
 	</File>
 	<File name="note.cpp" open="1" top="0" tabpos="17">
 		<Cursor position="838" topLine="40" />
@@ -29,10 +29,10 @@
 		<Cursor position="687" topLine="44" />
 	</File>
 	<File name="options.cpp" open="1" top="0" tabpos="13">
-		<Cursor position="757" topLine="19" />
+		<Cursor position="1983" topLine="80" />
 	</File>
 	<File name="options.h" open="1" top="0" tabpos="12">
-		<Cursor position="606" topLine="9" />
+		<Cursor position="196" topLine="1" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="1607" topLine="71" />
@@ -46,7 +46,7 @@
 	<File name="tempo.h" open="1" top="0" tabpos="4">
 		<Cursor position="340" topLine="32" />
 	</File>
-	<File name="tuner.cpp" open="1" top="1" tabpos="15">
+	<File name="tuner.cpp" open="1" top="0" tabpos="15">
 		<Cursor position="5056" topLine="194" />
 	</File>
 	<File name="tuner.h" open="1" top="0" tabpos="14">

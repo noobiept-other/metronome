@@ -76,8 +76,14 @@ this->set_resizable(false);
 this->set_border_width(10);
 
 this->show_all_children();
-}
 
+
+
+    // :::: Events :::: //
+
+changeNormalFrequency.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onNormalFrequencyChange ) );
+changeStrongFrequency.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onStrongFrequencyChange ) );
+}
 
 
 void Options::open()
@@ -85,4 +91,18 @@ void Options::open()
 isOpened = true;
 
 show();
+}
+
+
+
+void Options::onNormalFrequencyChange ()
+{
+//HERE como actualizar o metronomo....
+}
+
+
+
+void Options::onStrongFrequencyChange ()
+{
+
 }

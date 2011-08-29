@@ -17,6 +17,11 @@ class Options : public Gtk::Window
 
         bool isOpened;
 
+            //events functions
+
+        void onNormalFrequencyChange ();
+        void onStrongFrequencyChange ();
+
 
             //layout stuff
 
