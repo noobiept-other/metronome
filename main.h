@@ -4,49 +4,68 @@
 #include <gtkmm.h>
 #include <gstreamermm.h>
 #include "metronome.h"
+#include "tuner.h"
 
-
-class Main : public Gtk::Window
+class Main : public Gtk::Window, public Metronome//, public Tuner
 {
     public:
 
         Main();
 
+        void startMetronome();
+
+        void openOptions();
+
+
+        void openTuner();
+
+
+    protected:
+
+            //override Tuner::onTunerHide event
+        void onTunerHide();//HERE n esta a ser chamada esta....
+
+        //void test();
 
     private:
 
-Metronome metronome;
-        //Gtk::Window window;
+        Tuner tuner;
+        //Metronome metronome;
+            //when we open the tuner, we save in this variable whether the metronome was playing, so that when
+            //closing the tuner window, we can restart the metronome
+        bool wasPlaying_var;
 
-                //2 row and 2 columns
-            Gtk::Table mainTable;
+            // :::: Layout :::: //
 
-                Gtk::Table tempoContainer;
+            //2 row and 2 columns
+        Gtk::Table mainTable;
 
-                    Gtk::Label tempoName;
-                    Gtk::SpinButton changeTempo;
-                    Gtk::Label tempoBpm;
+            Gtk::Table tempoContainer;
 
-                Gtk::Table strongBeat;
+                Gtk::Label tempoName;
+                Gtk::SpinButton changeTempo;
+                Gtk::Label tempoBpm;
 
-                    Gtk::Label strongBeatLabel;
+            Gtk::Table strongBeat;
 
-                    Gtk::Button oneBeat;
-                    Gtk::Button twoBeats;
-                    Gtk::Button threeBeats;
-                    Gtk::Button fourBeats;
-                    Gtk::Entry otherBeat;
+                Gtk::Label strongBeatLabel;
 
-                Gtk::HBox startStopContainer;
+                Gtk::Button oneBeat;
+                Gtk::Button twoBeats;
+                Gtk::Button threeBeats;
+                Gtk::Button fourBeats;
+                Gtk::Entry otherBeat;
 
-                    Gtk::Button start;
-                    Gtk::Button stop;
+            Gtk::HBox startStopContainer;
 
-                Gtk::HBox otherContainer;
+                Gtk::Button start;
+                Gtk::Button stop;
 
-                    Gtk::Button openOptions;
-                    Gtk::Button openTuner;
-                    Gtk::Button openAnimation;
+            Gtk::HBox otherContainer;
+
+                Gtk::Button openOptions_gui;
+                Gtk::Button openTuner_gui;
+                Gtk::Button openAnimation;
 
 };
 

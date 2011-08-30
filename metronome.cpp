@@ -12,7 +12,7 @@ Metronome::Metronome (int bpm, int duration, double frequency, int strongBeats)
 
 }
 
-
+/*
 void Metronome::start ()
 {
     //don't start the metronome when the tuner is opened
@@ -24,7 +24,7 @@ if (tuner.isOpened() == true)
     //carry on
 Tempo::start();
 }
-
+*/
 
 
 
@@ -95,7 +95,7 @@ void Metronome::openAnimeWindow()
 animeWindow.open();
 }
 
-
+/*
 void Metronome::openTuner()
 {
 if (Tempo::isPlaying() == true)
@@ -107,7 +107,7 @@ if (Tempo::isPlaying() == true)
     //por enquanto simplesmente estah parado
 tuner.open();
 }
-
+*/
 
 
 void Metronome::openOptions()

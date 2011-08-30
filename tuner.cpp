@@ -98,21 +98,21 @@ container.attach (playContainer, 0, 2, 2, 3);
 
     // :::: Window :::: //
 
-set_title("Tuner");
+window.set_title("Tuner");
 
-set_resizable(false);
+window.set_resizable(false);
 
-set_border_width(10);
+window.set_border_width(10);
 
-add (container);
+window.add (container);
 
-show_all_children();
+window.show_all_children();
 
 
     // :::: Events :::: //
 
     //when closing the window
-this->signal_hide().connect( sigc::mem_fun(*this, &Tuner::onHide) );
+window.signal_hide().connect( sigc::mem_fun(*this, &Tuner::onTunerHide) );
 
 
      a.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
@@ -147,7 +147,7 @@ void Tuner::open()
 {
 isOpened_obj = true;    //HERE isto eh tudo mt igual.. ter uma classe base?..
 
-show();
+window.show();
 
     //HERE stop the metronome
 
@@ -237,12 +237,18 @@ sound.play();
 }
 
 
+sigc::signal<void> Tuner::signal_onTunerHide()
+{
+return the_signal_onTunerHide;
+}
 
-void Tuner::onHide()
+
+void Tuner::onTunerHide()
 {
 isOpened_obj = false;
 
 this->stop();
+
+    //emit our custom signal, that tells the window was closed
+the_signal_onTunerHide.emit();
 }
-
-

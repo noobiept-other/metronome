@@ -25,7 +25,7 @@ class Metronome : public Tempo, public Sound
 
 
             //overriding from Tempo (to add a bit more)
-        void start();
+       // void start();
 
 
 
@@ -33,7 +33,7 @@ class Metronome : public Tempo, public Sound
 
         void openAnimeWindow();
 
-        void openTuner();
+        //void openTuner();
 
         void openOptions();
 
@@ -50,7 +50,7 @@ class Metronome : public Tempo, public Sound
         //Sound sound;
         Options optionsPage;
 
-        Tuner tuner;
+       // Tuner tuner;
 
         AnimeWindow animeWindow;
 

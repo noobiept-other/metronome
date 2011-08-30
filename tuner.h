@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 
-class Tuner : public Gtk::Window//, public Sound
+class Tuner //: public Gtk::Window//, public Sound
 {
     public:
 
@@ -22,6 +22,18 @@ class Tuner : public Gtk::Window//, public Sound
         void open();
 
         bool isOpened() const;
+
+
+        sigc::signal<void> signal_onTunerHide();
+
+    protected:
+
+            //when the window is closed
+        void onTunerHide();
+
+        sigc::signal<void> the_signal_onTunerHide;
+
+
 
 
     private:
@@ -40,7 +52,7 @@ class Tuner : public Gtk::Window//, public Sound
 
             // :::: events :::: //
 
-        void onHide();
+
 
         void onOctaveChange();
 
@@ -58,6 +70,7 @@ class Tuner : public Gtk::Window//, public Sound
         Sound sound;
 
 
+        Gtk::Window window;
 
             //layout elements
 
