@@ -8,69 +8,69 @@
 using std::cout;
 using std::endl;
 
+#include "SecondaryWindow.h"
 #include "animation.h"
 
 
 
-class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
+class AnimeWindow : public SecondaryWindow
 {
-  public:
+    public:
 
-    AnimeWindow(int bpm);
-
-
-    void open();
-
-    bool isOpened() const;
-
-    void start();
-    void start_strongBeat();
+        AnimeWindow(int bpm);
 
 
-    void stop();
+    //void open();
+
+   // bool isOpened() const;
+
+        void start();
+        void start_strongBeat();
 
 
-
-    void updateBpm (int bpm);
+        void stop();
 
 
 
-  private:
-
-    void onHide();
-
-    bool onKeyRelease(GdkEventKey *event);
+        void updateBpm (int bpm);
 
 
+    protected:
 
-    void onColorSet();
+        virtual void onHide();
 
-    void onStrongColorSet();
-
-
-    Gtk::Table container;
-
-        Animation animation;
-
-        Gtk::HBox buttonsContainer;
-
-            Gtk::Label currentBpm;
-
-            Gtk::Label normalColor;
-            Gtk::ColorButton selectNormalColor;
-
-            Gtk::Label strongBeatColor;
-            Gtk::ColorButton selectStrongColor;
-
-            Gtk::Button changeFullScreen;
+        virtual bool onKeyRelease(GdkEventKey *event);
 
 
-
-    void fullScreen();
-    bool isFullScreen;
+    private:
 
 
-    bool isOpened_var;
+        void onColorSet();
+
+        void onStrongColorSet();
+
+
+        Gtk::Table container;
+
+            Animation animation;
+
+            Gtk::HBox buttonsContainer;
+
+                Gtk::Label currentBpm;
+
+                Gtk::Label normalColor;
+                Gtk::ColorButton selectNormalColor;
+
+                Gtk::Label strongBeatColor;
+                Gtk::ColorButton selectStrongColor;
+
+                Gtk::Button changeFullScreen;
+
+
+
+        void fullScreen();
+        bool isFullScreen;
+
 };
 
 

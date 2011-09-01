@@ -3,6 +3,8 @@
 
 #include <gtkmm.h>
 
+#include "SecondaryWindow.h"
+
 #include "sound.h"
 #include "note.h"
 
@@ -13,25 +15,25 @@ using std::cout;
 using std::endl;
 
 
-class Tuner //: public Gtk::Window//, public Sound
+class Tuner : public SecondaryWindow
 {
     public:
 
         Tuner();
 
-        void open();
+        virtual void open();
 
-        bool isOpened() const;
+       // bool isOpened() const;
 
 
-        sigc::signal<void> signal_onTunerHide();
+      //  sigc::signal<void> signal_onTunerHide();
 
     protected:
 
             //when the window is closed
-        void onTunerHide();
+        virtual void onHide();
 
-        sigc::signal<void> the_signal_onTunerHide;
+   //     sigc::signal<void> the_signal_onTunerHide;
 
 
 
@@ -59,12 +61,12 @@ class Tuner //: public Gtk::Window//, public Sound
         void onFrequencyChange();
 
 
-        bool onKeyRelease(GdkEventKey *event);
+     //   bool onKeyRelease(GdkEventKey *event);
 
 
             //variables
 
-        bool isOpened_obj;
+      //  bool isOpened_obj;
 
 
 
@@ -73,7 +75,7 @@ class Tuner //: public Gtk::Window//, public Sound
         Sound sound;
 
 
-        Gtk::Window window;
+     //   Gtk::Window window;
 
             //layout elements
 

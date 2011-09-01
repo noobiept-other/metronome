@@ -40,7 +40,7 @@ class Main : public Gtk::Window, public Metronome//, public Tuner
         virtual void updateTempo();
 
             //override Tuner::onTunerHide event
-        void onTunerHide();//HERE n esta a ser chamada esta....
+        void onTunerHide();
 
         //void test();
 

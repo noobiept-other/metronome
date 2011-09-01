@@ -6,7 +6,7 @@
 
 Tuner::Tuner()
 
-    : isOpened_obj (false),
+    : //isOpened_obj (false),
 
       note(440),    //A4 - 440 Hz
       container(3, 2)
@@ -116,26 +116,26 @@ container.attach (playContainer, 0, 2, 2, 3);
 
     // :::: Window :::: //
 
-window.set_title("Tuner");
+this->set_title("Tuner");
 
-window.set_resizable(false);
+this->set_resizable(false);
 
-window.set_border_width(10);
+this->set_border_width(10);
 
-window.add (container);
+this->add (container);
 
-window.show_all_children();
+this->show_all_children();
 
 
     // :::: Events :::: //
 
     //when closing the window
-window.signal_hide().connect( sigc::mem_fun(*this, &Tuner::onTunerHide) );
+this->signal_hide().connect( sigc::mem_fun(*this, &Tuner::onHide) );
 
 
-window.add_events( Gdk::KEY_PRESS_MASK );
+//window.add_events( Gdk::KEY_PRESS_MASK );
 
-window.signal_key_release_event().connect ( sigc::mem_fun(*this, &Tuner::onKeyRelease) );
+//window.signal_key_release_event().connect ( sigc::mem_fun(*this, &Tuner::onKeyRelease) );
 
 
      a.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
@@ -168,9 +168,11 @@ stopPlaying.signal_clicked().connect ( sigc::mem_fun(*this, &Tuner::stop) );
 
 void Tuner::open()
 {
-isOpened_obj = true;    //HERE isto eh tudo mt igual.. ter uma classe base?..
+//isOpened_obj = true;    //HERE isto eh tudo mt igual.. ter uma classe base?..
 
-window.show();
+//window.show();
+
+SecondaryWindow::open();
 
     //HERE stop the metronome
 
@@ -215,12 +217,12 @@ sound.play();
 }
 
 
-
+/*
 bool Tuner::isOpened() const
 {
 return isOpened_obj;
 }
-
+*/
 
 //HERE um bug - por a nota D#, e ir trocando a oitava.. ele passa para a nota E !!
 
@@ -259,16 +261,16 @@ sound.setFrequency(note.getFrequency());
 sound.play();
 }
 
-
+/*
 sigc::signal<void> Tuner::signal_onTunerHide()
 {
 return the_signal_onTunerHide;
 }
+*/
 
 
 
-
-
+/*
 bool Tuner::onKeyRelease(GdkEventKey *event)
 {
 if (event->keyval == GDK_KEY_Escape)
@@ -280,16 +282,18 @@ if (event->keyval == GDK_KEY_Escape)
 
 return true;
 }
+*/
 
 
 
-
-void Tuner::onTunerHide()
+void Tuner::onHide()
 {
-isOpened_obj = false;
+//isOpened_obj = false;
 
 this->stop();
 
+SecondaryWindow::onHide();
+
     //emit our custom signal, that tells the window was closed
-the_signal_onTunerHide.emit();
+//the_signal_onTunerHide.emit();
 }

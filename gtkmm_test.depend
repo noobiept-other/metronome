@@ -10142,7 +10142,7 @@
 	<glibmm.h>
 	<gtkmm/bin.h>
 
-1314899748 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
+1314920087 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
 	"main.h"
 	"metronome.h"
 	"animeWindow.h"
@@ -16992,30 +16992,33 @@
 	<gtkmm.h>
 	<iostream>
 
-1314812049 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.h
+1314920709 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.h
 	<gtkmm.h>
 	<iostream>
+	"SecondaryWindow.h"
 	"animation.h"
 
-1314812049 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.cpp
+1314920934 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.cpp
 	"animeWindow.h"
 	<sstream>
 
 1314294926 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/random.h
 
-1314899246 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.h
+1314920387 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.h
 	<gtkmm.h>
+	"SecondaryWindow.h"
 
-1314899215 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
+1314920377 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
 	"options.h"
 
-1314811984 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
+1314919976 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
 	<gtkmm.h>
+	"SecondaryWindow.h"
 	"sound.h"
 	"note.h"
 	<iostream>
 
-1314812238 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
+1314919672 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
 	"tuner.h"
 	"note.h"
 
@@ -17026,7 +17029,7 @@
 1314554751 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
 	<iostream>
 
-1314810865 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
+1314919629 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
 	<gtkmm.h>
 	<gstreamermm.h>
 	<iostream>
@@ -17034,4 +17037,10 @@
 	<fstream>
 	"metronome.h"
 	"tuner.h"
+
+1314920879 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
+	<gtkmm.h>
+
+1314920016 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
+	"SecondaryWindow.h"
 

@@ -3,7 +3,7 @@
 
 Options::Options()
 
-    : isOpened_var (false),
+    : //isOpened_var (false),
       container (3, 1)
 
 {
@@ -112,30 +112,30 @@ changeStrongFrequency.signal_value_changed().connect ( sigc::mem_fun ( *this, &O
 
 changeBeatDuration.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onBeatDurationChange ) );
 
-add_events( Gdk::KEY_PRESS_MASK );
+//add_events( Gdk::KEY_PRESS_MASK );
 
-this->signal_key_release_event().connect ( sigc::mem_fun(*this, &Options::onKeyRelease) );
+//this->signal_key_release_event().connect ( sigc::mem_fun(*this, &Options::onKeyRelease) );
 
 
     //when closing the window
-this->signal_hide().connect( sigc::mem_fun(*this, &Options::onHide) );
+//this->signal_hide().connect( sigc::mem_fun(*this, &Options::onHide) );
 }
 
-
+/*
 void Options::open()
 {
 isOpened_var = true;
 
 show();
 }
-
-
+*/
+/*
 
 bool Options::isOpened() const
 {
 return isOpened_var;
 }
-
+*/
 
 sigc::signal<void, int> Options::signal_onNormalFrequencyChange()
 {
@@ -179,6 +179,7 @@ the_signal_onBeatDurationChange.emit ( changeBeatDuration.get_value_as_int() );
 
 
 //HERE nao funciona, pq a window n ganha focus (esta nos spinbuttons)
+/*
 bool Options::onKeyRelease(GdkEventKey *event)
 {
 if (event->keyval == GDK_KEY_Escape)
@@ -190,10 +191,11 @@ if (event->keyval == GDK_KEY_Escape)
 
 return true;
 }
+*/
 
-
-
+/*
 void Options::onHide ()
 {
 isOpened_var = false;
 }
+*/

@@ -21,26 +21,26 @@ class SecondaryWindow : public Gtk::Window
 
     protected:
 
-            //when the window is closed
-        void onHide();
+            // :::: Events :::: //
 
-        sigc::signal<void> the_signal_onHide;
+
+            //when the window is closed
+        virtual void onHide();
+
+
+        virtual bool onKeyRelease(GdkEventKey *event);
 
 
     private:
 
 
-            // :::: Events :::: //
-
-        bool onKeyRelease(GdkEventKey *event);
-
-
             // :::: Variables :::: //
+
+        sigc::signal<void> the_signal_onHide;
 
         bool isOpened_var;
 
-
-}
+};
 
 
 

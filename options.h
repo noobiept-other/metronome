@@ -4,16 +4,18 @@
 
 #include <gtkmm.h>
 
+#include "SecondaryWindow.h"
 
-class Options : public Gtk::Window
+
+class Options : public SecondaryWindow
 {
     public:
 
         Options();
 
-        void open();
+        //void open();
 
-        bool isOpened () const;
+       // bool isOpened () const;
 
 
         sigc::signal<void, int> signal_onNormalFrequencyChange();
@@ -31,7 +33,7 @@ class Options : public Gtk::Window
 
     private:
 
-        bool isOpened_var;
+       // bool isOpened_var;
 
             //events functions
 
@@ -40,9 +42,9 @@ class Options : public Gtk::Window
 
         void onBeatDurationChange ();
 
-        void onHide();
+        //void onHide();
 
-        bool onKeyRelease(GdkEventKey *event);
+      //  bool onKeyRelease(GdkEventKey *event);
 
 
             //layout stuff

@@ -6,8 +6,7 @@
 AnimeWindow::AnimeWindow(int bpm)
 
     : container(2, 1),
-      isFullScreen(false),
-      isOpened_var (false)
+      isFullScreen(false)
 
 {
     //sets the label of the currentBpm element with the current bpm
@@ -88,25 +87,25 @@ show_all_children();
 }
 
 
-
+/*
 void AnimeWindow::open ()
 {
 isOpened_var = true;
 
 show();
 }
-
-
+*/
+/*
 bool AnimeWindow::isOpened() const
 {
 return isOpened_var;
 }
-
+*/
 
 void AnimeWindow::start()
 {
     //no point in doing anything with the window closed
-if (isOpened_var == true)
+if (isOpened() == true)
     {
     animation.start();
     }
@@ -118,7 +117,7 @@ if (isOpened_var == true)
 void AnimeWindow::start_strongBeat()
 {
     //no point in doing anything with the window closed
-if (isOpened_var == true)
+if (isOpened() == true)
     {
     animation.start_strongBeat();
     }
@@ -129,7 +128,7 @@ if (isOpened_var == true)
 void AnimeWindow::stop()
 {
     //no point in doing anything with the window closed
-if (isOpened_var == true)
+if (isOpened() == true)
     {
     animation.stop();
     }
@@ -161,7 +160,9 @@ else
 void AnimeWindow::onHide()
 {
     //reset stuff
-isOpened_var = false;
+//isOpened_var = false;
+
+SecondaryWindow::onHide ();
 
     //take out the full screen (so that when opening again the animation window, it doesn't open in full screen mode)
 if (isFullScreen == true)
@@ -175,18 +176,7 @@ if (isFullScreen == true)
     }
 }
 
-/*
-bool on_key_release_event (GdkEventKey* event)
-{
-    cout << event->keyval << endl;
 
-//if (event->keyval == GDK_Escape)
-   // {
-   // cout << "esc key" << endl;
-  //  }
-return true;
-}
-*/
 
 
 bool AnimeWindow::onKeyRelease(GdkEventKey *event)
@@ -207,9 +197,9 @@ if (event->keyval == GDK_KEY_Escape)
         //we close the window
     else
         {
-        isOpened_var = false;
+        SecondaryWindow::onHide();
 
-        hide();
+        this->hide();
         }
     }
 

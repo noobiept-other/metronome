@@ -43,9 +43,6 @@
         o tuner tem mts erros por lah
 
 
-        criar uma classe de base para a Window, k controla a isOpened_var e poe os atalhos de teclado (esc fecha a janela), etc
-
-
         ter um objecto com as opcoes normais (default) - assim qd esta a ler do ficheiro, se falhar alguma coisa ele le deste objecto...
 
 
@@ -232,7 +229,7 @@ openTuner_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openTuner) 
 openAnimation.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::openAnimeWindow) );
 //HERE abrir a janela
 
-tuner.signal_onTunerHide().connect ( sigc::mem_fun ( *this, &Main::onTunerHide ) );
+tuner.signal_onHide().connect ( sigc::mem_fun ( *this, &Main::onTunerHide ) );
 
 
 //m_adjustment_digits->signal_value_changed().connect( sigc::mem_fun(*this,
@@ -402,14 +399,14 @@ if (config.is_open() == true)
 
     getline (config, line);
 
-    number = getPropertyValue(line, "bpm");
+    value = getPropertyValue(line, "bpm");
 
 
-    setBpm (number);
+    setBpm (value);
 
 //HERE melhorar a ordem disto...
 
-    changeTempo.set_value (number);
+    changeTempo.set_value (value);
 
 
         // :::: Strong beat :::: //
@@ -417,25 +414,25 @@ if (config.is_open() == true)
     getline (config, line);
 
 
-    number = getPropertyValue(line, "strong-beats");
+    value = getPropertyValue(line, "strong-beats");
 
 
-    if (number == 1)
+    if (value == 1)
         {
         oneBeat.set_active();
         }
 
-    else if (number == 2)
+    else if (value == 2)
         {
         twoBeats.set_active();
         }
 
-    else if (number == 3)
+    else if (value == 3)
         {
         threeBeats.set_active();
         }
 
-    else if (number == 4)
+    else if (value == 4)
         {
         fourBeats.set_active();
         }

@@ -60,6 +60,8 @@
 			<Add directory="/usr/lib64" />
 			<Add directory="/usr/lib64/gstreamer-0.10" />
 		</Linker>
+		<Unit filename="SecondaryWindow.cpp" />
+		<Unit filename="SecondaryWindow.h" />
 		<Unit filename="animation.cpp" />
 		<Unit filename="animation.h" />
 		<Unit filename="animeWindow.cpp" />
