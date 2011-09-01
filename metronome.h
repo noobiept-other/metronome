@@ -33,22 +33,36 @@ class Metronome : public Tempo, public Sound
 
         void openAnimeWindow();
 
+        bool isAnimeOpened () const;
+
         //void openTuner();
 
-        void openOptions();
+        //void openOptions();
 
         void setStrongBeats (int strongBeats);
+
+        int getStrongBeats () const;
+
+
+
+        int getBeatDuration () const;
+
+        void setBeatDuration (int duration);
+
+
 
     protected:
 
         virtual void firstFunction();
         virtual void secondFunction();
 
+        virtual void setBpm(int bpm);
+
 
     private:
 
         //Sound sound;
-        Options optionsPage;
+        //Options optionsPage;
 
        // Tuner tuner;
 

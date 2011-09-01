@@ -59,6 +59,9 @@ class Tuner //: public Gtk::Window//, public Sound
         void onFrequencyChange();
 
 
+        bool onKeyRelease(GdkEventKey *event);
+
+
             //variables
 
         bool isOpened_obj;
@@ -78,18 +81,18 @@ class Tuner //: public Gtk::Window//, public Sound
 
             Gtk::HBox notesContainer;
 
-                Gtk::Button a;
-                Gtk::Button a_plus;
-                Gtk::Button b;  //HERE devia ser ToggleButton ?..
-                Gtk::Button c;
-                Gtk::Button c_plus;
-                Gtk::Button d;
-                Gtk::Button d_plus;
-                Gtk::Button e;
-                Gtk::Button f;
-                Gtk::Button f_plus;
-                Gtk::Button g;
-                Gtk::Button g_plus;
+                Gtk::RadioButton a;
+                Gtk::RadioButton a_plus;
+                Gtk::RadioButton b;  //HERE devia ser ToggleButton ?..
+                Gtk::RadioButton c;
+                Gtk::RadioButton c_plus;
+                Gtk::RadioButton d;
+                Gtk::RadioButton d_plus;
+                Gtk::RadioButton e;
+                Gtk::RadioButton f;
+                Gtk::RadioButton f_plus;
+                Gtk::RadioButton g;
+                Gtk::RadioButton g_plus;
 
             Gtk::HBox octaveContainer;
 

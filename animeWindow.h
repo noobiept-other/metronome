@@ -16,11 +16,12 @@ class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
 {
   public:
 
-    AnimeWindow();
+    AnimeWindow(int bpm);
 
 
     void open();
 
+    bool isOpened() const;
 
     void start();
     void start_strongBeat();
@@ -30,6 +31,8 @@ class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
 
 
 
+    void updateBpm (int bpm);
+
 
 
   private:
@@ -38,8 +41,7 @@ class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
 
     bool onKeyRelease(GdkEventKey *event);
 
-        //override function from Gtk::Widget
-    //virtual bool on_key_release_event (GdkEventKey* event);
+
 
     void onColorSet();
 
@@ -51,6 +53,8 @@ class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
         Animation animation;
 
         Gtk::HBox buttonsContainer;
+
+            Gtk::Label currentBpm;
 
             Gtk::Label normalColor;
             Gtk::ColorButton selectNormalColor;
@@ -66,7 +70,7 @@ class AnimeWindow : public Gtk::Window  //HERE por aqui a Animation
     bool isFullScreen;
 
 
-    bool isOpened;
+    bool isOpened_var;
 };
 
 

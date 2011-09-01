@@ -14,6 +14,8 @@ class Sound
 
         void setFrequency (int frequency);
 
+        void setStrongFrequency (int frequency);
+
 
         void play();
         void play_strongBeat();

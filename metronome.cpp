@@ -5,6 +5,8 @@ Metronome::Metronome (int bpm, int duration, double frequency, int strongBeats)
 
     : Tempo (bpm, duration),
       Sound (frequency),
+      animeWindow (bpm),
+
       strongBeats_obj(strongBeats),
       countBeats_obj(0)
 
@@ -26,7 +28,12 @@ Tempo::start();
 }
 */
 
+void Metronome::setBpm(int bpm)
+{
+animeWindow.updateBpm(bpm);
 
+Tempo::setBpm(bpm);
+}
 
 
 
@@ -89,10 +96,26 @@ countBeats_obj = 0;
 }
 
 
+int Metronome::getStrongBeats () const
+{
+return strongBeats_obj;
+}
+
+
+
+
+
+
+
 
 void Metronome::openAnimeWindow()
 {
 animeWindow.open();
+}
+
+bool Metronome::isAnimeOpened () const
+{
+return animeWindow.isOpened();
 }
 
 /*
@@ -108,9 +131,10 @@ if (Tempo::isPlaying() == true)
 tuner.open();
 }
 */
-
+/*
 
 void Metronome::openOptions()
 {
 optionsPage.open();
 }
+*/

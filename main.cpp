@@ -15,31 +15,44 @@
         ver como se consegue mudar o layout (estilo css.. style dos elementos)
 
 
-        esc key para sair do fullscreen
-
-
-        ter os bpm actuais na animacao
-
-
         gravar o estado das janelas (se a animacao estava aberta... etc)
+
+        Opcoes:
+
+            beat duration
+            normal frequency
+            strong frequency
+
+
+            bpm
+            strong beats
+
+            normal color
+            strong color
+
+            is animation open
+            is tuner open
+                which note
+
+            is options open
 
 
         window.set_icon() ou .set_icon_from_file()
+            (e fazer o icon)
+
+        o tuner tem mts erros por lah
+
+
+        criar uma classe de base para a Window, k controla a isOpened_var e poe os atalhos de teclado (esc fecha a janela), etc
+
+
+        ter um objecto com as opcoes normais (default) - assim qd esta a ler do ficheiro, se falhar alguma coisa ele le deste objecto...
+
 
  */
 
 
 
-
-
-//HERE pensar noutra maneira de fazer isto
-
-void update_tempo (Main* metro, Gtk::SpinButton* button)
-{
-int value = button->get_value_as_int();
-
-metro->setBpm (value);
-}
 
 
 
@@ -109,6 +122,15 @@ threeBeats.set_label ("3");
 
 fourBeats.set_label ("4");
 
+
+Gtk::RadioButton::Group group = oneBeat.get_group();
+
+twoBeats.set_group   (group);
+threeBeats.set_group (group);
+fourBeats.set_group  (group);
+
+
+fourBeats.set_active();
 //otherBeat.set_numeric(true);  //HERE tb devia existir para a Gtk::Entry
 
 //oneBeat.override_color(blue);
@@ -169,8 +191,6 @@ mainTable.attach(otherContainer, 1, 2, 1, 2);
 
 
 
-//Metronome metronome;
-Metronome::start();
 
 
     //set the events
@@ -182,11 +202,11 @@ stop.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::stop) );
 
 
 
-changeTempo.signal_value_changed().connect (
-                        sigc::bind<Main*, Gtk::SpinButton*>(
-                                sigc::ptr_fun(update_tempo), this, &changeTempo
-                                       ));
-
+//changeTempo.signal_value_changed().connect (
+  //                      sigc::bind<Main*, Gtk::SpinButton*>(
+    //                            sigc::ptr_fun(update_tempo), this, &changeTempo
+      //                                 ));
+changeTempo.signal_value_changed().connect ( sigc::mem_fun ( *this, &Main::updateTempo ) );
 
 
 
@@ -203,7 +223,7 @@ fourBeats.signal_clicked().connect ( sigc::bind<int>( sigc::mem_fun(*this, &Metr
 
 
 
-openOptions_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Metronome::openOptions) );
+openOptions_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openOptions) );
 
 
 openTuner_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openTuner) );
@@ -222,6 +242,14 @@ tuner.signal_onTunerHide().connect ( sigc::mem_fun ( *this, &Main::onTunerHide )
 //start.signal_clicked().connect( sigc::mem_fun(metronome, &Metronome::start) );
 
 
+    // :::: Options events :::: //
+
+optionsPage.signal_onNormalFrequencyChange().connect ( sigc::mem_fun ( *this, &Main::setFrequency ) );
+optionsPage.signal_onStrongFrequencyChange().connect ( sigc::mem_fun ( *this, &Main::setStrongFrequency ) );
+
+optionsPage.signal_onBeatDurationChange ().connect ( sigc::mem_fun ( *this, &Main::setDuration ) );
+
+
 this->add(mainTable);
 
 this->set_title ("Metronome");
@@ -231,6 +259,14 @@ this->set_resizable(false);
 this->set_border_width(10);
 
 this->show_all_children();
+
+
+    //HERE por isto num try() catch() --just in case
+loadConfigurations();
+
+
+//Metronome metronome;
+Metronome::start();
 }
 
 
@@ -249,11 +285,19 @@ Tempo::start();
 
 
 
+void Main::updateTempo()
+{
+int value = changeTempo.get_value_as_int();
+
+this->setBpm (value);
+}
+
+
 
 void Main::openOptions()
 {
-
-Metronome::openOptions();
+optionsPage.open();
+//Metronome::openOptions();
 }
 
 
@@ -289,7 +333,193 @@ if (wasPlaying_var == true)
 
 
 
+void Main::loadConfigurations ()
+{
+std::ifstream config;
 
+config.open ("config.txt");
+
+if (config.is_open() == true)
+    {
+    std::string line;
+
+
+    int value;
+
+
+//HERE melhorar isto
+        //useless lines
+    getline (config, line);
+    getline (config, line);
+    getline (config, line);
+
+        // :::: Options window :::: //
+
+    getline (config, line);
+
+    value = getPropertyValue(line, "options");
+
+
+        //we open the animation window
+    if (value != 0)
+        {
+        openOptions();
+        }
+
+        // :::: Tuner window :::: //
+
+    getline (config, line);
+
+    value = getPropertyValue(line, "tuner");
+
+
+    if (value != 0)
+        {
+        openTuner();
+        }
+
+        // :::: Animation window :::: //
+
+
+    getline (config, line);
+
+
+    value = getPropertyValue(line, "animation");
+
+
+    if (value != 0)
+        {
+        openAnimeWindow();
+        }
+
+
+        // :::: Options :::: //
+
+    getline (config, line);
+    getline (config, line);
+
+        // :::: Bpm :::: //
+
+    getline (config, line);
+
+    number = getPropertyValue(line, "bpm");
+
+
+    setBpm (number);
+
+//HERE melhorar a ordem disto...
+
+    changeTempo.set_value (number);
+
+
+        // :::: Strong beat :::: //
+
+    getline (config, line);
+
+
+    number = getPropertyValue(line, "strong-beats");
+
+
+    if (number == 1)
+        {
+        oneBeat.set_active();
+        }
+
+    else if (number == 2)
+        {
+        twoBeats.set_active();
+        }
+
+    else if (number == 3)
+        {
+        threeBeats.set_active();
+        }
+
+    else if (number == 4)
+        {
+        fourBeats.set_active();
+        }
+
+    else
+        {
+        //HERE the Gtk::Entry otherBeat
+        }
+
+
+
+    config.close();
+    }
+}
+
+
+
+/*
+    Searches a string for a property, and returns that property's value
+        (in the form -> property: value)
+
+ */
+
+int Main::getPropertyValue (string line, string property)
+{
+int i = line.find (property);
+
+
+i += property.length();
+
+    //remove the ':' and spaces
+while (true)
+    {
+    if (line.at (i) != ':' && line.at (i) != ' ')
+        {
+        break;
+        }
+
+    i++;
+    }
+
+string theNumber = line.substr (i);
+
+
+std::stringstream stream (theNumber);
+
+int number = 0;
+
+stream >> number;   //HERE testar qd nao encontra um numero...
+
+return number;
+}
+
+
+
+Main::~Main ()
+{
+std::ofstream config;
+
+config.open ("config.txt", std::ios::out | std::ios::trunc);
+
+if (config.is_open() == true)
+    {
+    config << "Metronome - configuration file\n\n";
+
+    config << "Opened windows\n";
+    config << "    options: " << optionsPage.isOpened() << "\n";
+    config << "    tuner: " << tuner.isOpened() << "\n";
+    config << "    animation: " << isAnimeOpened() << "\n";
+
+    config << "\nOptions\n";
+    config << "    bpm: " << getBpm() << "\n";
+    config << "    strong-beats: " << getStrongBeats() << "\n";
+
+
+    config.close ();
+    }
+
+else
+    {
+    cout << "failed opening the config.txt file\n";
+    }
+
+}
 
 
 

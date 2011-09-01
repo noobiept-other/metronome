@@ -1,15 +1,19 @@
 #include "animeWindow.h"
 
+#include <sstream>
 
 
-
-AnimeWindow::AnimeWindow()
+AnimeWindow::AnimeWindow(int bpm)
 
     : container(2, 1),
       isFullScreen(false),
-      isOpened (false)
+      isOpened_var (false)
 
 {
+    //sets the label of the currentBpm element with the current bpm
+updateBpm(bpm);
+
+
 changeFullScreen.set_label("Full screen");
 
 
@@ -28,6 +32,8 @@ selectStrongColor.set_rgba(animation.getStrongColor());
 
 buttonsContainer.set_spacing(10);
 
+
+buttonsContainer.pack_start (currentBpm);
 
 buttonsContainer.pack_start(normalColor);
 buttonsContainer.pack_start(selectNormalColor);
@@ -85,17 +91,22 @@ show_all_children();
 
 void AnimeWindow::open ()
 {
-isOpened = true;
+isOpened_var = true;
 
 show();
 }
 
 
+bool AnimeWindow::isOpened() const
+{
+return isOpened_var;
+}
+
 
 void AnimeWindow::start()
 {
     //no point in doing anything with the window closed
-if (isOpened == true)
+if (isOpened_var == true)
     {
     animation.start();
     }
@@ -107,7 +118,7 @@ if (isOpened == true)
 void AnimeWindow::start_strongBeat()
 {
     //no point in doing anything with the window closed
-if (isOpened == true)
+if (isOpened_var == true)
     {
     animation.start_strongBeat();
     }
@@ -118,7 +129,7 @@ if (isOpened == true)
 void AnimeWindow::stop()
 {
     //no point in doing anything with the window closed
-if (isOpened == true)
+if (isOpened_var == true)
     {
     animation.stop();
     }
@@ -150,7 +161,7 @@ else
 void AnimeWindow::onHide()
 {
     //reset stuff
-isOpened = false;
+isOpened_var = false;
 
     //take out the full screen (so that when opening again the animation window, it doesn't open in full screen mode)
 if (isFullScreen == true)
@@ -196,6 +207,8 @@ if (event->keyval == GDK_KEY_Escape)
         //we close the window
     else
         {
+        isOpened_var = false;
+
         hide();
         }
     }
@@ -215,4 +228,13 @@ animation.setColor(selectNormalColor.get_rgba());
 void AnimeWindow::onStrongColorSet()
 {
 animation.setStrongColor(selectStrongColor.get_rgba());
+}
+
+
+void AnimeWindow::updateBpm (int bpm)
+{
+std::stringstream tempBpm;
+
+tempBpm << bpm << " bpm";
+currentBpm.set_label (tempBpm.str());
 }

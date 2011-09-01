@@ -81,10 +81,17 @@ if (frequency < 20 || frequency > 20000)
 
 normalFrequency_obj = frequency;
 
-strongFrequency_obj = frequency + diffFrequency_obj;
+//strongFrequency_obj = frequency + diffFrequency_obj;
 
-m_source->set_property("freq", frequency);
+//m_source->set_property("freq", frequency);
 }
+
+
+void Sound::setStrongFrequency (int frequency)
+{
+strongFrequency_obj = frequency;
+}
+
 
 
 bool Sound::isPlaying() const

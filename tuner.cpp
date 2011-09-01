@@ -14,18 +14,36 @@ Tuner::Tuner()
 {
     // :::: Notes :::: //
 
-a.set_label("A");
+     a.set_label("A" );
 a_plus.set_label("A#");
-b.set_label("B");
-c.set_label("C");
+     b.set_label("B" );
+     c.set_label("C" );
 c_plus.set_label("C#");
-d.set_label("D");
+     d.set_label("D" );
 d_plus.set_label("D#");
-e.set_label("E");
-f.set_label("F");
+     e.set_label("E" );
+     f.set_label("F" );
 f_plus.set_label("F#");
-g.set_label("G");
+     g.set_label("G" );
 g_plus.set_label("G#");
+
+
+Gtk::RadioButton::Group group = a.get_group ();
+
+a_plus.set_group(group);
+     b.set_group(group);
+     c.set_group(group);
+c_plus.set_group(group);
+     d.set_group(group);
+d_plus.set_group(group);
+     e.set_group(group);
+     f.set_group(group);
+f_plus.set_group(group);
+     g.set_group(group);
+g_plus.set_group(group);
+
+a.set_active();
+
 
 notesContainer.pack_start(a);
 notesContainer.pack_start(a_plus);
@@ -113,6 +131,11 @@ window.show_all_children();
 
     //when closing the window
 window.signal_hide().connect( sigc::mem_fun(*this, &Tuner::onTunerHide) );
+
+
+window.add_events( Gdk::KEY_PRESS_MASK );
+
+window.signal_key_release_event().connect ( sigc::mem_fun(*this, &Tuner::onKeyRelease) );
 
 
      a.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
@@ -241,6 +264,24 @@ sigc::signal<void> Tuner::signal_onTunerHide()
 {
 return the_signal_onTunerHide;
 }
+
+
+
+
+
+bool Tuner::onKeyRelease(GdkEventKey *event)
+{
+if (event->keyval == GDK_KEY_Escape)
+    {
+    onTunerHide();
+
+    window.hide();
+    }
+
+return true;
+}
+
+
 
 
 void Tuner::onTunerHide()

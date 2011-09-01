@@ -13,19 +13,47 @@ class Options : public Gtk::Window
 
         void open();
 
+        bool isOpened () const;
+
+
+        sigc::signal<void, int> signal_onNormalFrequencyChange();
+        sigc::signal<void, int> signal_onStrongFrequencyChange();
+
+        sigc::signal<void, int> signal_onBeatDurationChange();
+
+    protected:
+
+
+        sigc::signal<void, int> the_signal_onNormalFrequencyChange;
+        sigc::signal<void, int> the_signal_onStrongFrequencyChange;
+
+        sigc::signal<void, int> the_signal_onBeatDurationChange;
+
     private:
 
-        bool isOpened;
+        bool isOpened_var;
 
             //events functions
 
         void onNormalFrequencyChange ();
         void onStrongFrequencyChange ();
 
+        void onBeatDurationChange ();
+
+        void onHide();
+
+        bool onKeyRelease(GdkEventKey *event);
+
 
             //layout stuff
 
         Gtk::Table container;
+
+            Gtk::HBox beatDurationContainer;
+
+                Gtk::Label beatDurationLabel;
+                Gtk::SpinButton changeBeatDuration;
+                Gtk::Label milisecondsLabel;
 
             Gtk::HBox normalFreqContainer;
 

@@ -3,6 +3,17 @@
 
 #include <gtkmm.h>
 #include <gstreamermm.h>
+
+#include <iostream>
+#include <string>
+#include <fstream>
+
+
+using std::cout;
+using std::endl;
+
+using std::string;
+
 #include "metronome.h"
 #include "tuner.h"
 
@@ -11,6 +22,9 @@ class Main : public Gtk::Window, public Metronome//, public Tuner
     public:
 
         Main();
+
+            //saves the state of the program (which windows were open, the options, etc)
+        ~Main();
 
         void startMetronome();
 
@@ -22,12 +36,25 @@ class Main : public Gtk::Window, public Metronome//, public Tuner
 
     protected:
 
+
+        virtual void updateTempo();
+
             //override Tuner::onTunerHide event
         void onTunerHide();//HERE n esta a ser chamada esta....
 
         //void test();
 
     private:
+
+            // :::: Functions :::: //
+
+        void loadConfigurations();
+
+        int getPropertyValue (string line, string property);
+
+            // :::: Variables :::: //
+
+        Options optionsPage;
 
         Tuner tuner;
         //Metronome metronome;
@@ -50,10 +77,10 @@ class Main : public Gtk::Window, public Metronome//, public Tuner
 
                 Gtk::Label strongBeatLabel;
 
-                Gtk::Button oneBeat;
-                Gtk::Button twoBeats;
-                Gtk::Button threeBeats;
-                Gtk::Button fourBeats;
+                Gtk::RadioButton oneBeat;
+                Gtk::RadioButton twoBeats;
+                Gtk::RadioButton threeBeats;
+                Gtk::RadioButton fourBeats;
                 Gtk::Entry otherBeat;
 
             Gtk::HBox startStopContainer;

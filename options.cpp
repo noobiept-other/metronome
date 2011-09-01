@@ -3,10 +3,35 @@
 
 Options::Options()
 
-    : isOpened (false),
-      container (2, 1)
+    : isOpened_var (false),
+      container (3, 1)
 
 {
+    // :::: Beat duration :::: //
+
+beatDurationLabel.set_label ("Beat duration");
+
+
+    //  //HERE
+Glib::RefPtr<Gtk::Adjustment> beatDurationAdjustment (Gtk::Adjustment::create(200, 100, 300, 1, 5, 0));
+
+changeBeatDuration.set_adjustment(beatDurationAdjustment);
+
+changeBeatDuration.set_numeric (true);
+changeBeatDuration.set_digits (3);
+
+
+milisecondsLabel.set_label ("ms");
+
+
+beatDurationContainer.pack_start(beatDurationLabel);
+beatDurationContainer.pack_start(changeBeatDuration);
+beatDurationContainer.pack_start(milisecondsLabel);
+
+beatDurationContainer.set_spacing(10);
+
+
+
     // :::: Normal beat frequency :::: //
 
 normalLabel.set_label ("Normal beat frequency");
@@ -62,8 +87,9 @@ strongFreqContainer.set_spacing(10);
 container.set_col_spacings(40);
 container.set_row_spacings(20);
 
-container.attach (normalFreqContainer, 0, 1, 0, 1);
-container.attach (strongFreqContainer, 0, 1, 1, 2);
+container.attach (beatDurationContainer, 0, 1, 0, 1);
+container.attach (normalFreqContainer, 0, 1, 1, 2);
+container.attach (strongFreqContainer, 0, 1, 2, 3);
 
     // :::: Window :::: //
 
@@ -83,26 +109,91 @@ this->show_all_children();
 
 changeNormalFrequency.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onNormalFrequencyChange ) );
 changeStrongFrequency.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onStrongFrequencyChange ) );
+
+changeBeatDuration.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onBeatDurationChange ) );
+
+add_events( Gdk::KEY_PRESS_MASK );
+
+this->signal_key_release_event().connect ( sigc::mem_fun(*this, &Options::onKeyRelease) );
+
+
+    //when closing the window
+this->signal_hide().connect( sigc::mem_fun(*this, &Options::onHide) );
 }
 
 
 void Options::open()
 {
-isOpened = true;
+isOpened_var = true;
 
 show();
 }
 
 
 
+bool Options::isOpened() const
+{
+return isOpened_var;
+}
+
+
+sigc::signal<void, int> Options::signal_onNormalFrequencyChange()
+{
+return the_signal_onNormalFrequencyChange;
+}
+
+
+sigc::signal<void, int> Options::signal_onStrongFrequencyChange()
+{
+return the_signal_onStrongFrequencyChange;
+}
+
+
+sigc::signal<void, int> Options::signal_onBeatDurationChange()
+{
+return the_signal_onBeatDurationChange;
+}
+
+
+
+
 void Options::onNormalFrequencyChange ()
 {
-//HERE como actualizar o metronomo....
+the_signal_onNormalFrequencyChange.emit ( changeNormalFrequency.get_value_as_int() );
 }
 
 
 
 void Options::onStrongFrequencyChange ()
 {
+the_signal_onStrongFrequencyChange.emit ( changeStrongFrequency.get_value_as_int() );
+}
 
+
+
+void Options::onBeatDurationChange ()
+{
+the_signal_onBeatDurationChange.emit ( changeBeatDuration.get_value_as_int() );
+}
+
+
+
+//HERE nao funciona, pq a window n ganha focus (esta nos spinbuttons)
+bool Options::onKeyRelease(GdkEventKey *event)
+{
+if (event->keyval == GDK_KEY_Escape)
+    {
+    isOpened_var = false;
+
+    hide();
+    }
+
+return true;
+}
+
+
+
+void Options::onHide ()
+{
+isOpened_var = false;
 }

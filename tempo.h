@@ -15,9 +15,15 @@ class Tempo
         virtual void stop();
 
 
-        void setBpm(int bpm);
+        virtual void setBpm(int bpm);
 
         int getBpm() const;
+
+
+        void setDuration (int duration);
+
+        int getDuration () const;
+
 
         void operator ++ (int);
         void operator -- (int);

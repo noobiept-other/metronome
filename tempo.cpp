@@ -30,9 +30,9 @@ firstFunction();
 timer_obj = Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::keepRunning), inMiliseconds_obj);
 
 
-	// stop it after 200ms
+	// stop it after some miliseconds
 Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::stopFunction),
-	                               200);
+	                               duration_obj);
 }
 
 
@@ -54,7 +54,7 @@ firstFunction();
 
 	//stop it after 200ms
 Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::stopFunction),
-	                               200);
+	                               duration_obj);
 
 return true;
 }
@@ -71,6 +71,8 @@ return false;
 
 void Tempo::setBpm(int bpm)
 {
+bpm_obj = bpm;
+
 calculate_miliseconds (bpm);
 
 
@@ -90,6 +92,23 @@ int Tempo::getBpm() const
 {
 return bpm_obj;
 }
+
+
+
+
+void Tempo::setDuration (int duration)
+{
+duration_obj = duration;
+}
+
+
+
+
+int Tempo::getDuration () const
+{
+return duration_obj;
+}
+
 
 
 
