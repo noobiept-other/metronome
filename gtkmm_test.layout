@@ -2,40 +2,40 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="SecondaryWindow.cpp" open="1" top="0" tabpos="20">
-		<Cursor position="766" topLine="46" />
+		<Cursor position="619" topLine="30" />
 	</File>
 	<File name="SecondaryWindow.h" open="1" top="0" tabpos="19">
-		<Cursor position="571" topLine="7" />
+		<Cursor position="288" topLine="10" />
 	</File>
 	<File name="animation.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="1652" topLine="5" />
+		<Cursor position="159" topLine="0" />
 	</File>
 	<File name="animation.h" open="1" top="0" tabpos="9">
-		<Cursor position="69" topLine="45" />
+		<Cursor position="69" topLine="42" />
 	</File>
 	<File name="animeWindow.cpp" open="1" top="0" tabpos="12">
-		<Cursor position="2430" topLine="123" />
+		<Cursor position="2430" topLine="56" />
 	</File>
 	<File name="animeWindow.h" open="1" top="0" tabpos="11">
 		<Cursor position="1065" topLine="30" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="700" topLine="12" />
+		<Cursor position="6772" topLine="297" />
 	</File>
 	<File name="main.h" open="1" top="0" tabpos="1">
-		<Cursor position="665" topLine="36" />
+		<Cursor position="1435" topLine="73" />
 	</File>
 	<File name="metronome.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="1460" topLine="99" />
+		<Cursor position="1379" topLine="18" />
 	</File>
 	<File name="metronome.h" open="1" top="0" tabpos="7">
-		<Cursor position="1081" topLine="48" />
+		<Cursor position="661" topLine="42" />
 	</File>
 	<File name="note.cpp" open="1" top="0" tabpos="18">
-		<Cursor position="838" topLine="40" />
+		<Cursor position="838" topLine="0" />
 	</File>
 	<File name="note.h" open="1" top="0" tabpos="17">
-		<Cursor position="776" topLine="22" />
+		<Cursor position="271" topLine="6" />
 	</File>
 	<File name="options.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="51" topLine="0" />
@@ -44,19 +44,19 @@
 		<Cursor position="880" topLine="7" />
 	</File>
 	<File name="sound.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1511" topLine="72" />
+		<Cursor position="1474" topLine="0" />
 	</File>
 	<File name="sound.h" open="1" top="0" tabpos="3">
-		<Cursor position="144" topLine="9" />
+		<Cursor position="356" topLine="0" />
 	</File>
 	<File name="tempo.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="1348" topLine="93" />
+		<Cursor position="297" topLine="15" />
 	</File>
 	<File name="tempo.h" open="1" top="0" tabpos="5">
-		<Cursor position="274" topLine="8" />
+		<Cursor position="56" topLine="21" />
 	</File>
 	<File name="tuner.cpp" open="1" top="0" tabpos="16">
-		<Cursor position="6665" topLine="114" />
+		<Cursor position="2458" topLine="167" />
 	</File>
 	<File name="tuner.h" open="1" top="0" tabpos="15">
 		<Cursor position="208" topLine="14" />

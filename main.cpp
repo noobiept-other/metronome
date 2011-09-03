@@ -12,30 +12,6 @@
 
     To doo:
 
-        ver como se consegue mudar o layout (estilo css.. style dos elementos)
-
-
-        gravar o estado das janelas (se a animacao estava aberta... etc)
-
-        Opcoes:
-
-            beat duration
-            normal frequency
-            strong frequency
-
-
-            bpm
-            strong beats
-
-            normal color
-            strong color
-
-            is animation open
-            is tuner open
-                which note
-
-            is options open
-
 
         window.set_icon() ou .set_icon_from_file()
             (e fazer o icon)
@@ -43,8 +19,14 @@
         o tuner tem mts erros por lah
 
 
-        ter um objecto com as opcoes normais (default) - assim qd esta a ler do ficheiro, se falhar alguma coisa ele le deste objecto...
+        gravar a posicao da janela no monitor e dps ao iniciar o programa mover para essa posicao
+            convem verificar se essa posicao nao fica fora do monitor (por exemplo usar as mesmas configuracoes
+                                                                        em 2 pcs com monitores diferentes)
+                ver o tamanho maximo, e se passar esse limite ajustar os valores
 
+
+
+        quando se tem os strong beats acima de 4, desactivar os SpinButton activo
 
  */
 
@@ -73,18 +55,26 @@ return 0;
 
 Main::Main ()
 
-    : wasPlaying_var (true),
+    : changingStrongBeats (false),
+
+      wasPlaying_var (true),
+
       mainTable (2, 2),
       tempoContainer (1, 3),
       strongBeat (1, 6)
 
-
 {
-mainTable.set_col_spacings(40);
-mainTable.set_row_spacings(20);
+
+    //HERE por isto num try() catch() --just in case
+loadConfigurations();
 
 
-tempoContainer.set_col_spacings(10);
+
+
+    // :::: Tempo related :::: //
+
+
+setBpm (configurations.bpm);
 
 tempoName.set_label ("Tempo: ");
 
@@ -92,7 +82,7 @@ tempoBpm.set_label ("bpm");
 
 
     //start at 60, with limits from 30 to 300 - step is 1
-Glib::RefPtr<Gtk::Adjustment> tempoAdjustment (Gtk::Adjustment::create(60, 30, 300, 1, 5, 0));
+Glib::RefPtr<Gtk::Adjustment> tempoAdjustment (Gtk::Adjustment::create(configurations.bpm, 30, 300, 1, 5, 0));
 
 changeTempo.set_adjustment (tempoAdjustment);
 changeTempo.set_numeric (true);
@@ -103,6 +93,11 @@ tempoContainer.attach(tempoName, 0, 1, 0, 1);
 tempoContainer.attach(changeTempo, 1, 2, 0, 1);
 tempoContainer.attach(tempoBpm, 2, 3, 0, 1);
 
+tempoContainer.set_col_spacings(10);
+
+
+
+    // :::: Strong beat :::: //
 
 
 strongBeat.set_col_spacings(10);
@@ -127,15 +122,39 @@ threeBeats.set_group (group);
 fourBeats.set_group  (group);
 
 
-fourBeats.set_active();
-//otherBeat.set_numeric(true);  //HERE tb devia existir para a Gtk::Entry
+//fourBeats.set_active();
+switch (configurations.strongBeats)
+    {
+        case 1:
 
-//oneBeat.override_color(blue);
-//oneBeat.override_background_color(blue);
+            oneBeat.set_active();
+            break;
+
+        case 2:
+
+            twoBeats.set_active();
+            break;
+
+        case 3:
+
+            threeBeats.set_active ();
+            break;
+
+        case 4:
+
+            fourBeats.set_active ();
+            break;
+    }
 
 
-otherBeat.set_width_chars(2);
-otherBeat.set_max_length(2);
+Metronome::setStrongBeats (configurations.strongBeats);
+
+
+Glib::RefPtr<Gtk::Adjustment> otherBeatAdjustment (Gtk::Adjustment::create(configurations.strongBeats, 1, 10, 1, 2, 0));
+
+otherBeat.set_adjustment (otherBeatAdjustment);
+otherBeat.set_numeric (true);
+
 
 
 strongBeat.attach (strongBeatLabel, 0, 1, 0, 1);
@@ -147,25 +166,21 @@ strongBeat.attach (otherBeat, 5, 6, 0, 1);
 
 
 
+    // :::: Start/stop :::: //
+
+
 start.set_label ("start");
 
-
-
-Gdk::RGBA color("blue");
-start.override_background_color(color);
-
-//HERE doesnt work
-start.override_background_color(color, Gtk::STATE_FLAG_NORMAL | Gtk::STATE_FLAG_ACTIVE | Gtk::STATE_FLAG_PRELIGHT |
-                                Gtk::STATE_FLAG_SELECTED | Gtk::STATE_FLAG_INSENSITIVE | Gtk::STATE_FLAG_INCONSISTENT |
-                                Gtk::STATE_FLAG_FOCUSED );
-
-//start.override_color(blue);
 
 stop.set_label ("stop");
 
 
 startStopContainer.pack_start(start);
 startStopContainer.pack_start(stop);
+
+
+
+    // :::: Secondary Windows :::: //
 
 
 openOptions_gui.set_label ("options");
@@ -181,6 +196,15 @@ otherContainer.pack_start(openTuner_gui);
 otherContainer.pack_start(openAnimation);
 
 
+
+
+    // :::: Main container :::: //
+
+
+mainTable.set_col_spacings(40);
+mainTable.set_row_spacings(20);
+
+
 mainTable.attach(tempoContainer, 0, 1, 0, 1);
 mainTable.attach(strongBeat, 1, 2, 0, 1);
 mainTable.attach(startStopContainer, 0, 1, 1, 2);
@@ -190,62 +214,48 @@ mainTable.attach(otherContainer, 1, 2, 1, 2);
 
 
 
-    //set the events
+    // :::: Set the events :::: //
 
 start.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::start) );
-stop.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::stop) );
+ stop.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::stop ) );
 
 
 
 
-
-//changeTempo.signal_value_changed().connect (
-  //                      sigc::bind<Main*, Gtk::SpinButton*>(
-    //                            sigc::ptr_fun(update_tempo), this, &changeTempo
-      //                                 ));
 changeTempo.signal_value_changed().connect ( sigc::mem_fun ( *this, &Main::updateTempo ) );
 
 
 
 
-oneBeat.signal_clicked().connect ( sigc::bind<int>( sigc::mem_fun(*this, &Metronome::setStrongBeats), 1 ));
+   oneBeat.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &oneBeat,    1 ));
+  twoBeats.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &twoBeats,   2 ));
+threeBeats.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &threeBeats, 3 ));
+ fourBeats.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &fourBeats,  4 ));
 
-twoBeats.signal_clicked().connect ( sigc::bind<int>( sigc::mem_fun(*this, &Metronome::setStrongBeats), 2 ));
-
-threeBeats.signal_clicked().connect ( sigc::bind<int>( sigc::mem_fun(*this, &Metronome::setStrongBeats), 3 ));
-
-fourBeats.signal_clicked().connect ( sigc::bind<int>( sigc::mem_fun(*this, &Metronome::setStrongBeats), 4 ));
-
+otherBeat.signal_value_changed ().connect ( sigc::mem_fun ( *this, &Main::setStrongBeats_fromSpinButton ) );
 
 
 
+    // :::: Secondary Windows :::: //
 
-openOptions_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openOptions) );
-
-
-openTuner_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openTuner) );
-
-//openAnimation.signal_clicked().connect( sigc::mem_fun(anime, &Animation::open) );
-openAnimation.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::openAnimeWindow) );
-//HERE abrir a janela
-
-tuner.signal_onHide().connect ( sigc::mem_fun ( *this, &Main::onTunerHide ) );
+openOptions_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openOptions         ) );
+  openTuner_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openTuner           ) );
+  openAnimation.signal_clicked().connect ( sigc::mem_fun(*this, &Metronome::openAnimeWindow) );
 
 
-//m_adjustment_digits->signal_value_changed().connect( sigc::mem_fun(*this,
-  //            &ExampleWindow::on_spinbutton_digits_changed) );
-//m_button1.signal_clicked().connect(sigc::bind<Glib::ustring>(
-  //            sigc::mem_fun(*this, &HelloWorld::on_button_clicked), "button 1"));
-//start.signal_clicked().connect( sigc::mem_fun(metronome, &Metronome::start) );
+tuner.signal_hide().connect ( sigc::mem_fun ( *this, &Main::onTunerHide ) );
 
 
-    // :::: Options events :::: //
 
-optionsPage.signal_onNormalFrequencyChange().connect ( sigc::mem_fun ( *this, &Main::setFrequency ) );
-optionsPage.signal_onStrongFrequencyChange().connect ( sigc::mem_fun ( *this, &Main::setStrongFrequency ) );
+    // :::: Options (custom) events :::: //
 
-optionsPage.signal_onBeatDurationChange ().connect ( sigc::mem_fun ( *this, &Main::setDuration ) );
+optionsPage.signal_onNormalFrequencyChange ().connect ( sigc::mem_fun ( *this, &Main::setFrequency       ) );
+optionsPage.signal_onStrongFrequencyChange ().connect ( sigc::mem_fun ( *this, &Main::setStrongFrequency ) );
+optionsPage.signal_onBeatDurationChange    ().connect ( sigc::mem_fun ( *this, &Main::setDuration        ) );
 
+
+
+    // :::: Main Gtk::Window :::: //
 
 this->add(mainTable);
 
@@ -258,12 +268,32 @@ this->set_border_width(10);
 this->show_all_children();
 
 
-    //HERE por isto num try() catch() --just in case
-loadConfigurations();
+
+    // :::: Load configurations :::: //
 
 
-//Metronome metronome;
-Metronome::start();
+if (configurations.isPlaying_metro == true)
+    {
+    Metronome::start();
+    }
+
+
+    // :::: Opened windows :::: //
+
+if (configurations.optionsWindow == true)
+    {
+    openOptions ();
+    }
+
+if (configurations.tunerWindow == true)
+    {
+    openTuner ();
+    }
+
+if (configurations.animationWindow == true)
+    {
+    openAnimeWindow ();
+    }
 }
 
 
@@ -287,6 +317,195 @@ void Main::updateTempo()
 int value = changeTempo.get_value_as_int();
 
 this->setBpm (value);
+}
+
+
+//HERE
+void Main::setStrongBeats_fromSpinButton ()
+{
+if (changingStrongBeats == true)
+    {
+    return;
+    }
+
+changingStrongBeats = true;
+
+
+cout << "Main::setStrongBeats_fromSpinButton\n";
+
+
+int value = otherBeat.get_value_as_int ();
+
+    //cancel the active RadioButton (if there's one)
+if (value > 4)
+    {
+    int oldValue = getStrongBeats ();
+
+    switch (oldValue)
+        {
+            case 1:
+
+                oneBeat.set_active (false);
+                break;
+
+            case 2:
+
+                twoBeats.set_active (false);
+                break;
+
+            case 3:
+
+                threeBeats.set_active (false);
+                break;
+
+            case 4:
+cout << "fourBeat\n"; //HERE nao tira o estado activo
+                fourBeats.set_active (false);
+                break;
+        }
+    }
+
+    // (value <= 4) - set the apropriate RadioButton active
+else
+    {
+    switch (value)
+        {
+            case 1:
+
+                oneBeat.set_active (true);
+                break;
+
+            case 2:
+
+                twoBeats.set_active (true);
+                break;
+
+            case 3:
+
+                threeBeats.set_active (true);
+                break;
+
+            case 4:
+
+                fourBeats.set_active (true);
+                break;
+        }
+    }
+
+Metronome::setStrongBeats (value);
+
+changingStrongBeats = false;
+}
+
+
+/*
+    Sets the strong beats (by calling the same function name in Metronome)
+
+    When one of the Gtk::RadioButton's is set, the Gtk::SpinButton is updated
+    When the Gtk::SpinButton is set (to other value than 1-4), then the Gtk::SpinButton is inactive
+
+    Arguments:
+
+        beat: 1 to 4, or 0 when its called from the Gtk::SpinButton
+ */
+
+void Main::setStrongBeats (Gtk::RadioButton *button, int beat)
+{
+    //don't do anything if the spinbutton is already working, or if this event is because of changing the state to inactive
+if (changingStrongBeats == true || button->get_active() == false)
+    {
+    return;
+    }
+
+
+changingStrongBeats = true;
+
+
+cout << "Main::setStrongBeats beat: " << beat << endl;
+
+    //one of the RadioButton was pressed
+if (beat != 0)
+    {
+    Metronome::setStrongBeats (beat);
+
+        //update the SpinButton
+    otherBeat.set_value (beat);
+    }
+
+    //the SpinButton's value was changed
+else
+    {
+    int value = otherBeat.get_value_as_int ();
+
+        //cancel the active RadioButton (if there's one)
+    if (value > 4)
+        {
+            cout << "value > 4 BEFORE .set_active(false)\n";
+
+        int oldValue = getStrongBeats ();
+
+        switch (oldValue)
+            {
+                case 1:
+
+                    oneBeat.set_active (false);
+                    break;
+
+                case 2:
+
+                    twoBeats.set_active (false);
+                    break;
+
+                case 3:
+
+                    threeBeats.set_active (false);
+                    break;
+
+                case 4:
+
+                    fourBeats.set_active (false);
+                    break;
+            }
+
+        cout << "after .set_active(false)\n";
+        }
+
+        // (value <= 4) - set the apropriate RadioButton active
+    else
+        {
+            cout << "value <= 4\n";
+
+        switch (value)
+            {
+                case 1:
+
+                    oneBeat.set_active (true);
+                    break;
+
+                case 2:
+
+                    twoBeats.set_active (true);
+                    break;
+
+                case 3:
+
+                    threeBeats.set_active (true);
+                    break;
+
+                case 4:
+
+                    fourBeats.set_active (true);
+                    break;
+            }
+        }
+
+cout << "value " << value << endl;
+
+    Metronome::setStrongBeats (value);
+    }
+
+
+changingStrongBeats = false;
 }
 
 
@@ -332,6 +551,30 @@ if (wasPlaying_var == true)
 
 void Main::loadConfigurations ()
 {
+    //set the defaults
+configurations.optionsWindow   = false;
+configurations.tunerWindow     = false;
+configurations.animationWindow = false;
+
+configurations.isPlaying_metro = true;
+configurations.bpm             = 60;
+configurations.strongBeats     = 4;
+
+configurations.beatDuration    = 200;   //200 ms
+configurations.normalFrequency = 440;   //A4 - 440 Hz
+configurations.strongFrequency = 440 + 150; //HERE hmmm
+
+configurations.normalColor.set_rgba (0, 0, 1, 1);    //blue color
+configurations.strongColor.set_rgba (1, 0, 1, 1);   //HERE hmmm
+
+configurations.isPlaying_tuner = false;
+configurations.tunerNote.newNote (configurations.normalFrequency);
+
+
+
+
+
+
 std::ifstream config;
 
 config.open ("config.txt");
@@ -360,7 +603,8 @@ if (config.is_open() == true)
         //we open the animation window
     if (value != 0)
         {
-        openOptions();
+        configurations.optionsWindow = true;
+        //openOptions();
         }
 
         // :::: Tuner window :::: //
@@ -372,7 +616,8 @@ if (config.is_open() == true)
 
     if (value != 0)
         {
-        openTuner();
+        configurations.tunerWindow = true;
+        //openTuner();
         }
 
         // :::: Animation window :::: //
@@ -386,14 +631,27 @@ if (config.is_open() == true)
 
     if (value != 0)
         {
-        openAnimeWindow();
+        configurations.animationWindow = true;
+        //openAnimeWindow();
         }
 
 
-        // :::: Options :::: //
+        // :::: Metronome :::: //
 
     getline (config, line);
     getline (config, line);
+
+
+        // :::: isPlaying :::: //
+
+    getline (config, line);
+
+    value = getPropertyValue(line, "isPlaying");
+
+    if (value == 0)
+        {
+        configurations.isPlaying_metro = false;
+        }
 
         // :::: Bpm :::: //
 
@@ -401,12 +659,13 @@ if (config.is_open() == true)
 
     value = getPropertyValue(line, "bpm");
 
+    configurations.bpm = value;
 
-    setBpm (value);
+    //setBpm (value);
 
 //HERE melhorar a ordem disto...
 
-    changeTempo.set_value (value);
+    //changeTempo.set_value (value);
 
 
         // :::: Strong beat :::: //
@@ -414,9 +673,11 @@ if (config.is_open() == true)
     getline (config, line);
 
 
-    value = getPropertyValue(line, "strong-beats");
+    value = getPropertyValue(line, "strongBeats");
 
 
+    configurations.strongBeats = value;
+/*
     if (value == 1)
         {
         oneBeat.set_active();
@@ -442,7 +703,7 @@ if (config.is_open() == true)
         //HERE the Gtk::Entry otherBeat
         }
 
-
+*/
 
     config.close();
     }
@@ -488,6 +749,40 @@ return number;
 
 
 
+/*
+    What is saved:
+
+    Opened windows :
+
+        options
+        tuner
+        animation
+
+    Metronome :
+
+        isPlaying
+        bpm          (done)
+        strongBeats  (done)
+
+    Options :
+
+        beatDuration
+        normalFrequency
+        strongFrequency
+
+
+    Animation :
+
+        normalColor
+        strongColor
+
+    Tuner :
+
+        isPlaying
+        tunerNote
+
+ */
+
 Main::~Main ()
 {
 std::ofstream config;
@@ -503,9 +798,10 @@ if (config.is_open() == true)
     config << "    tuner: " << tuner.isOpened() << "\n";
     config << "    animation: " << isAnimeOpened() << "\n";
 
-    config << "\nOptions\n";
+    config << "\nMetronome\n";
+    config << "    isPlaying: " << Tempo::isPlaying() << "\n";
     config << "    bpm: " << getBpm() << "\n";
-    config << "    strong-beats: " << getStrongBeats() << "\n";
+    config << "    strongBeats: " << getStrongBeats() << "\n";
 
 
     config.close ();

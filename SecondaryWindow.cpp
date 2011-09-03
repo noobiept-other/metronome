@@ -36,12 +36,12 @@ return isOpened_var;
 }
 
 
-
+/*
 sigc::signal<void> SecondaryWindow::signal_onHide () const
 {
 return the_signal_onHide;
 }
-
+*/
 
 
 void SecondaryWindow::onHide ()
@@ -50,7 +50,7 @@ isOpened_var = false;
 
 
     //emit our custom signal, that tells the window was closed
-the_signal_onHide.emit();
+//the_signal_onHide.emit();
 }
 
 

@@ -75,7 +75,7 @@ void Sound::setFrequency (int frequency)
     //see if its within the audible range (maybe I can reduce this range?... //HERE )
 if (frequency < 20 || frequency > 20000)
     {
-    return;
+    return; //HERE hmmmm n devo precisar?.. ele esta limitado no SpinButton
     }
 
 

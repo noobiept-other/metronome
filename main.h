@@ -16,8 +16,39 @@ using std::string;
 
 #include "metronome.h"
 #include "tuner.h"
+#include "note.h"
 
-class Main : public Gtk::Window, public Metronome//, public Tuner
+    //has all the configurations loaded from the external file (or simply the defaults)
+struct Configurations
+{
+        //opened windows
+    bool optionsWindow;
+    bool tunerWindow;
+    bool animationWindow;
+
+        //metronome
+    bool isPlaying_metro;
+    int bpm;
+    int strongBeats;
+
+        //options
+    int beatDuration;
+    double normalFrequency;
+    double strongFrequency;
+
+        //animation
+    Gdk::RGBA normalColor;
+    Gdk::RGBA strongColor;
+
+        //tuner
+    bool isPlaying_tuner;
+    Note tunerNote;
+
+};
+
+
+
+class Main : public Gtk::Window, public Metronome
 {
     public:
 
@@ -52,7 +83,18 @@ class Main : public Gtk::Window, public Metronome//, public Tuner
 
         int getPropertyValue (string line, string property);
 
+
+        virtual void setStrongBeats (Gtk::RadioButton* widget, int beat);
+
+        void setStrongBeats_fromSpinButton ();
+
+        //HERE hack - to cancel multiple events when changing the strong beats
+        bool changingStrongBeats;
+
+
             // :::: Variables :::: //
+
+        Configurations configurations;
 
         Options optionsPage;
 
@@ -81,7 +123,7 @@ class Main : public Gtk::Window, public Metronome//, public Tuner
                 Gtk::RadioButton twoBeats;
                 Gtk::RadioButton threeBeats;
                 Gtk::RadioButton fourBeats;
-                Gtk::Entry otherBeat;
+                Gtk::SpinButton otherBeat;
 
             Gtk::HBox startStopContainer;
 

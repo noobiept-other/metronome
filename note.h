@@ -12,7 +12,7 @@ class Note
 
             //construct with a 'normal' note (in western music, at least)
             //default: A4 (440 Hz)
-        Note(std::string note = "A", int octave = 4);
+        Note(std::string note, int octave);
 
             //or with a frequency (keep in mind that the frequency may not match a named note)
             //default: A4 (440 Hz)

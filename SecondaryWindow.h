@@ -16,7 +16,7 @@ class SecondaryWindow : public Gtk::Window
         bool isOpened() const;
 
 
-        sigc::signal<void> signal_onHide() const;
+        //sigc::signal<void> signal_onHide() const;
 
 
     protected:
@@ -36,7 +36,7 @@ class SecondaryWindow : public Gtk::Window
 
             // :::: Variables :::: //
 
-        sigc::signal<void> the_signal_onHide;
+        //sigc::signal<void> the_signal_onHide;
 
         bool isOpened_var;
 

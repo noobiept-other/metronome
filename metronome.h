@@ -39,7 +39,7 @@ class Metronome : public Tempo, public Sound
 
         //void openOptions();
 
-        void setStrongBeats (int strongBeats);
+        virtual void setStrongBeats (int strongBeats);
 
         int getStrongBeats () const;
 

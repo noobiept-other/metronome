@@ -10142,7 +10142,7 @@
 	<glibmm.h>
 	<gtkmm/bin.h>
 
-1314920087 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
+1315093674 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
 	"main.h"
 	"metronome.h"
 	"animeWindow.h"
@@ -16965,7 +16965,7 @@
 
 1313468223 /usr/include/asm-generic/errno-base.h
 
-1314724325 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.cpp
+1315019715 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.cpp
 	"sound.h"
 
 1314899729 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.cpp
@@ -16974,7 +16974,7 @@
 1314899676 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.h
 	<gtkmm.h>
 
-1314899528 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.h
+1314980963 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.h
 	"sound.h"
 	"tempo.h"
 	"animeWindow.h"
@@ -16982,7 +16982,7 @@
 	"tuner.h"
 	<iostream>
 
-1314899529 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.cpp
+1314982425 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/metronome.cpp
 	"metronome.h"
 
 1314304163 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.cpp
@@ -17026,10 +17026,10 @@
 	"note.h"
 	<cmath>
 
-1314554751 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
+1315020473 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
 	<iostream>
 
-1314919629 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
+1315085117 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
 	<gtkmm.h>
 	<gstreamermm.h>
 	<iostream>
@@ -17037,10 +17037,11 @@
 	<fstream>
 	"metronome.h"
 	"tuner.h"
+	"note.h"
 
-1314920879 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
+1315063580 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
 	<gtkmm.h>
 
-1314920016 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
+1315063580 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
 	"SecondaryWindow.h"
 
