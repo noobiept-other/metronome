@@ -37,7 +37,8 @@ class Note
         void setFrequency (double frequency);
 
 
-        //int difference (Note other);
+        int getNotePosition () const;
+
 
             //adds one note (as in, if current note is C, then it goes C#)
         void operator ++ (int);

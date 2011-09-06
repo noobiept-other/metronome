@@ -220,8 +220,18 @@ this->show_all_children();
 
 
     // :::: Load configurations :::: //
+loadConfigurations ();
+}
 
 
+
+
+/*
+    Loads the configurations from the external file
+ */
+
+void Main::loadConfigurations()
+{
     // :: Metronome :: //
 
 
@@ -301,12 +311,14 @@ if (CONFIGURATIONS.animationWindow == true)
 
     // :: Tuner :: //
 
+tuner.loadConfigurations ();
+/*
 tuner.setNoteFrequency ( CONFIGURATIONS.noteFrequency_tuner );
 
     //when changing the note frequency, it triggers an event which starts the tuner
 tuner.stop ();
 
-
+*/
 
 if (CONFIGURATIONS.tunerWindow == true)
     {
@@ -324,7 +336,6 @@ if (CONFIGURATIONS.tunerWindow == true)
     //this->signal_realize().connect ( sigc::mem_fun (*this, &Main::test) );//HERE doesnt work as well
     Glib::signal_idle ().connect ( sigc::mem_fun (*this, &Main::test) ); //HERE melhorar isto (se calhar funcao anonima?)
     }
-
 }
 
 
@@ -381,7 +392,7 @@ int value = otherBeat.get_value_as_int ();
     //cancel the active RadioButton (if there's one)
 if (value > 4)
     {
-    int oldValue = getStrongBeats ();
+//    int oldValue = getStrongBeats ();
 
     oneBeat.set_inconsistent (true);
     twoBeats.set_inconsistent (true);

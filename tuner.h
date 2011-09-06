@@ -14,6 +14,10 @@
 using std::cout;
 using std::endl;
 
+#include "configurations.h"
+
+extern Configurations CONFIGURATIONS;
+
 
 class Tuner : public SecondaryWindow
 {
@@ -34,7 +38,8 @@ class Tuner : public SecondaryWindow
 
         void stop();
 
-      //  sigc::signal<void> signal_onTunerHide();
+
+        void loadConfigurations ();
 
     protected:
 

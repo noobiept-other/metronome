@@ -315,3 +315,18 @@ chooseFrequency.set_value (frequency);
 
 //HERE falta selecionar a nota mais perto da frequencia (entre os RadioButton)
 }
+
+
+
+
+void Tuner::loadConfigurations ()
+{
+setNoteFrequency ( CONFIGURATIONS.noteFrequency_tuner );
+
+    //when changing the note frequency, it triggers an event which starts the tuner
+stop ();
+
+std::string noteName = note.getNote ();
+
+//if (noteName == "A")
+}

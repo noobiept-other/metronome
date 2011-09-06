@@ -43,7 +43,7 @@ class Configurations
 
     private:
 
-        void loadConfigurations ();
+        void readConfigurations ();
 
         double getPropertyValue (std::string line, std::string property);
 

@@ -29,7 +29,7 @@ void Configurations::readFromFile ()
 {
 try
     {
-    loadConfigurations();
+    readConfigurations();
     }
 
 catch (...)
@@ -42,7 +42,7 @@ catch (...)
 
 
 
-void Configurations::loadConfigurations ()
+void Configurations::readConfigurations ()
 {
 std::ifstream config;
 
@@ -260,6 +260,130 @@ if (config.is_open() == true)
     config.close();
     }
 }
+
+
+
+
+/*
+void Configurations::loadConfigurations (Main& main)
+{
+    // :: Metronome :: //
+
+
+main.setBpm (this->bpm);
+
+    //set the inconsistent state
+if (this->strongBeats > 4)
+    {
+    main.oneBeat.set_inconsistent (true);
+    main.twoBeats.set_inconsistent (true);
+    main.threeBeats.set_inconsistent (true);
+    main.fourBeats.set_inconsistent (true);
+
+    main.otherBeat.set_value (this->strongBeats);
+    }
+
+else
+    {
+    switch (this->strongBeats)
+        {
+        case 1:
+
+            main.oneBeat.set_active ();
+            break;
+
+        case 2:
+
+            main.twoBeats.set_active ();
+            break;
+
+        case 3:
+
+            main.threeBeats.set_active ();
+            break;
+
+        case 4:
+
+            main.fourBeats.set_active ();
+            break;
+        }
+    }
+
+
+
+main.Metronome::setStrongBeats (this->strongBeats);
+
+
+main.setDuration ( this->beatDuration );
+
+main.setFrequency ( this->normalFrequency );
+main.setStrongFrequency ( this->strongFrequency );
+
+
+if (this->isPlaying_metro == true)
+    {
+    main.Metronome::start();
+    }
+
+
+    // :: Options :: //
+
+main.optionsPage.loadConfigurations ();
+
+if (this->optionsWindow == true)
+    {
+    main.openOptions ();
+    }
+
+    // :: Animation :: //
+
+main.animeWindow.loadConfigurations ();
+
+if (this->animationWindow == true)
+    {
+    main.openAnimeWindow ();
+    }
+
+    // :: Tuner :: //
+
+main.tuner.setNoteFrequency ( this->noteFrequency_tuner );
+
+    //when changing the note frequency, it triggers an event which starts the tuner
+main.tuner.stop ();
+
+
+
+if (this->tunerWindow == true)
+    {
+    main.openTuner (); //HERE ao fechar a janela, o metronomo esta sempre parado... (a cena do wasPlaying...)
+
+    if (this->isPlaying_tuner == false)
+        {
+        main.tuner.stop ();
+        }
+
+        //bring the tuner window to the front
+    //tuner.raise();  //HERE n parece k resulta
+    //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Main::test),
+	     //                          1000);
+    //this->signal_realize().connect ( sigc::mem_fun (*this, &Main::test) );//HERE doesnt work as well
+    Glib::signal_idle ().connect ( sigc::bind<Main&> (sigc::mem_fun (*this, &Configurations::test), main) ); //HERE melhorar isto (se calhar funcao anonima?)
+    }
+
+}
+
+
+bool Configurations::test(Main& main)
+{
+main.tuner.raise();  //HERE
+
+    //cancel idle function
+return false;
+}
+
+*/
+
+
 
 
 

@@ -9,10 +9,17 @@ SecondaryWindow::SecondaryWindow ()
     : isOpened_var (false)
 
 {
+//x_position = 10;
+//y_position = 10;
+
+int x, y;
+this->get_position (x, y);
 this->get_position (x_position, y_position);
 //x_position =
 //y_position = //default position
-
+//x_position = 10;
+//y_position = 10;
+cout << "CONSTRUCTOR x " << x << " y " << y << endl;
 cout << "CONSTRUCTOR x " << x_position << " y " << y_position << endl;
 
     // :::: Events :::: //

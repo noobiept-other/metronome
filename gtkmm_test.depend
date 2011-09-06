@@ -10142,10 +10142,8 @@
 	<glibmm.h>
 	<gtkmm/bin.h>
 
-1315261102 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
+1315342111 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
 	"main.h"
-	"metronome.h"
-	"animeWindow.h"
 
 1304969571 /usr/include/gtkmm-3.0/gtkmm.h
 	<glibmm.h>
@@ -17013,25 +17011,26 @@
 1315097838 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
 	"options.h"
 
-1315177313 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
+1315342196 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
 	<gtkmm.h>
 	"SecondaryWindow.h"
 	"sound.h"
 	"note.h"
 	<iostream>
+	"configurations.h"
 
-1315243011 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
+1315342175 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
 	"tuner.h"
 	"note.h"
 
-1315158855 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.cpp
+1315339761 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.cpp
 	"note.h"
 	<cmath>
 
-1315158854 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
+1315342423 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
 	<iostream>
 
-1315258808 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
+1315341700 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
 	<gtkmm.h>
 	<gstreamermm.h>
 	<iostream>
@@ -17045,14 +17044,14 @@
 1315241822 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
 	<gtkmm.h>
 
-1315244523 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
+1315331419 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
 	"SecondaryWindow.h"
 	<iostream>
 
-1315176846 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.cpp
+1315341605 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.cpp
 	"configurations.h"
 
-1315328209 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.h
+1315341605 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.h
 	<gtkmm.h>
 	"note.h"
 	<string>

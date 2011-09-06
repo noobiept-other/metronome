@@ -9,7 +9,6 @@
         window.set_icon() ou .set_icon_from_file()
             (e fazer o icon)
 
-        o tuner tem mts erros por lah
 
 
         gravar a posicao da janela no monitor e dps ao iniciar o programa mover para essa posicao
@@ -80,7 +79,7 @@ bool test();
 
             // :::: Functions :::: //
 
-       // void loadConfigurations();
+        void loadConfigurations();
 
        // double getPropertyValue (string line, string property);
 

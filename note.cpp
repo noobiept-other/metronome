@@ -24,7 +24,6 @@ Note::Note(double frequency)
 
 {
 calculateNote();
-//findPosition();
 }
 
 
@@ -141,7 +140,7 @@ if (diffOfNotes < 0)
     //its a note 'higher' than A4
 else
     {
-    while (diffOfNotes > 12)
+    while (diffOfNotes >= 12)
         {
         octave++;
 
