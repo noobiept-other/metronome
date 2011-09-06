@@ -168,13 +168,7 @@ stopPlaying.signal_clicked().connect ( sigc::mem_fun(*this, &Tuner::stop) );
 
 void Tuner::open()
 {
-//isOpened_obj = true;    //HERE isto eh tudo mt igual.. ter uma classe base?..
-
-//window.show();
-
 SecondaryWindow::open();
-
-    //HERE stop the metronome
 
     //start playing from the beginning
 play();
@@ -296,4 +290,28 @@ SecondaryWindow::onHide();
 
     //emit our custom signal, that tells the window was closed
 //the_signal_onTunerHide.emit();
+}
+
+
+bool Tuner::isPlaying () const
+{
+return sound.isPlaying();
+}
+
+
+double Tuner::getNoteFrequency () const
+{
+return note.getFrequency ();
+}
+
+
+void Tuner::setNoteFrequency (double frequency)
+{
+note.newNote(frequency);
+
+sound.setFrequency(frequency);
+
+chooseFrequency.set_value (frequency);
+
+//HERE falta selecionar a nota mais perto da frequencia (entre os RadioButton)
 }

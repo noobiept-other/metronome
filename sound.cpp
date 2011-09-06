@@ -98,3 +98,17 @@ bool Sound::isPlaying() const
 {
 return isPlaying_obj;
 }
+
+
+
+
+double Sound::getNormalFrequency() const
+{
+return normalFrequency_obj;
+}
+
+
+double Sound::getStrongFrequency() const
+{
+return strongFrequency_obj;
+}

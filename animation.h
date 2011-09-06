@@ -33,7 +33,7 @@ class Animation : public Gtk::DrawingArea
         void setColor (Gdk::RGBA newColor);
 
             //values from 0 to 1
-        void setColor (int red, int green, int blue, int alpha);
+        void setColor (int red, int green, int blue, int alpha);    //HERE n parece k funciona bem - gtkmm bug
 
 
         void setStrongColor (Gdk::RGBA newColor);

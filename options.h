@@ -5,6 +5,7 @@
 #include <gtkmm.h>
 
 #include "SecondaryWindow.h"
+#include "configurations.h"
 
 
 class Options : public SecondaryWindow
@@ -12,6 +13,8 @@ class Options : public SecondaryWindow
     public:
 
         Options();
+
+        void loadConfigurations ();
 
         //void open();
 

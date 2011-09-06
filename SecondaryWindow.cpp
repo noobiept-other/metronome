@@ -1,11 +1,20 @@
 #include "SecondaryWindow.h"
 
+#include <iostream>
+using std::cout;
+using std::endl;
 
 SecondaryWindow::SecondaryWindow ()
 
     : isOpened_var (false)
 
 {
+this->get_position (x_position, y_position);
+//x_position =
+//y_position = //default position
+
+cout << "CONSTRUCTOR x " << x_position << " y " << y_position << endl;
+
     // :::: Events :::: //
 
     //when closing the window
@@ -14,7 +23,7 @@ this->signal_hide().connect( sigc::mem_fun(*this, &SecondaryWindow::onHide) );
 
 this->add_events( Gdk::KEY_PRESS_MASK );
 
-this->signal_key_release_event().connect ( sigc::mem_fun(*this, &SecondaryWindow::onKeyRelease) );
+this->signal_key_release_event().connect ( sigc::mem_fun( *this, &SecondaryWindow::onKeyRelease ) );
 
 }
 
@@ -23,6 +32,10 @@ this->signal_key_release_event().connect ( sigc::mem_fun(*this, &SecondaryWindow
 void SecondaryWindow::open ()
 {
 isOpened_var = true;
+
+cout << "OPEN x " << x_position << " y " << y_position << endl;
+
+this->move (x_position, y_position);
 
 this->show();
 }
@@ -48,7 +61,10 @@ void SecondaryWindow::onHide ()
 {
 isOpened_var = false;
 
+    //get the current position of the window
+this->get_position (x_position, y_position);    //HERE eh sempre 0..
 
+cout << "ONHIDE x " << x_position << " y " << y_position << endl;
     //emit our custom signal, that tells the window was closed
 //the_signal_onHide.emit();
 }

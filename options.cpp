@@ -1,6 +1,9 @@
 #include "options.h"
 
 
+extern Configurations CONFIGURATIONS;
+
+
 Options::Options()
 
     : //isOpened_var (false),
@@ -13,7 +16,7 @@ beatDurationLabel.set_label ("Beat duration");
 
 
     //  //HERE
-Glib::RefPtr<Gtk::Adjustment> beatDurationAdjustment (Gtk::Adjustment::create(200, 100, 300, 1, 5, 0));
+Glib::RefPtr<Gtk::Adjustment> beatDurationAdjustment (Gtk::Adjustment::create(200, 50, 300, 1, 5, 0));
 
 changeBeatDuration.set_adjustment(beatDurationAdjustment);
 
@@ -121,6 +124,17 @@ changeBeatDuration.signal_value_changed().connect ( sigc::mem_fun ( *this, &Opti
 //this->signal_hide().connect( sigc::mem_fun(*this, &Options::onHide) );
 }
 
+
+
+
+void Options::loadConfigurations ()
+{
+changeBeatDuration.set_value ( CONFIGURATIONS.beatDuration );
+
+changeNormalFrequency.set_value ( CONFIGURATIONS.normalFrequency );
+
+changeStrongFrequency.set_value ( CONFIGURATIONS.strongFrequency );
+}
 /*
 void Options::open()
 {

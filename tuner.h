@@ -23,8 +23,16 @@ class Tuner : public SecondaryWindow
 
         virtual void open();
 
-       // bool isOpened() const;
 
+        bool isPlaying () const;
+
+
+        void setNoteFrequency (double frequency);
+        double getNoteFrequency () const;
+
+        void play();
+
+        void stop();
 
       //  sigc::signal<void> signal_onTunerHide();
 
@@ -42,9 +50,7 @@ class Tuner : public SecondaryWindow
 
             //private functions
 
-        void play();
 
-        void stop();
 
         //void calculateFrequency (std::string note, int octave);
 

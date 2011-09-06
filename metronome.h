@@ -45,10 +45,12 @@ class Metronome : public Tempo, public Sound
 
 
 
-        int getBeatDuration () const;
+        //int getBeatDuration () const;
 
-        void setBeatDuration (int duration);
+        //void setBeatDuration (int duration);
 
+            //HERE (public...)
+        AnimeWindow animeWindow;
 
 
     protected:
@@ -66,7 +68,7 @@ class Metronome : public Tempo, public Sound
 
        // Tuner tuner;
 
-        AnimeWindow animeWindow;
+        //AnimeWindow animeWindow;
 
 
 

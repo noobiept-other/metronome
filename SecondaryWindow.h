@@ -40,6 +40,10 @@ class SecondaryWindow : public Gtk::Window
 
         bool isOpened_var;
 
+            //position in the screen of the window
+        int x_position;
+        int y_position;
+
 };
 
 

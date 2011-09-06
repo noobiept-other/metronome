@@ -72,4 +72,10 @@ class Note
 
 
 
+//const int Note::numberOfNotes_obj = 12;
+
+//const std::string Note::allNotes_obj[] = { "A", "A+", "B", "C", "C+", "D", "D+", "E", "F", "F+", "G", "G+" };
+
+
+
 #endif //NOTE_GUARD

@@ -1,6 +1,32 @@
 #ifndef MAIN_GUARD
 #define MAIN_GUARD
 
+/*
+
+    To doo:
+
+
+        window.set_icon() ou .set_icon_from_file()
+            (e fazer o icon)
+
+        o tuner tem mts erros por lah
+
+
+        gravar a posicao da janela no monitor e dps ao iniciar o programa mover para essa posicao
+            convem verificar se essa posicao nao fica fora do monitor (por exemplo usar as mesmas configuracoes
+                                                                        em 2 pcs com monitores diferentes)
+                ver o tamanho maximo, e se passar esse limite ajustar os valores
+
+
+
+        reorganizar o codigo...
+
+        a configurations, ter uma funcao friend das classes, em vez de ter set/get functions (e n ter global a variavel)
+
+
+ */
+
+
 #include <gtkmm.h>
 #include <gstreamermm.h>
 
@@ -17,34 +43,7 @@ using std::string;
 #include "metronome.h"
 #include "tuner.h"
 #include "note.h"
-
-    //has all the configurations loaded from the external file (or simply the defaults)
-struct Configurations
-{
-        //opened windows
-    bool optionsWindow;
-    bool tunerWindow;
-    bool animationWindow;
-
-        //metronome
-    bool isPlaying_metro;
-    int bpm;
-    int strongBeats;
-
-        //options
-    int beatDuration;
-    double normalFrequency;
-    double strongFrequency;
-
-        //animation
-    Gdk::RGBA normalColor;
-    Gdk::RGBA strongColor;
-
-        //tuner
-    bool isPlaying_tuner;
-    Note tunerNote;
-
-};
+#include "configurations.h"
 
 
 
@@ -64,6 +63,8 @@ class Main : public Gtk::Window, public Metronome
 
         void openTuner();
 
+bool test();
+        //Configurations configurations;
 
     protected:
 
@@ -79,9 +80,9 @@ class Main : public Gtk::Window, public Metronome
 
             // :::: Functions :::: //
 
-        void loadConfigurations();
+       // void loadConfigurations();
 
-        int getPropertyValue (string line, string property);
+       // double getPropertyValue (string line, string property);
 
 
         virtual void setStrongBeats (Gtk::RadioButton* widget, int beat);
@@ -94,7 +95,6 @@ class Main : public Gtk::Window, public Metronome
 
             // :::: Variables :::: //
 
-        Configurations configurations;
 
         Options optionsPage;
 

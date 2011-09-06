@@ -90,7 +90,6 @@ void Metronome::setStrongBeats (int strongBeats)
 {
 strongBeats_obj = strongBeats;
 
-cout << "Metronome::setStrongBeats\n";
 
     //reset the counter
 countBeats_obj = 0;

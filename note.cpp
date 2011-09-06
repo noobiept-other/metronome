@@ -155,7 +155,6 @@ octave_obj = octave;
 notePosition_obj = diffOfNotes;
 
 
-
     //now get the string representing the note
 note_obj = allNotes_obj[notePosition_obj];
 }

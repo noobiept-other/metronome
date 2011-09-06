@@ -28,6 +28,10 @@ class Sound
 		bool isPlaying() const;
 
 
+        double getNormalFrequency() const;
+        double getStrongFrequency() const;
+
+
 	private:
 
 		Glib::RefPtr<Gst::Pipeline> m_pipeline;

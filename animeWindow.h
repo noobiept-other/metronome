@@ -20,6 +20,7 @@ class AnimeWindow : public SecondaryWindow
         AnimeWindow(int bpm);
 
 
+        void loadConfigurations ();
     //void open();
 
    // bool isOpened() const;
@@ -33,6 +34,16 @@ class AnimeWindow : public SecondaryWindow
 
 
         void updateBpm (int bpm);
+
+
+            //hmmm - isto ja existe no animation.h
+        Gdk::RGBA getColor() const;
+
+        Gdk::RGBA getStrongColor() const;
+
+        void setColor (Gdk::RGBA newColor);
+
+        void setStrongColor (Gdk::RGBA newColor);
 
 
     protected:

@@ -2,6 +2,10 @@
 
 #include <sstream>
 
+#include "configurations.h"
+extern Configurations CONFIGURATIONS;
+
+
 
 AnimeWindow::AnimeWindow(int bpm)
 
@@ -19,8 +23,8 @@ changeFullScreen.set_label("Full screen");
 
 normalColor.set_label("Normal beat");
 
-selectNormalColor.set_title("Select a color");
-selectNormalColor.set_rgba(animation.getColor());
+selectNormalColor.set_title ("Select a color");
+selectNormalColor.set_rgba  (animation.getColor());
 
 
 strongBeatColor.set_label("Strong beat");
@@ -87,6 +91,16 @@ show_all_children();
 }
 
 
+
+
+void AnimeWindow::loadConfigurations ()
+{
+setColor (CONFIGURATIONS.normalColor);
+selectNormalColor.set_rgba (CONFIGURATIONS.normalColor);
+
+setStrongColor (CONFIGURATIONS.strongColor);
+selectStrongColor.set_rgba (CONFIGURATIONS.strongColor);
+}
 /*
 void AnimeWindow::open ()
 {
@@ -227,4 +241,27 @@ std::stringstream tempBpm;
 
 tempBpm << bpm << " bpm";
 currentBpm.set_label (tempBpm.str());
+}
+
+
+Gdk::RGBA AnimeWindow::getColor() const
+{
+return animation.getColor ();
+}
+
+Gdk::RGBA AnimeWindow::getStrongColor() const
+{
+return animation.getStrongColor();
+}
+
+//HERE
+void AnimeWindow::setColor (Gdk::RGBA newColor)
+{
+animation.setColor (newColor);
+}
+
+
+void AnimeWindow::setStrongColor (Gdk::RGBA newColor)
+{
+animation.setStrongColor (newColor);
 }
