@@ -124,7 +124,7 @@ this->show_all_children();
     // :::: Events :::: //
 
     //when closing the window
-this->signal_hide().connect( sigc::mem_fun(*this, &Tuner::onHide) );
+//this->signal_hide().connect( sigc::mem_fun(*this, &Tuner::onHide) );
 
 
      a.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
@@ -315,11 +315,11 @@ Sound::play();
     Stop the metronome's sound when closing the window
  */
 
-void Tuner::onHide()
+void Tuner::on_hide()    //HERE override
 {
 this->stopPlaying();
 
-SecondaryWindow::onHide();
+SecondaryWindow::on_hide();
 }
 
 /*

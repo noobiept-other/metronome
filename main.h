@@ -70,7 +70,7 @@ bool test();
 
         virtual void updateTempo();
 
-            //override Tuner::onTunerHide event
+            //called when the tuner is closed
         void onTunerHide();
 
         //void test();

@@ -43,11 +43,8 @@ class Tuner : public SecondaryWindow, public Sound
 
     protected:
 
-            //when the window is closed
-        virtual void onHide();
-
-   //     sigc::signal<void> the_signal_onTunerHide;
-
+            //when the window is closed (override base function)
+        virtual void on_hide();
 
 
 

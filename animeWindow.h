@@ -48,7 +48,8 @@ class AnimeWindow : public SecondaryWindow
 
     protected:
 
-        virtual void onHide();
+            //override base function
+        virtual void on_hide();
 
         virtual bool onKeyRelease(GdkEventKey *event);
 

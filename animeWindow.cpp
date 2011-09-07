@@ -67,10 +67,6 @@ changeFullScreen.signal_clicked().connect( sigc::mem_fun(*this, &AnimeWindow::fu
 //openAnimation.signal_clicked().connect( sigc::mem_fun(animeWindow, &AnimeWindow::open) );
 
 
-    //when closing the window
-this->signal_hide().connect( sigc::mem_fun(*this, &AnimeWindow::onHide) );
-
-//add_events(Gdk::BUTTON_PRESS_MASK | Gdk::BUTTON_RELEASE_MASK);
 
 add_events( Gdk::KEY_PRESS_MASK );
 
@@ -171,13 +167,8 @@ else
 }
 
 
-void AnimeWindow::onHide()
+void AnimeWindow::on_hide()
 {
-    //reset stuff
-//isOpened_var = false;
-
-SecondaryWindow::onHide ();
-
     //take out the full screen (so that when opening again the animation window, it doesn't open in full screen mode)
 if (isFullScreen == true)
     {
@@ -188,6 +179,9 @@ if (isFullScreen == true)
 
     isFullScreen = false;
     }
+
+
+SecondaryWindow::on_hide ();
 }
 
 
@@ -211,9 +205,9 @@ if (event->keyval == GDK_KEY_Escape)
         //we close the window
     else
         {
-        SecondaryWindow::onHide();
+        SecondaryWindow::on_hide();
 
-        this->hide();
+        //this->hide();
         }
     }
 

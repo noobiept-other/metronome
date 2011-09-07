@@ -16,9 +16,6 @@ class Options : public SecondaryWindow
 
         void loadConfigurations ();
 
-        //void open();
-
-       // bool isOpened () const;
 
 
         sigc::signal<void, int> signal_onNormalFrequencyChange();
@@ -36,7 +33,6 @@ class Options : public SecondaryWindow
 
     private:
 
-       // bool isOpened_var;
 
             //events functions
 
@@ -45,9 +41,7 @@ class Options : public SecondaryWindow
 
         void onBeatDurationChange ();
 
-        //void onHide();
 
-      //  bool onKeyRelease(GdkEventKey *event);
 
 
             //layout stuff
