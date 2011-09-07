@@ -10,7 +10,8 @@ const std::string Note::allNotes_obj[] = { "A", "A+", "B", "C", "C+", "D", "D+",
 Note::Note(std::string note, int octave)
 
     : note_obj (note),
-      octave_obj (octave)
+      octave_obj (octave),
+      isNamedNote_obj (true)
 
 {
 findPosition();
@@ -28,11 +29,11 @@ calculateNote();
 
 
     //similar to the constructor
-void Note::newNote(double frequency)
+bool Note::newNote(double frequency)
 {
 frequency_obj = frequency;
 
-calculateNote();
+return calculateNote();
 }
 
 
@@ -42,12 +43,13 @@ void Note::newNote (std::string note, int octave)
 {
 note_obj = note;
 octave_obj = octave;
+isNamedNote_obj = true;
 
 
 findPosition();
 calculateFrequency();
 
-cout << "endOf_newNote: note " << note_obj << " notePosition " << notePosition_obj << " freq " << frequency_obj << endl;
+//cout << "endOf_newNote: note " << note_obj << " notePosition " << notePosition_obj << " freq " << frequency_obj << endl;
 }
 
 
@@ -55,7 +57,7 @@ void Note::findPosition ()
 {
 for (int i = 0 ; i < numberOfNotes_obj ; i++)
     {
-        cout << "note " << note_obj << " allNotes " << allNotes_obj[i] << endl;
+        //cout << "note " << note_obj << " allNotes " << allNotes_obj[i] << endl;
 
         //find the note
     if (note_obj == allNotes_obj[i])
@@ -91,8 +93,9 @@ int diffOfNotes = notePosition_obj - 12 * (4 - octave_obj);
     //in theory, you can use any frequency for music.. although in western music we're 'limited' to a set of notes (calculated with this formula)
 frequency_obj = 440 * std::pow(2, diffOfNotes / 12.0);
 
-cout << "calcFreq: note position " << notePosition_obj << " freq " << frequency_obj << endl;
+//cout << "calcFreq: note position " << notePosition_obj << " freq " << frequency_obj << endl;
 }
+
 
 
 
@@ -100,7 +103,7 @@ cout << "calcFreq: note position " << notePosition_obj << " freq " << frequency_
     calculates the note and octave from a frequency (as close as possible - it may not be the exact note)
  */
 
-void Note::calculateNote ()
+bool Note::calculateNote ()
 {
     //do the same formula in the calculateFrequency() function
     //but now we're looking for the diffOfNotes, and have the frequency_obj
@@ -109,6 +112,19 @@ double diffOfNotes_temp = 12.0 * (std::log10(frequency_obj / 440) / std::log10(2
 
 
 int diffOfNotes = diffOfNotes_temp;
+
+
+    //see if this is a named note (if the diffOfNotes_temp is an integer, it means it is)
+    //since there may be some calculation errors, we're giving it a range, not doing a equality check
+if ((diffOfNotes_temp - diffOfNotes) < 0.1)
+    {
+    isNamedNote_obj = true;
+    }
+
+else
+    {
+    isNamedNote_obj = false;
+    }
 
 
     //round to the closest integer
@@ -156,6 +172,9 @@ notePosition_obj = diffOfNotes;
 
     //now get the string representing the note
 note_obj = allNotes_obj[notePosition_obj];
+
+
+return isNamedNote_obj;
 }
 
 

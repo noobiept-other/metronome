@@ -33,6 +33,9 @@ class SecondaryWindow : public Gtk::Window
 
     private:
 
+bool test();
+
+bool testa (GdkEventConfigure* a);
 
             // :::: Variables :::: //
 

@@ -36,21 +36,6 @@ Main::Main ()
       strongBeat (1, 6)
 
 {
-/*
-try
-    {
-    loadConfigurations();
-    }
-
-catch (...)
-    {
-    cout << "exception occurred, when trying the Main::loadConfigurations()\n";
-    }
-*/
-
-
-
-
     // :::: Tempo related :::: //
 
 
@@ -119,13 +104,13 @@ strongBeat.attach (otherBeat, 5, 6, 0, 1);
     // :::: Start/stop :::: //
 
 
-start.set_label ("start");
+start_gui.set_label ("start");
 
 
 stop.set_label ("stop");
 
 
-startStopContainer.pack_start(start);
+startStopContainer.pack_start(start_gui);
 startStopContainer.pack_start(stop);
 
 
@@ -166,7 +151,7 @@ mainTable.attach(otherContainer, 1, 2, 1, 2);
 
     // :::: Set the events :::: //
 
-start.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::start) );
+start_gui.signal_clicked().connect( sigc::mem_fun(*this, &Main::start) );
  stop.signal_clicked().connect( sigc::mem_fun(*this, &Metronome::stop ) );
 
 
@@ -326,7 +311,7 @@ if (CONFIGURATIONS.tunerWindow == true)
 
     if (CONFIGURATIONS.isPlaying_tuner == false)
         {
-        tuner.stop ();
+        tuner.stopPlaying ();
         }
 
         //bring the tuner window to the front
@@ -349,7 +334,12 @@ return false;
 
 
 
-void Main::startMetronome()
+
+/*
+    Checks if the tuner is opened, before starting the metronome
+ */
+
+void Main::start()
 {
     //don't start the metronome when the tuner is opened
 if (tuner.isOpened() == true)
@@ -358,7 +348,7 @@ if (tuner.isOpened() == true)
     }
 
     //carry on
-Tempo::start();
+Metronome::start();
 }
 
 
@@ -574,7 +564,7 @@ if (config.is_open() == true)
     config << "\nTuner\n";
 
     config << "    isPlaying_tuner: " << tuner.isPlaying () << "\n";
-    config << "    noteFrequency_tuner: " << tuner.getNoteFrequency () << "\n";
+    config << "    noteFrequency_tuner: " << tuner.getNormalFrequency () << "\n";
 
     config.close ();
     }

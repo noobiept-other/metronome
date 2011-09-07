@@ -1,15 +1,9 @@
 #include "tuner.h"
 
-#include "note.h"
-
-
 
 Tuner::Tuner()
 
-    : //isOpened_obj (false),
-
-      note(440),    //A4 - 440 Hz
-      container(3, 2)
+    : container(3, 2)
 
 {
     // :::: Notes :::: //
@@ -64,8 +58,8 @@ notesContainer.pack_start(g_plus);
 
 octave.set_label("Octave");
 
-    //start at 60, with limits from 30 to 300 - step is 1   //HERE
-Glib::RefPtr<Gtk::Adjustment> octaveAdjustment (Gtk::Adjustment::create(4, 1, 8, 1, 5, 0));
+    //default 4 (for the A4 note)
+Glib::RefPtr<Gtk::Adjustment> octaveAdjustment (Gtk::Adjustment::create(4, 1, 8, 1, 2, 0));
 
 chooseOctave.set_adjustment(octaveAdjustment);
 chooseOctave.set_numeric (true);
@@ -80,7 +74,7 @@ octaveContainer.pack_start(chooseOctave);
 
 frequency.set_label("Frequency");
 
-    //   //HERE
+    //440 Hz (A4 note)  //HERE 20 a 20000 se calhar eh muito
 Glib::RefPtr<Gtk::Adjustment> freqAdjustment (Gtk::Adjustment::create(440, 20, 20000, 1, 10, 0));
 
 chooseFrequency.set_adjustment(freqAdjustment);
@@ -98,10 +92,10 @@ hertz.set_label("Hz");
     // :::: Play :::: //
 
 startPlaying.set_label("Play");
-stopPlaying.set_label("Stop");
+stopPlaying_gui.set_label("Stop");
 
 playContainer.pack_start(startPlaying);
-playContainer.pack_start(stopPlaying);
+playContainer.pack_start(stopPlaying_gui);
 
 
     // :::: Container :::: //
@@ -133,11 +127,6 @@ this->show_all_children();
 this->signal_hide().connect( sigc::mem_fun(*this, &Tuner::onHide) );
 
 
-//window.add_events( Gdk::KEY_PRESS_MASK );
-
-//window.signal_key_release_event().connect ( sigc::mem_fun(*this, &Tuner::onKeyRelease) );
-
-
      a.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
 a_plus.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A+" ) );
      b.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "B"  ) );
@@ -157,11 +146,11 @@ chooseOctave.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onOc
 
     //HERE alguma maneira de nao ter a funcao a ser chamada constantemente... esperar k o utilizador pare de mudar os valores
     //e soh depois chamar
-chooseFrequency.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+chooseFrequency_connection = chooseFrequency.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
 
 
 startPlaying.signal_clicked().connect ( sigc::mem_fun (*this, &Tuner::play) );
-stopPlaying.signal_clicked().connect ( sigc::mem_fun(*this, &Tuner::stop) );
+ stopPlaying_gui.signal_clicked().connect ( sigc::mem_fun(*this,  &Tuner::stopPlaying) );
 
 }
 
@@ -178,55 +167,95 @@ play();
 
 void Tuner::play()
 {
-sound.setFrequency(note.getFrequency());
+Sound::setFrequency (note.getFrequency());
 
-sound.play();
-}
-
-
-
-void Tuner::stop()
-{
-sound.stopPlaying();
-}
-
-
-
-void Tuner::changeNote (std::string noteLetter)
-{
-int octave = note.getOctave();
-
-note.newNote (noteLetter, octave);
-
-
-cout << "note " << noteLetter << " freq " << note.getFrequency() << endl;
-
-double frequency = note.getFrequency();
-
-    //update the value of the Gtk::SpinButton, showing the current frequency
-chooseFrequency.set_value (frequency);
-
-sound.setFrequency(frequency);
-sound.play();
+Sound::play();
 }
 
 
 /*
-bool Tuner::isOpened() const
+void Tuner::stop()
 {
-return isOpened_obj;
+sound.stopPlaying();
 }
 */
+
+/*
+    Changes the named note, not the octave
+
+    So from A4 to B4 or F#4
+ */
+
+void Tuner::changeNote (std::string noteLetter)
+{
+cout << "Tuner::changeNote\n";
+
+
+     a.set_inconsistent (false);
+a_plus.set_inconsistent (false);
+     b.set_inconsistent (false);
+     c.set_inconsistent (false);
+c_plus.set_inconsistent (false);
+     d.set_inconsistent (false);
+d_plus.set_inconsistent (false);
+     e.set_inconsistent (false);
+     f.set_inconsistent (false);
+f_plus.set_inconsistent (false);
+     g.set_inconsistent (false);
+g_plus.set_inconsistent (false);
+
+
+int octave = chooseOctave.get_value_as_int ();
+
+note.newNote (noteLetter, octave);
+
+
+//cout << "note " << noteLetter << " freq " << note.getFrequency() << endl;
+
+double frequency = note.getFrequency();
+
+
+    //so that it doesn't trigger another event, when changing the value
+chooseFrequency_connection.disconnect ();
+
+    //update the value of the Gtk::SpinButton, showing the current frequency
+chooseFrequency.set_value (frequency);
+
+    //restore the event
+chooseFrequency_connection = chooseFrequency.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+
+play ();
+/*
+setFrequency(frequency);
+play();*/
+}
+
+
 
 //HERE um bug - por a nota D#, e ir trocando a oitava.. ele passa para a nota E !!
 
 void Tuner::onOctaveChange()
 {
+cout << "Tuner::onOctaveChange\n";
+
+     a.set_inconsistent (false);
+a_plus.set_inconsistent (false);
+     b.set_inconsistent (false);
+     c.set_inconsistent (false);
+c_plus.set_inconsistent (false);
+     d.set_inconsistent (false);
+d_plus.set_inconsistent (false);
+     e.set_inconsistent (false);
+     f.set_inconsistent (false);
+f_plus.set_inconsistent (false);
+     g.set_inconsistent (false);
+g_plus.set_inconsistent (false);
+
 std::string noteLetter = note.getNote();
 
-cout << "onOctaveChange: noteLetter " << noteLetter;
+//cout << "onOctaveChange: noteLetter " << noteLetter;
 
-cout << " chooseOctave value " << chooseOctave.get_value_as_int() << endl;
+//cout << " chooseOctave value " << chooseOctave.get_value_as_int() << endl;
 
 note.newNote(noteLetter, chooseOctave.get_value_as_int());
 
@@ -234,12 +263,21 @@ note.newNote(noteLetter, chooseOctave.get_value_as_int());
 
 double frequency = note.getFrequency();
 
+
+    //cancel the event, so that it isn't called when changing the value below
+chooseFrequency_connection.disconnect ();
+
     //update the value of the Gtk::SpinButton, showing the current frequency
 chooseFrequency.set_value (frequency);
 
+chooseFrequency_connection = chooseFrequency.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
 
+
+/*
 sound.setFrequency(frequency);
 sound.play();
+*/
+play();
 }
 
 
@@ -247,73 +285,64 @@ sound.play();
 
 void Tuner::onFrequencyChange()
 {
-note.newNote(chooseFrequency.get_value());
+cout << "Tuner::onFrequencyChange\n";
 
-//HERE selecionar a nota mais perto desta frequencia?...
+freeNote.newNote (chooseFrequency.get_value());
 
-sound.setFrequency(note.getFrequency());
-sound.play();
+
+     a.set_inconsistent (true);
+a_plus.set_inconsistent (true);
+     b.set_inconsistent (true);
+     c.set_inconsistent (true);
+c_plus.set_inconsistent (true);
+     d.set_inconsistent (true);
+d_plus.set_inconsistent (true);
+     e.set_inconsistent (true);
+     f.set_inconsistent (true);
+f_plus.set_inconsistent (true);
+     g.set_inconsistent (true);
+g_plus.set_inconsistent (true);
+
+
+Sound::setFrequency(freeNote.getFrequency());
+Sound::play();
 }
+
+
+
 
 /*
-sigc::signal<void> Tuner::signal_onTunerHide()
-{
-return the_signal_onTunerHide;
-}
-*/
-
-
-
-/*
-bool Tuner::onKeyRelease(GdkEventKey *event)
-{
-if (event->keyval == GDK_KEY_Escape)
-    {
-    onTunerHide();
-
-    window.hide();
-    }
-
-return true;
-}
-*/
-
-
+    Stop the metronome's sound when closing the window
+ */
 
 void Tuner::onHide()
 {
-//isOpened_obj = false;
-
-this->stop();
+this->stopPlaying();
 
 SecondaryWindow::onHide();
-
-    //emit our custom signal, that tells the window was closed
-//the_signal_onTunerHide.emit();
 }
 
-
+/*
 bool Tuner::isPlaying () const
 {
 return sound.isPlaying();
 }
+*/
 
-
+/*
 double Tuner::getNoteFrequency () const
 {
 return note.getFrequency ();
 }
-
+*/
 
 void Tuner::setNoteFrequency (double frequency)
 {
 note.newNote(frequency);
 
-sound.setFrequency(frequency);
+Sound::setFrequency(frequency);
 
 chooseFrequency.set_value (frequency);
-
-//HERE falta selecionar a nota mais perto da frequencia (entre os RadioButton)
 }
 
 
@@ -324,7 +353,7 @@ void Tuner::loadConfigurations ()
 setNoteFrequency ( CONFIGURATIONS.noteFrequency_tuner );
 
     //when changing the note frequency, it triggers an event which starts the tuner
-stop ();
+stopPlaying ();
 
 std::string noteName = note.getNote ();
 

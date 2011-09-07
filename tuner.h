@@ -19,7 +19,7 @@ using std::endl;
 extern Configurations CONFIGURATIONS;
 
 
-class Tuner : public SecondaryWindow
+class Tuner : public SecondaryWindow, public Sound
 {
     public:
 
@@ -28,15 +28,15 @@ class Tuner : public SecondaryWindow
         virtual void open();
 
 
-        bool isPlaying () const;
+      //  bool isPlaying () const;
 
 
         void setNoteFrequency (double frequency);
-        double getNoteFrequency () const;
+        //double getNoteFrequency () const;
 
         void play();
 
-        void stop();
+        //void stop();
 
 
         void loadConfigurations ();
@@ -53,40 +53,36 @@ class Tuner : public SecondaryWindow
 
     private:
 
-            //private functions
+            // :::: signals :::: //
 
-
-
-        //void calculateFrequency (std::string note, int octave);
-
-            //only changes the note (not the octave - it keeps whatever value it has)
-        void changeNote (std::string noteLetter);
+        //sigc::connection a_connection;
+        sigc::connection chooseFrequency_connection;
 
 
             // :::: events :::: //
 
-
+            //only changes the note (not the octave - it keeps whatever value it has)
+        void changeNote (std::string noteLetter);
 
         void onOctaveChange();
 
         void onFrequencyChange();
 
 
-     //   bool onKeyRelease(GdkEventKey *event);
+
+            //note chosen from the RadioButton's
+        //Note standardNote;
+
+            //note chosen on the SpinButton (changing the sound frequency)
+        Note freeNote;
+
+            //the one that is playing
+        //Note activeNote;
+Note note;
 
 
-            //variables
+        //Sound sound;
 
-      //  bool isOpened_obj;
-
-
-
-        Note note;
-
-        Sound sound;
-
-
-     //   Gtk::Window window;
 
             //layout elements
 
@@ -121,7 +117,7 @@ class Tuner : public SecondaryWindow
             Gtk::HBox playContainer;
 
                 Gtk::Button startPlaying;   //HERE ter algo k mostre k a variavel tem a ver com o layout (no nome)
-                Gtk::Button stopPlaying;
+                Gtk::Button stopPlaying_gui;
 
 
 

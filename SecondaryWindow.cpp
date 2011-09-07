@@ -32,6 +32,9 @@ this->add_events( Gdk::KEY_PRESS_MASK );
 
 this->signal_key_release_event().connect ( sigc::mem_fun( *this, &SecondaryWindow::onKeyRelease ) );
 
+//this->signal_drag_begin ().connect ( sigc::mem_fun ( *this, &SecondaryWindow::test ) );
+//this->signal_drag_end ().connect ( sigc::mem_fun ( *this, &SecondaryWindow::test ) );
+this->signal_configure_event ().connect ( sigc::mem_fun ( *this, &SecondaryWindow::testa ) );
 }
 
 
@@ -45,9 +48,49 @@ cout << "OPEN x " << x_position << " y " << y_position << endl;
 this->move (x_position, y_position);
 
 this->show();
+
+//Glib::signal_timeout().connect(sigc::mem_fun(*this, &SecondaryWindow::test), 500);
 }
 
 
+bool SecondaryWindow::testa (GdkEventConfigure* a)
+{
+cout << "enter test\n";
+
+if (isOpened_var == true)
+    {
+    this->get_position (x_position, y_position);
+
+    cout << "TEST x " << x_position << " y " << y_position << endl;
+
+    return true;
+    }
+
+else
+    {
+    return false;
+    }
+}
+
+
+bool SecondaryWindow::test ()
+{
+cout << "enter test\n";
+
+if (isOpened_var == true)
+    {
+    this->get_position (x_position, y_position);
+
+    cout << "TEST x " << x_position << " y " << y_position << endl;
+
+    return true;
+    }
+
+else
+    {
+    return false;
+    }
+}
 
 
 bool SecondaryWindow::isOpened () const
@@ -69,7 +112,7 @@ void SecondaryWindow::onHide ()
 isOpened_var = false;
 
     //get the current position of the window
-this->get_position (x_position, y_position);    //HERE eh sempre 0..
+//this->get_position (x_position, y_position);    //HERE eh sempre 0..
 
 cout << "ONHIDE x " << x_position << " y " << y_position << endl;
     //emit our custom signal, that tells the window was closed

@@ -10142,7 +10142,7 @@
 	<glibmm.h>
 	<gtkmm/bin.h>
 
-1315342111 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
+1315360997 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
 	"main.h"
 
 1304969571 /usr/include/gtkmm-3.0/gtkmm.h
@@ -17011,7 +17011,7 @@
 1315097838 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
 	"options.h"
 
-1315342196 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
+1315361018 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
 	<gtkmm.h>
 	"SecondaryWindow.h"
 	"sound.h"
@@ -17019,18 +17019,17 @@
 	<iostream>
 	"configurations.h"
 
-1315342175 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
+1315354448 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
 	"tuner.h"
-	"note.h"
 
-1315339761 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.cpp
+1315351795 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.cpp
 	"note.h"
 	<cmath>
 
-1315342423 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
+1315351273 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
 	<iostream>
 
-1315341700 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
+1315354657 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
 	<gtkmm.h>
 	<gstreamermm.h>
 	<iostream>
@@ -17041,10 +17040,10 @@
 	"note.h"
 	"configurations.h"
 
-1315241822 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
+1315346016 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
 	<gtkmm.h>
 
-1315331419 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
+1315346016 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
 	"SecondaryWindow.h"
 	<iostream>
 

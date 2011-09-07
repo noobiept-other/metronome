@@ -20,7 +20,10 @@ class Note
 
 
             //similar to the constructors - defines a new note
-        void newNote (double frequency);
+
+            //returns true if the frequency is close to a known note
+            //even if it isn't, it will still have the nearest note
+        bool newNote (double frequency);
 
         void newNote (std::string note, int octave);
 
@@ -37,7 +40,7 @@ class Note
         void setFrequency (double frequency);
 
 
-        int getNotePosition () const;
+        //int getNotePosition () const;
 
 
             //adds one note (as in, if current note is C, then it goes C#)
@@ -51,7 +54,7 @@ class Note
 
         void calculateFrequency();
 
-        void calculateNote();
+        bool calculateNote();
 
 
         const static int numberOfNotes_obj;    //12 notes
@@ -68,6 +71,9 @@ class Note
 
             //position in the notes_obj array
         int notePosition_obj;
+
+
+        bool isNamedNote_obj;
 
 };
 

@@ -55,7 +55,7 @@ class Main : public Gtk::Window, public Metronome
             //saves the state of the program (which windows were open, the options, etc)
         ~Main();
 
-        void startMetronome();
+        virtual void start();
 
         void openOptions();
 
@@ -126,7 +126,7 @@ bool test();
 
             Gtk::HBox startStopContainer;
 
-                Gtk::Button start;
+                Gtk::Button start_gui;
                 Gtk::Button stop;
 
             Gtk::HBox otherContainer;
