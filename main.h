@@ -11,13 +11,6 @@
 
 
 
-        gravar a posicao da janela no monitor e dps ao iniciar o programa mover para essa posicao
-            convem verificar se essa posicao nao fica fora do monitor (por exemplo usar as mesmas configuracoes
-                                                                        em 2 pcs com monitores diferentes)
-                ver o tamanho maximo, e se passar esse limite ajustar os valores
-
-
-
         reorganizar o codigo...
 
         a configurations, ter uma funcao friend das classes, em vez de ter set/get functions (e n ter global a variavel)
@@ -67,6 +60,8 @@ bool test();
 
     protected:
 
+            //override from Gtk::Window
+        virtual void on_hide ();
 
         virtual void updateTempo();
 

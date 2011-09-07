@@ -9,7 +9,20 @@ SecondaryWindow::SecondaryWindow ()
     : isOpened_var (false)
 
 {
-get_position (x_position, y_position);  //HERE hmmm como inicializar isto
+
+Glib::RefPtr< const Gdk::Screen > screen = get_screen ();
+
+    //get screen dimensions //HERE vai funcionar na janela principal? acho k precisa de estar realizada a janela primeiro..
+int screenWidth = screen->get_width ();
+int screenHeight = screen->get_height ();
+
+    //default position - more or less to the middle of the screen (we would need the window's dimensions to calculate properly)
+    //since we don't know, we'll assume a window of 500 width and 250 height
+    //it will be close enough :)
+x_position = (screenWidth  / 2) - (500 / 2);
+y_position = (screenHeight / 2) - (250 / 2);
+
+
 
     // :::: Events :::: //
 
@@ -24,8 +37,10 @@ void SecondaryWindow::open ()
 {
 isOpened_var = true;
 
+cout << "x " << x_position << " y " << y_position << endl;
 
 this->move (x_position, y_position);
+
 
 this->show();
 }
@@ -35,6 +50,7 @@ this->show();
 void SecondaryWindow::on_hide ()
 {
 this->get_position (x_position, y_position);
+
 
 isOpened_var = false;
 
@@ -66,4 +82,20 @@ if (event->keyval == GDK_KEY_Escape)
     }
 
 return true;
+}
+
+
+
+    //only for loading, the window will be moved when calling open ()
+    //this has to be called first.. hmmm //HERE
+void SecondaryWindow::setPosition (int x, int y)
+{
+x_position = x;
+y_position = y;
+}
+
+
+void SecondaryWindow::getPosition (int& x, int& y)
+{
+this->get_position (x, y);
 }

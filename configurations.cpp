@@ -8,6 +8,15 @@ optionsWindow   = false;
 tunerWindow     = false;
 animationWindow = false;
 
+mainPosition_x = -1;
+mainPosition_y = -1;
+optionsPosition_x = -1; //-1 because if not provided by the external file, then let the position be calculated
+optionsPosition_y = -1;     //HERE uma class para isto?..
+tunerPosition_x = -1;
+tunerPosition_y = -1;
+animationPosition_x = -1;
+animationPosition_y = -1;
+
 isPlaying_metro = true;
 bpm             = 60;
 strongBeats     = 4;
@@ -56,6 +65,7 @@ if (config.is_open() == true)
     double value_realNumber;
 
 
+    // :::: Opened windows :::: //
 
 //HERE melhorar isto
         //useless lines
@@ -63,7 +73,7 @@ if (config.is_open() == true)
     getline (config, line);
     getline (config, line);
 
-        // :::: Options window :::: //
+        // :: Options window :: //
 
     getline (config, line);
 
@@ -77,7 +87,7 @@ if (config.is_open() == true)
         //openOptions();
         }
 
-        // :::: Tuner window :::: //
+        // :: Tuner window :: //
 
     getline (config, line);
 
@@ -90,7 +100,7 @@ if (config.is_open() == true)
         //openTuner();
         }
 
-        // :::: Animation window :::: //
+        // :: Animation window :: //
 
 
     getline (config, line);
@@ -104,6 +114,56 @@ if (config.is_open() == true)
         this->animationWindow = true;
         //openAnimeWindow();
         }
+
+
+        // :::: Window's position :::: //
+
+    getline (config, line);
+    getline (config, line);
+
+        // :: Main position :: //
+
+    getline (config, line);
+
+    mainPosition_x = getPropertyValue (line, "main-x");
+
+    getline (config, line);
+
+    mainPosition_y = getPropertyValue (line, "main-y");
+
+
+        // :: Options position :: //
+
+    getline (config, line);
+
+    optionsPosition_x = getPropertyValue (line, "options-x");
+
+    getline (config, line);
+
+    optionsPosition_y = getPropertyValue (line, "options-y");
+
+
+        // :: Tuner position :: //
+
+    getline (config, line);
+
+    tunerPosition_x = getPropertyValue (line, "tuner-x");
+
+    getline (config, line);
+
+    tunerPosition_y = getPropertyValue (line, "tuner-y");
+
+
+        // :: Animation position :: //
+
+    getline (config, line);
+
+    animationPosition_x = getPropertyValue (line, "animation-x");
+
+    getline (config, line);
+
+    animationPosition_y = getPropertyValue (line, "animation-y");
+
 
 
         // :::: Metronome :::: //

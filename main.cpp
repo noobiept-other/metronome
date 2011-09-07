@@ -217,6 +217,14 @@ loadConfigurations ();
 
 void Main::loadConfigurations()
 {
+    // :: Main window :: //
+
+    //means it has a valid position for the main window
+if (CONFIGURATIONS.mainPosition_x >= 0)
+    {
+    this->move (CONFIGURATIONS.mainPosition_x, CONFIGURATIONS.mainPosition_y);
+    }
+
     // :: Metronome :: //
 
 
@@ -280,6 +288,15 @@ if (CONFIGURATIONS.isPlaying_metro == true)
 
 optionsPage.loadConfigurations ();
 
+
+    //when there's no configuration file, this will have the -1 value
+if (CONFIGURATIONS.optionsPosition_x >= 0)
+    {
+    optionsPage.setPosition (CONFIGURATIONS.optionsPosition_x, CONFIGURATIONS.optionsPosition_y);
+    }
+
+
+
 if (CONFIGURATIONS.optionsWindow == true)
     {
     openOptions ();
@@ -288,6 +305,15 @@ if (CONFIGURATIONS.optionsWindow == true)
     // :: Animation :: //
 
 animeWindow.loadConfigurations ();
+
+
+    //when there's no configuration file, this will have the -1 value
+if (CONFIGURATIONS.animationPosition_x >= 0)
+    {
+    animeWindow.setPosition (CONFIGURATIONS.animationPosition_x, CONFIGURATIONS.animationPosition_y);
+    }
+
+
 
 if (CONFIGURATIONS.animationWindow == true)
     {
@@ -304,6 +330,15 @@ tuner.setNoteFrequency ( CONFIGURATIONS.noteFrequency_tuner );
 tuner.stop ();
 
 */
+
+
+    //when there's no configuration file, this will have the -1 value
+if (CONFIGURATIONS.tunerPosition_x >= 0)
+    {
+    tuner.setPosition (CONFIGURATIONS.tunerPosition_x, CONFIGURATIONS.tunerPosition_y);
+    }
+
+
 
 if (CONFIGURATIONS.tunerWindow == true)
     {
@@ -373,8 +408,6 @@ if (changingStrongBeats == true)
 
 changingStrongBeats = true;
 
-
-cout << "Main::setStrongBeats_fromSpinButton\n";
 
 
 int value = otherBeat.get_value_as_int ();
@@ -478,8 +511,16 @@ changingStrongBeats = false;
 
 void Main::openOptions()
 {
-optionsPage.open();
-//Metronome::openOptions();
+    //if the window is already opened, just bring it to the front
+if (optionsPage.isOpened() == true)
+    {
+    optionsPage.raise ();
+    }
+
+else
+    {
+    optionsPage.open();
+    }
 }
 
 
@@ -500,7 +541,16 @@ else
     }
 
 
-tuner.open();
+    //if the window is opened, then bring it to the front
+if (tuner.isOpened () == true)
+    {
+    tuner.raise ();
+    }
+
+else
+    {
+    tuner.open();
+    }
 }
 
 
@@ -513,6 +563,24 @@ if (wasPlaying_var == true)
     }
 }
 
+
+/*
+    Called when the main window is closed.
+    saves the position of the window
+ */
+
+void Main::on_hide ()
+{
+int x, y;
+
+this->get_position (x, y);
+
+CONFIGURATIONS.mainPosition_x = x;
+CONFIGURATIONS.mainPosition_y = y;
+
+
+Gtk::Window::on_hide ();
+}
 
 
 
@@ -528,12 +596,35 @@ config.open ("config.txt", std::ios::out | std::ios::trunc);
 
 if (config.is_open() == true)
     {
+    int x, y;
+
     config << "Metronome - configuration file\n\n";
 
     config << "Opened windows\n";
     config << "    options: " << optionsPage.isOpened() << "\n";
     config << "    tuner: " << tuner.isOpened() << "\n";
     config << "    animation: " << isAnimeOpened() << "\n";
+
+    config << "\nWindow's position\n";    //HERE falta a janela principal
+
+        //this is updated on the on_hide() function (called when the main window is closed)
+    config << "    main-x: " << CONFIGURATIONS.mainPosition_x << "\n";
+    config << "    main-y: " << CONFIGURATIONS.mainPosition_y << "\n";
+
+    optionsPage.getPosition (x, y);
+
+    config << "    options-x: " << x << "\n";
+    config << "    options-y: " << y << "\n";
+
+    tuner.getPosition (x, y);
+
+    config << "    tuner-x: " << x << "\n";
+    config << "    tuner-y: " << y << "\n";
+
+    animeWindow.getPosition (x, y);
+
+    config << "    animation-x: " << x << "\n";
+    config << "    animation-y: " << y << "\n";
 
     config << "\nMetronome\n";
     config << "    isPlaying_metro: " << Tempo::isPlaying() << "\n";

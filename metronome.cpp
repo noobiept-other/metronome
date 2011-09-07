@@ -110,8 +110,18 @@ return strongBeats_obj;
 
 void Metronome::openAnimeWindow()
 {
-animeWindow.open();
+    //if the window is opened, then bring it to the front
+if (animeWindow.isOpened () == true)
+    {
+    animeWindow.raise ();
+    }
+
+else
+    {
+    animeWindow.open();
+    }
 }
+
 
 bool Metronome::isAnimeOpened () const
 {

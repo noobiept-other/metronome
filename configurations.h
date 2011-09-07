@@ -22,6 +22,16 @@ class Configurations
         bool tunerWindow;
         bool animationWindow;
 
+            //window's position on the screen
+        int mainPosition_x;
+        int mainPosition_y;
+        int optionsPosition_x;
+        int optionsPosition_y;
+        int tunerPosition_x;
+        int tunerPosition_y;
+        int animationPosition_x;
+        int animationPosition_y;
+
             //metronome
         bool isPlaying_metro;
         int bpm;

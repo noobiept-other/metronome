@@ -15,7 +15,9 @@ class SecondaryWindow : public Gtk::Window
 
         bool isOpened() const;
 
+        void setPosition (int x, int y);
 
+        void getPosition (int& x, int& y);
 
     protected:
 
