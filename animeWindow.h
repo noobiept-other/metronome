@@ -4,10 +4,6 @@
 #include <gtkmm.h>
 
 
-#include <iostream>
-using std::cout;
-using std::endl;
-
 #include "SecondaryWindow.h"
 #include "animation.h"
 
@@ -21,9 +17,7 @@ class AnimeWindow : public SecondaryWindow
 
 
         void loadConfigurations ();
-    //void open();
 
-   // bool isOpened() const;
 
         void start();
         void start_strongBeat();
@@ -48,6 +42,8 @@ class AnimeWindow : public SecondaryWindow
 
     protected:
 
+            // :::: Event functions :::: //
+
             //override base function
         virtual void on_hide();
 
@@ -62,26 +58,28 @@ class AnimeWindow : public SecondaryWindow
         void onStrongColorSet();
 
 
-        Gtk::Table container;
+        void fullScreen ();
 
-            Animation animation;
+        bool isFullScreen_var;
 
-            Gtk::HBox buttonsContainer;
-
-                Gtk::Label currentBpm;
-
-                Gtk::Label normalColor;
-                Gtk::ColorButton selectNormalColor;
-
-                Gtk::Label strongBeatColor;
-                Gtk::ColorButton selectStrongColor;
-
-                Gtk::Button changeFullScreen;
+            // :::: Layout stuff :::: //
 
 
+        Gtk::Table container_gui;
 
-        void fullScreen();
-        bool isFullScreen;
+            Animation animation_gui;
+
+            Gtk::HBox buttonsContainer_gui;
+
+                Gtk::Label currentBpm_gui;
+
+                Gtk::Label normalColor_gui;
+                Gtk::ColorButton selectNormalColor_gui;
+
+                Gtk::Label strongBeatColor_gui;
+                Gtk::ColorButton selectStrongColor_gui;
+
+                Gtk::Button changeFullScreen_gui;
 
 };
 

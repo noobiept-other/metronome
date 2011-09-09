@@ -14,9 +14,7 @@
 using std::cout;
 using std::endl;
 
-#include "configurations.h"
 
-extern Configurations CONFIGURATIONS;
 
 
 class Tuner : public SecondaryWindow, public Sound

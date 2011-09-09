@@ -1,10 +1,7 @@
 #ifndef NOTE_GUARD
 #define NOTE_GUARD
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
+#include <string>
 
 class Note
 {
@@ -40,9 +37,6 @@ class Note
         void setFrequency (double frequency);
 
 
-        //int getNotePosition () const;
-
-
             //adds one note (as in, if current note is C, then it goes C#)
         void operator ++ (int);
 
@@ -57,32 +51,25 @@ class Note
         bool calculateNote();
 
 
-        const static int numberOfNotes_obj;    //12 notes
+        const static int numberOfNotes_var;    //12 notes
 
-        const static std::string allNotes_obj[12];
-
-
-
-        std::string note_obj;
-
-        int octave_obj;
-
-        double frequency_obj;
-
-            //position in the notes_obj array
-        int notePosition_obj;
+        const static std::string allNotes_var[12];
 
 
-        bool isNamedNote_obj;
+
+        std::string note_var;
+
+        int octave_var;
+
+        double frequency_var;
+
+            //position in the allNotes_var array, of the current note
+        int notePosition_var;
+
+            //if its one of the standard notes (only when we construct with a frequency, is that this may be false)
+        bool isNamedNote_var;
 
 };
-
-
-
-//const int Note::numberOfNotes_obj = 12;
-
-//const std::string Note::allNotes_obj[] = { "A", "A+", "B", "C", "C+", "D", "D+", "E", "F", "F+", "G", "G+" };
-
 
 
 #endif //NOTE_GUARD

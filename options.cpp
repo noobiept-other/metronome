@@ -6,8 +6,7 @@ extern Configurations CONFIGURATIONS;
 
 Options::Options()
 
-    : //isOpened_var (false),
-      container (3, 1)
+    : container (3, 1)
 
 {
     // :::: Beat duration :::: //
@@ -15,8 +14,13 @@ Options::Options()
 beatDurationLabel.set_label ("Beat duration");
 
 
-    //  //HERE
-Glib::RefPtr<Gtk::Adjustment> beatDurationAdjustment (Gtk::Adjustment::create(200, 50, 300, 1, 5, 0));
+Glib::RefPtr<Gtk::Adjustment> beatDurationAdjustment (
+
+          Gtk::Adjustment::create(CONFIGURATIONS.beatDuration,
+                                  CONFIGURATIONS.beatDurationLowerLimit,
+                                  CONFIGURATIONS.beatDurationUpperLimit, 1, 5, 0)
+
+                                                     );
 
 changeBeatDuration.set_adjustment(beatDurationAdjustment);
 
@@ -40,8 +44,14 @@ beatDurationContainer.set_spacing(10);
 normalLabel.set_label ("Normal beat frequency");
 
 
-    //  //HERE
-Glib::RefPtr<Gtk::Adjustment> normalFreqAdjustment (Gtk::Adjustment::create(440, 20, 20000, 1, 10, 0));
+
+Glib::RefPtr<Gtk::Adjustment> normalFreqAdjustment (
+
+    Gtk::Adjustment::create (CONFIGURATIONS.normalFrequency,
+                             CONFIGURATIONS.frequencyLowerLimit,
+                             CONFIGURATIONS.frequencyUpperLimit, 1, 10, 0)
+
+                                                   );
 
 changeNormalFrequency.set_adjustment(normalFreqAdjustment);
 
@@ -65,8 +75,14 @@ normalFreqContainer.set_spacing(10);
 strongLabel.set_label ("Strong beat frequency");
 
 
-    //  //HERE
-Glib::RefPtr<Gtk::Adjustment> strongFreqAdjustment (Gtk::Adjustment::create(440, 20, 20000, 1, 10, 0));
+
+Glib::RefPtr<Gtk::Adjustment> strongFreqAdjustment (
+
+    Gtk::Adjustment::create(CONFIGURATIONS.strongFrequency,
+                            CONFIGURATIONS.frequencyLowerLimit,
+                            CONFIGURATIONS.frequencyUpperLimit, 1, 10, 0)
+
+                                                   );
 
 changeStrongFrequency.set_adjustment(strongFreqAdjustment);
 

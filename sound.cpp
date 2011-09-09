@@ -2,101 +2,91 @@
 
 
 
-Sound::Sound(double normalFrequency)
+Sound::Sound(double normalFrequency, double strongFrequency)
 
-	: normalFrequency_obj (normalFrequency),
-      diffFrequency_obj   (150),
-      isPlaying_obj       (false)
+	: normalFrequency_var (normalFrequency),
+      strongFrequency_var (strongFrequency),
+      isPlaying_var       (false)
 
 {
-    //HERE
-strongFrequency_obj = normalFrequency + diffFrequency_obj;
+pipeline_var = Gst::Pipeline::create("sound");
 
 
+source_var = Gst::ElementFactory::create_element ("audiotestsrc", "source");
+sink_var   = Gst::ElementFactory::create_element ("autoaudiosink", "output");
 
-m_pipeline = Gst::Pipeline::create("sound");     //HERE ter que passar estes nomes como argumento, senao n consigo ter + k 1 objecto da classe
+pipeline_var->add (source_var);
+pipeline_var->add (sink_var);
 
-m_source = Gst::ElementFactory::create_element("audiotestsrc", "source");
-m_sink = Gst::ElementFactory::create_element ("autoaudiosink", "output");
+source_var->link (sink_var);
 
-m_pipeline->add(m_source);
-m_pipeline->add(m_sink);
-m_source->link(m_sink);
-
-m_source->set_property("freq", normalFrequency);
+source_var->set_property ("freq", normalFrequency);
 }
 
 
 
+/*
+    Plays the normal frequency, until stopPlaying() is called
+ */
+
 void Sound::play ()
 {
-m_source->set_property("freq", normalFrequency_obj);
+source_var->set_property ("freq", normalFrequency_var);
 
-m_pipeline->set_state(Gst::STATE_PLAYING);
+pipeline_var->set_state (Gst::STATE_PLAYING);
 
-isPlaying_obj = true;
+isPlaying_var = true;
 }
 
 
 
 void Sound::play_strongBeat()
 {
-m_source->set_property("freq", strongFrequency_obj);
+source_var->set_property ("freq", strongFrequency_var);
 
-m_pipeline->set_state(Gst::STATE_PLAYING);
+pipeline_var->set_state (Gst::STATE_PLAYING);
 
-isPlaying_obj = true;
+isPlaying_var = true;
 }
 
 
 
 void Sound::play (double frequency)
 {
-m_source->set_property("freq", frequency);
+source_var->set_property ("freq", frequency);
 
-m_pipeline->set_state(Gst::STATE_PLAYING);
+pipeline_var->set_state (Gst::STATE_PLAYING);
 
-isPlaying_obj = true;
+isPlaying_var = true;
 }
 
 
 
 void Sound::stopPlaying()
 {
-m_pipeline->set_state(Gst::STATE_NULL);
+pipeline_var->set_state (Gst::STATE_NULL);
 
-isPlaying_obj = false;
+isPlaying_var = false;
 }
 
 
 
 void Sound::setFrequency (int frequency)
 {
-    //see if its within the audible range (maybe I can reduce this range?... //HERE )
-if (frequency < 20 || frequency > 20000)
-    {
-    return; //HERE hmmmm n devo precisar?.. ele esta limitado no SpinButton
-    }
-
-
-normalFrequency_obj = frequency;
-
-//strongFrequency_obj = frequency + diffFrequency_obj;
-
-//m_source->set_property("freq", frequency);
+normalFrequency_var = frequency;
 }
 
 
 void Sound::setStrongFrequency (int frequency)
 {
-strongFrequency_obj = frequency;
+strongFrequency_var = frequency;
 }
 
 
 
 bool Sound::isPlaying() const
 {
-return isPlaying_obj;
+return isPlaying_var;
 }
 
 
@@ -104,11 +94,11 @@ return isPlaying_obj;
 
 double Sound::getNormalFrequency() const
 {
-return normalFrequency_obj;
+return normalFrequency_var;
 }
 
 
 double Sound::getStrongFrequency() const
 {
-return strongFrequency_obj;
+return strongFrequency_var;
 }

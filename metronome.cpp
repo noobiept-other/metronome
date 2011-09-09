@@ -127,24 +127,3 @@ bool Metronome::isAnimeOpened () const
 {
 return animeWindow.isOpened();
 }
-
-/*
-void Metronome::openTuner()
-{
-if (Tempo::isPlaying() == true)
-    {
-    this->stop();
-    }
-
-    //HERE ao fechar o tuner, era fixe se ele comeca-se a tocar o metronomo (caso estivesse nesse estado antes de abrir)
-    //por enquanto simplesmente estah parado
-tuner.open();
-}
-*/
-/*
-
-void Metronome::openOptions()
-{
-optionsPage.open();
-}
-*/

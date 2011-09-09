@@ -9,115 +9,118 @@ extern Configurations CONFIGURATIONS;
 
 AnimeWindow::AnimeWindow(int bpm)
 
-    : container(2, 1),
-      isFullScreen(false)
+    : isFullScreen_var (false),
+      container_gui    (2, 1)
 
 {
+    // :::: Show current bpm :::: //
+
     //sets the label of the currentBpm element with the current bpm
 updateBpm(bpm);
 
 
-changeFullScreen.set_label("Full screen");
+    // :::: Change to full screen :::: //
+
+changeFullScreen_gui.set_label("Full screen");
 
 
 
-normalColor.set_label("Normal beat");
+    // :::: Change normal color :::: //
 
-selectNormalColor.set_title ("Select a color");
-selectNormalColor.set_rgba  (animation.getColor());
+normalColor_gui.set_label("Normal beat");
 
-
-strongBeatColor.set_label("Strong beat");
-
-selectStrongColor.set_title("Select a color");
-selectStrongColor.set_rgba(animation.getStrongColor());
+selectNormalColor_gui.set_title ("Select a color");
+selectNormalColor_gui.set_rgba  (animation_gui.getColor());
 
 
-buttonsContainer.set_spacing(10);
+    // :::: Change strong color :::: //
+
+strongBeatColor_gui.set_label("Strong beat");
+
+selectStrongColor_gui.set_title("Select a color");
+
+selectStrongColor_gui.set_rgba(animation_gui.getStrongColor());
 
 
-buttonsContainer.pack_start (currentBpm);
+    // :::: Buttons container :::: //
 
-buttonsContainer.pack_start(normalColor);
-buttonsContainer.pack_start(selectNormalColor);
-
-buttonsContainer.pack_start(strongBeatColor);
-buttonsContainer.pack_start(selectStrongColor);
+buttonsContainer_gui.set_spacing(10);
 
 
-buttonsContainer.pack_start(changeFullScreen);
+buttonsContainer_gui.pack_start (currentBpm_gui);
 
-container.attach (animation, 0, 1, 0, 1);
+buttonsContainer_gui.pack_start(normalColor_gui);
+buttonsContainer_gui.pack_start(selectNormalColor_gui);
+
+buttonsContainer_gui.pack_start(strongBeatColor_gui);
+buttonsContainer_gui.pack_start(selectStrongColor_gui);
+
+
+buttonsContainer_gui.pack_start(changeFullScreen_gui);
+
+container_gui.attach (animation_gui, 0, 1, 0, 1);
 
     //use the SHRINK on the yoption, so that the buttons don't grow in size when resizing the window
-container.attach (buttonsContainer, 0, 1, 1, 2, Gtk::FILL | Gtk::EXPAND, Gtk::SHRINK);
+container_gui.attach (buttonsContainer_gui, 0, 1, 1, 2, Gtk::FILL | Gtk::EXPAND, Gtk::SHRINK);
+
+
+    // :::: Window :::: //
+
+
+this->set_title ("Animation");
+
+this->set_default_size (400, 300);
 
 
 
-    //set the events
+this->add (container_gui);
+
+this->show_all_children();
 
 
-selectNormalColor.signal_color_set().connect( sigc::mem_fun(*this, &AnimeWindow::onColorSet) );
-
-selectStrongColor.signal_color_set().connect( sigc::mem_fun(*this, &AnimeWindow::onStrongColorSet) );
+    // :::: Set the events :::: //
 
 
+selectNormalColor_gui.signal_color_set().connect( sigc::mem_fun(*this, &AnimeWindow::onColorSet) );
 
-changeFullScreen.signal_clicked().connect( sigc::mem_fun(*this, &AnimeWindow::fullScreen) );
-//openAnimation.signal_clicked().connect( sigc::mem_fun(animeWindow, &AnimeWindow::open) );
+selectStrongColor_gui.signal_color_set().connect( sigc::mem_fun(*this, &AnimeWindow::onStrongColorSet) );
+
+
+changeFullScreen_gui.signal_clicked().connect( sigc::mem_fun(*this, &AnimeWindow::fullScreen) );
 
 
 
-add_events( Gdk::KEY_PRESS_MASK );
+    // keyboard events
+
+this->add_events( Gdk::KEY_PRESS_MASK );
 
 this->signal_key_release_event().connect ( sigc::mem_fun(*this, &AnimeWindow::onKeyRelease) );
-
-
-
-set_title ("Animation");
-
-set_default_size (400, 300);
-
-//add_action_widget(container, 1);
-
-
-add (container);
-
-show_all_children();
 }
 
 
 
+/*
+    Is only called in the beginning of the program
+ */
 
 void AnimeWindow::loadConfigurations ()
 {
 setColor (CONFIGURATIONS.normalColor);
-selectNormalColor.set_rgba (CONFIGURATIONS.normalColor);
+selectNormalColor_gui.set_rgba (CONFIGURATIONS.normalColor);
 
 setStrongColor (CONFIGURATIONS.strongColor);
-selectStrongColor.set_rgba (CONFIGURATIONS.strongColor);
+selectStrongColor_gui.set_rgba (CONFIGURATIONS.strongColor);
 }
-/*
-void AnimeWindow::open ()
-{
-isOpened_var = true;
 
-show();
-}
-*/
-/*
-bool AnimeWindow::isOpened() const
-{
-return isOpened_var;
-}
-*/
+
+
 
 void AnimeWindow::start()
 {
     //no point in doing anything with the window closed
 if (isOpened() == true)
     {
-    animation.start();
+    animation_gui.start();
     }
 
 }
@@ -129,7 +132,7 @@ void AnimeWindow::start_strongBeat()
     //no point in doing anything with the window closed
 if (isOpened() == true)
     {
-    animation.start_strongBeat();
+    animation_gui.start_strongBeat();
     }
 }
 
@@ -140,7 +143,7 @@ void AnimeWindow::stop()
     //no point in doing anything with the window closed
 if (isOpened() == true)
     {
-    animation.stop();
+    animation_gui.stop();
     }
 }
 
@@ -148,36 +151,38 @@ if (isOpened() == true)
 void AnimeWindow::fullScreen()
 {
     //we take out the full screen
-if (isFullScreen == true)
+if (isFullScreen_var == true)
     {
-    isFullScreen = false;
+    isFullScreen_var = false;
 
-    unfullscreen();
+    this->unfullscreen();
     }
 
     //ask for full screen mode
 else
     {
-    isFullScreen = true;
+    isFullScreen_var = true;
 
-    fullscreen();   //Gtk::Window's version
+    this->fullscreen();   //from Gtk::Window
     }
 
 
 }
 
 
+
+
 void AnimeWindow::on_hide()
 {
     //take out the full screen (so that when opening again the animation window, it doesn't open in full screen mode)
-if (isFullScreen == true)
+if (isFullScreen_var == true)
     {
     unfullscreen();
 
         //when calling unfullscreen(), it leaves the window occupying the whole screen, so resize to the default values
     resize (property_default_width(), property_default_height());
 
-    isFullScreen = false;
+    isFullScreen_var = false;
     }
 
 
@@ -187,27 +192,30 @@ SecondaryWindow::on_hide ();
 
 
 
+/*
+    When pressing esc, it goes off fullscreen mode
+    otherwise, its just the normal behaviour from SecondaryWindow
+ */
+
 bool AnimeWindow::onKeyRelease(GdkEventKey *event)
 {
 if (event->keyval == GDK_KEY_Escape)
     {
         //we change the window back to the dimensions it had before
-    if (isFullScreen == true)
+    if (isFullScreen_var == true)
         {
         unfullscreen();
 
             //when calling unfullscreen(), it leaves the window occupying the whole screen, so resize to the default values
         resize (property_default_width(), property_default_height());
 
-        isFullScreen = false;
+        isFullScreen_var = false;
         }
 
         //we close the window
     else
         {
         SecondaryWindow::on_hide();
-
-        //this->hide();
         }
     }
 
@@ -218,44 +226,50 @@ return true;
 
 void AnimeWindow::onColorSet()
 {
-animation.setColor(selectNormalColor.get_rgba());
+animation_gui.setColor(selectNormalColor_gui.get_rgba());
 }
 
 
 
 void AnimeWindow::onStrongColorSet()
 {
-animation.setStrongColor(selectStrongColor.get_rgba());
+animation_gui.setStrongColor(selectStrongColor_gui.get_rgba());
 }
+
 
 
 void AnimeWindow::updateBpm (int bpm)
 {
 std::stringstream tempBpm;
 
+    //convert to string
 tempBpm << bpm << " bpm";
-currentBpm.set_label (tempBpm.str());
+
+currentBpm_gui.set_label (tempBpm.str());
 }
+
 
 
 Gdk::RGBA AnimeWindow::getColor() const
 {
-return animation.getColor ();
+return animation_gui.getColor ();
 }
+
+
 
 Gdk::RGBA AnimeWindow::getStrongColor() const
 {
-return animation.getStrongColor();
+return animation_gui.getStrongColor();
 }
 
-//HERE
+
 void AnimeWindow::setColor (Gdk::RGBA newColor)
 {
-animation.setColor (newColor);
+animation_gui.setColor (newColor);
 }
 
 
 void AnimeWindow::setStrongColor (Gdk::RGBA newColor)
 {
-animation.setStrongColor (newColor);
+animation_gui.setStrongColor (newColor);
 }

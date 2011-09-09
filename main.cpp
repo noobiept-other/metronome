@@ -25,6 +25,9 @@ return 0;
 
 
 
+
+
+
 Main::Main ()
 
     : changingStrongBeats (false),
@@ -45,7 +48,13 @@ tempoBpm.set_label ("bpm");
 
 
     //start at 60, with limits from 30 to 300 - step is 1
-Glib::RefPtr<Gtk::Adjustment> tempoAdjustment (Gtk::Adjustment::create(CONFIGURATIONS.bpm, 30, 300, 1, 5, 0));
+Glib::RefPtr<Gtk::Adjustment> tempoAdjustment (
+
+       Gtk::Adjustment::create (CONFIGURATIONS.bpm,
+                                CONFIGURATIONS.bpmLowerLimit,
+                                CONFIGURATIONS.bpmUpperLimit, 1, 5, 0)
+
+                                              );
 
 changeTempo.set_adjustment (tempoAdjustment);
 changeTempo.set_numeric (true);
@@ -85,7 +94,13 @@ threeBeats.set_group (group);
 fourBeats.set_group  (group);
 
 
-Glib::RefPtr<Gtk::Adjustment> otherBeatAdjustment (Gtk::Adjustment::create(4, 1, 10, 1, 2, 0));
+Glib::RefPtr<Gtk::Adjustment> otherBeatAdjustment (
+
+       Gtk::Adjustment::create(CONFIGURATIONS.strongBeats,
+                               1,               //the lower limit
+                               CONFIGURATIONS.strongBeatsUpperLimit, 1, 2, 0)
+
+                                                  );
 
 otherBeat.set_adjustment (otherBeatAdjustment);
 otherBeat.set_numeric (true);
@@ -213,6 +228,8 @@ loadConfigurations ();
 
 /*
     Loads the configurations from the external file
+    ( //HERE would be nice to have this on the Configurations class, and have main be a friend class,
+        I tried that but ended up with 'linking' problems...)
  */
 
 void Main::loadConfigurations()
@@ -339,7 +356,7 @@ if (CONFIGURATIONS.tunerPosition_x >= 0)
     }
 
 
-
+    //open the tuner window from the start
 if (CONFIGURATIONS.tunerWindow == true)
     {
     openTuner (); //HERE ao fechar a janela, o metronomo esta sempre parado... (a cena do wasPlaying...)
@@ -349,19 +366,18 @@ if (CONFIGURATIONS.tunerWindow == true)
         tuner.stopPlaying ();
         }
 
-        //bring the tuner window to the front
-    //tuner.raise();  //HERE n parece k resulta
-    //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Main::test),
-	     //                          1000);
-    //this->signal_realize().connect ( sigc::mem_fun (*this, &Main::test) );//HERE doesnt work as well
-    Glib::signal_idle ().connect ( sigc::mem_fun (*this, &Main::test) ); //HERE melhorar isto (se calhar funcao anonima?)
+        //bring the tuner window to the front (since the main window is still not done, we're attaching a function
+        //to be called whenever there's nothing to do)
+        //HERE could use an anonymous function here, but doesn't seem to work with sigc
+    Glib::signal_idle ().connect ( sigc::mem_fun (*this, &Main::bringTunerToFront) );
+    //Glib::signal_idle ().connect ( sigc::ptr_fun ( [this] () -> bool { this->tuner.raise (); return false; } ) );
     }
 }
 
 
-bool Main::test()
+bool Main::bringTunerToFront()
 {
-tuner.raise();  //HERE
+tuner.raise();
 
     //cancel idle function
 return false;
@@ -398,7 +414,12 @@ this->setBpm (value);
 
 
 
-//HERE
+
+/*
+    //HERE o setStrongBeats esta separado em 2 funcoes, devido a ao alterar os valores, activar os eventos
+    dos RadioButton. Assim controla-se isso, com uma flag (changingStrongBeats)
+ */
+
 void Main::setStrongBeats_fromSpinButton ()
 {
 if (changingStrongBeats == true)
@@ -459,6 +480,7 @@ Metronome::setStrongBeats (value);
 
 changingStrongBeats = false;
 }
+
 
 
 /*
@@ -605,23 +627,59 @@ if (config.is_open() == true)
     config << "    tuner: " << tuner.isOpened() << "\n";
     config << "    animation: " << isAnimeOpened() << "\n";
 
-    config << "\nWindow's position\n";    //HERE falta a janela principal
+    config << "\nWindow's position\n";
 
         //this is updated on the on_hide() function (called when the main window is closed)
     config << "    main-x: " << CONFIGURATIONS.mainPosition_x << "\n";
     config << "    main-y: " << CONFIGURATIONS.mainPosition_y << "\n";
 
-    optionsPage.getPosition (x, y);
+        //get the position of the window
+    if (optionsPage.isOpened() == true)
+        {
+        optionsPage.getPosition (x, y);
+        }
+
+        //let the window go to the default position next time the program starts
+    else
+        {
+        x = -1;
+        y = -1;
+        }
+
 
     config << "    options-x: " << x << "\n";
     config << "    options-y: " << y << "\n";
 
-    tuner.getPosition (x, y);
+        //get the position of the window
+    if (tuner.isOpened() == true)
+        {
+        tuner.getPosition (x, y);
+        }
+
+        //let the window go to the default position next time the program starts
+    else
+        {
+        x = -1;
+        y = -1;
+        }
+
 
     config << "    tuner-x: " << x << "\n";
     config << "    tuner-y: " << y << "\n";
 
-    animeWindow.getPosition (x, y);
+
+            //get the position of the window
+    if (animeWindow.isOpened() == true)
+        {
+        animeWindow.getPosition (x, y);
+        }
+
+        //let the window go to the default position next time the program starts
+    else
+        {
+        x = -1;
+        y = -1;
+        }
 
     config << "    animation-x: " << x << "\n";
     config << "    animation-y: " << y << "\n";

@@ -3,7 +3,34 @@
 
 /*
 
+    Naming conventions:
+
+        Global variables:
+
+            All characters capitalized
+                (like, EXAMPLE)
+
+        class name:
+
+            First character capitalized
+                (like, Example)
+
+        gtkmm related class variables (for the buttons, containers, etc):
+
+            ending in _gui (from, graphical user interface)
+                (like example_gui)
+
+        normal class variables (that don't conform with anything above):
+
+            ending in _var (from, variable)
+                (like, example_var)
+
+
+
     To doo:
+
+
+        ter a possibilidade de ter diferentes tipos de som (ver audiotestsrc - gstreamer)
 
 
         window.set_icon() ou .set_icon_from_file()
@@ -55,7 +82,7 @@ class Main : public Gtk::Window, public Metronome
 
         void openTuner();
 
-bool test();
+
         //Configurations configurations;
 
     protected:
@@ -76,7 +103,8 @@ bool test();
 
         void loadConfigurations();
 
-       // double getPropertyValue (string line, string property);
+        bool bringTunerToFront();
+
 
 
         virtual void setStrongBeats (Gtk::RadioButton* widget, int beat);

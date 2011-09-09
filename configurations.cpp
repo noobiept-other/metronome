@@ -2,6 +2,18 @@
 
 
 Configurations::Configurations ()
+
+    : frequencyLowerLimit (200),
+      frequencyUpperLimit (12000),
+
+      bpmLowerLimit (30),
+      bpmUpperLimit (300),
+
+      strongBeatsUpperLimit (10),
+
+      beatDurationLowerLimit (50),
+      beatDurationUpperLimit (300)
+
 {
     //set the defaults
 optionsWindow   = false;
@@ -26,7 +38,7 @@ normalFrequency = 440;   //A4 - 440 Hz
 strongFrequency = 440 + 150; //HERE hmmm
 
 normalColor.set_rgba (0, 0, 1, 1);    //blue color
-strongColor.set_rgba (1, 0, 1, 1);   //HERE hmmm
+strongColor.set_rgba (1, 0, 0, 1);    //red color
 
 isPlaying_tuner = false;
 noteFrequency_tuner = 440;
@@ -43,13 +55,15 @@ try
 
 catch (...)
     {
-    cout << "exception occurred, when trying the Main::loadConfigurations()\n";
+    std::cout << "exception occurred, when trying the Configurations::readConfigurations()\n";
     }
 }
 
 
 
-
+/*
+    Update the configurations with the values from the external file
+ */
 
 void Configurations::readConfigurations ()
 {
@@ -67,7 +81,6 @@ if (config.is_open() == true)
 
     // :::: Opened windows :::: //
 
-//HERE melhorar isto
         //useless lines
     getline (config, line);
     getline (config, line);
@@ -84,7 +97,6 @@ if (config.is_open() == true)
     if (value != 0)
         {
         this->optionsWindow = true;
-        //openOptions();
         }
 
         // :: Tuner window :: //
@@ -97,7 +109,6 @@ if (config.is_open() == true)
     if (value != 0)
         {
         this->tunerWindow = true;
-        //openTuner();
         }
 
         // :: Animation window :: //
@@ -112,7 +123,6 @@ if (config.is_open() == true)
     if (value != 0)
         {
         this->animationWindow = true;
-        //openAnimeWindow();
         }
 
 
@@ -172,7 +182,7 @@ if (config.is_open() == true)
     getline (config, line);
 
 
-        // :::: isPlaying :::: //
+        // :: isPlaying :: //
 
     getline (config, line);
 
@@ -183,17 +193,17 @@ if (config.is_open() == true)
         this->isPlaying_metro = false;
         }
 
-        // :::: Bpm :::: //
+        // :: Bpm :: //
 
     getline (config, line);
 
     value = getPropertyValue(line, "bpm");
 
-    this->bpm = value;
+    this->bpm = checkLimits (value, bpmLowerLimit, bpmUpperLimit);
 
 
 
-        // :::: Strong beat :::: //
+        // :: Strong beat :: //
 
     getline (config, line);
 
@@ -201,7 +211,7 @@ if (config.is_open() == true)
     value = getPropertyValue(line, "strongBeats");
 
 
-    this->strongBeats = value;
+    this->strongBeats = checkLimits (value, 1, strongBeatsUpperLimit);
 
 
         // :::: Options :::: //
@@ -210,31 +220,31 @@ if (config.is_open() == true)
     getline (config, line);
 
 
-        // :::: beat duration :::: //
+        // :: beat duration :: //
 
     getline (config, line);
 
     value = getPropertyValue (line, "beatDuration");
 
-    this->beatDuration = value;
+    this->beatDuration = checkLimits (value, beatDurationLowerLimit, beatDurationUpperLimit);
 
 
-        // :::: normal frequency :::: //
+        // :: normal frequency :: //
 
     getline (config, line);
 
     value_realNumber = getPropertyValue (line, "normalFrequency");
 
-    this->normalFrequency = value_realNumber;
+    this->normalFrequency = checkLimits (value_realNumber, frequencyLowerLimit, frequencyUpperLimit);
 
 
-        // :::: strong frequency :::: //
+        // :: strong frequency :: //
 
     getline (config, line);
 
     value_realNumber = getPropertyValue (line, "strongFrequency");
 
-    this->strongFrequency = value_realNumber;
+    this->strongFrequency = checkLimits (value_realNumber, frequencyLowerLimit, frequencyUpperLimit);
 
 
         // :::: Animation :::: //
@@ -242,7 +252,7 @@ if (config.is_open() == true)
     getline (config, line);
     getline (config, line);
 
-        // :::: normal color :::: //
+        // :: normal color :: //
 
     double red, green, blue, alpha;
 
@@ -270,7 +280,7 @@ if (config.is_open() == true)
     this->normalColor.set_rgba (red, green, blue, alpha);
 
 
-        // :::: strong color :::: //
+        // :: strong color :: //
 
     getline (config, line);
 
@@ -300,7 +310,7 @@ if (config.is_open() == true)
     getline (config, line);
     getline (config, line);
 
-        // :::: isPlaying_tuner :::: //
+        // :: isPlaying_tuner :: //
 
     getline (config, line);
 
@@ -308,13 +318,13 @@ if (config.is_open() == true)
 
     this->isPlaying_tuner = value;
 
-        // :::: Note frequency :::: //
+        // :: Note frequency :: //
 
     getline (config, line);
 
     value_realNumber = getPropertyValue (line, "noteFrequency_tuner");
 
-    this->noteFrequency_tuner = value_realNumber;
+    this->noteFrequency_tuner = checkLimits (value_realNumber, frequencyLowerLimit, frequencyUpperLimit);
 
 
     config.close();
@@ -322,126 +332,6 @@ if (config.is_open() == true)
 }
 
 
-
-
-/*
-void Configurations::loadConfigurations (Main& main)
-{
-    // :: Metronome :: //
-
-
-main.setBpm (this->bpm);
-
-    //set the inconsistent state
-if (this->strongBeats > 4)
-    {
-    main.oneBeat.set_inconsistent (true);
-    main.twoBeats.set_inconsistent (true);
-    main.threeBeats.set_inconsistent (true);
-    main.fourBeats.set_inconsistent (true);
-
-    main.otherBeat.set_value (this->strongBeats);
-    }
-
-else
-    {
-    switch (this->strongBeats)
-        {
-        case 1:
-
-            main.oneBeat.set_active ();
-            break;
-
-        case 2:
-
-            main.twoBeats.set_active ();
-            break;
-
-        case 3:
-
-            main.threeBeats.set_active ();
-            break;
-
-        case 4:
-
-            main.fourBeats.set_active ();
-            break;
-        }
-    }
-
-
-
-main.Metronome::setStrongBeats (this->strongBeats);
-
-
-main.setDuration ( this->beatDuration );
-
-main.setFrequency ( this->normalFrequency );
-main.setStrongFrequency ( this->strongFrequency );
-
-
-if (this->isPlaying_metro == true)
-    {
-    main.Metronome::start();
-    }
-
-
-    // :: Options :: //
-
-main.optionsPage.loadConfigurations ();
-
-if (this->optionsWindow == true)
-    {
-    main.openOptions ();
-    }
-
-    // :: Animation :: //
-
-main.animeWindow.loadConfigurations ();
-
-if (this->animationWindow == true)
-    {
-    main.openAnimeWindow ();
-    }
-
-    // :: Tuner :: //
-
-main.tuner.setNoteFrequency ( this->noteFrequency_tuner );
-
-    //when changing the note frequency, it triggers an event which starts the tuner
-main.tuner.stop ();
-
-
-
-if (this->tunerWindow == true)
-    {
-    main.openTuner (); //HERE ao fechar a janela, o metronomo esta sempre parado... (a cena do wasPlaying...)
-
-    if (this->isPlaying_tuner == false)
-        {
-        main.tuner.stop ();
-        }
-
-        //bring the tuner window to the front
-    //tuner.raise();  //HERE n parece k resulta
-    //Glib::signal_timeout().connect(sigc::mem_fun(*this, &Main::test),
-	     //                          1000);
-    //this->signal_realize().connect ( sigc::mem_fun (*this, &Main::test) );//HERE doesnt work as well
-    Glib::signal_idle ().connect ( sigc::bind<Main&> (sigc::mem_fun (*this, &Configurations::test), main) ); //HERE melhorar isto (se calhar funcao anonima?)
-    }
-
-}
-
-
-bool Configurations::test(Main& main)
-{
-main.tuner.raise();  //HERE
-
-    //cancel idle function
-return false;
-}
-
-*/
 
 
 
@@ -481,4 +371,31 @@ double number = 0;
 stream >> number;   //HERE testar qd nao encontra um numero...
 
 return number;
+}
+
+
+
+
+
+/*
+    Checks if a value is within the limits, if it passes that limit, then we return the closer limit
+    (for example, if the lower limit is 200, and we have value of 100 Hz, its returned the lower limit (200))
+ */
+
+double Configurations::checkLimits (double value, double lowerLimit, double upperLimit) const
+{
+if (value < lowerLimit)
+    {
+    return lowerLimit;
+    }
+
+else if (value > upperLimit)
+    {
+    return upperLimit;
+    }
+
+else
+    {
+    return value;
+    }
 }

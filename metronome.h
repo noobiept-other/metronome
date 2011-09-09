@@ -35,9 +35,6 @@ class Metronome : public Tempo, public Sound
 
         bool isAnimeOpened () const;
 
-        //void openTuner();
-
-        //void openOptions();
 
         virtual void setStrongBeats (int strongBeats);
 
@@ -62,6 +59,8 @@ class Metronome : public Tempo, public Sound
 
 
     private:
+
+
 
         //Sound sound;
         //Options optionsPage;

@@ -2,16 +2,22 @@
 
 #include <cmath>
 
-const int Note::numberOfNotes_obj = 12;
+    //Note's static variables
+const int Note::numberOfNotes_var = 12;
 
-const std::string Note::allNotes_obj[] = { "A", "A+", "B", "C", "C+", "D", "D+", "E", "F", "F+", "G", "G+" };
+const std::string Note::allNotes_var[] = { "A", "A+", "B", "C", "C+", "D", "D+", "E", "F", "F+", "G", "G+" };
 
 
-Note::Note(std::string note, int octave)
 
-    : note_obj (note),
-      octave_obj (octave),
-      isNamedNote_obj (true)
+/*
+    Constructing a note with a standard note ( A4, D2 , ...)
+ */
+
+Note::Note (std::string note, int octave)
+
+    : note_var (note),
+      octave_var (octave),
+      isNamedNote_var (true)
 
 {
 findPosition();
@@ -19,19 +25,26 @@ calculateFrequency();
 }
 
 
+
+/*
+    Constructing a note with a sound frequency
+    It will probably not match a standard note (not that there's any problem with that)
+ */
+
 Note::Note(double frequency)
 
-    : frequency_obj (frequency)
+    : frequency_var (frequency)
 
 {
 calculateNote();
 }
 
 
+
     //similar to the constructor
-bool Note::newNote(double frequency)
+bool Note::newNote (double frequency)
 {
-frequency_obj = frequency;
+frequency_var = frequency;
 
 return calculateNote();
 }
@@ -41,36 +54,42 @@ return calculateNote();
     //similar to the constructor
 void Note::newNote (std::string note, int octave)
 {
-note_obj = note;
-octave_obj = octave;
-isNamedNote_obj = true;
+note_var = note;
+octave_var = octave;
+isNamedNote_var = true;
 
 
 findPosition();
 calculateFrequency();
-
-//cout << "endOf_newNote: note " << note_obj << " notePosition " << notePosition_obj << " freq " << frequency_obj << endl;
 }
 
 
+
+/*
+    Finds the note position in the allNotes_var array
+    So, if our note is A, then the position is 0, if its B its the position 2
+ */
+
 void Note::findPosition ()
 {
-for (int i = 0 ; i < numberOfNotes_obj ; i++)
+for (int i = 0 ; i < numberOfNotes_var ; i++)
     {
-        //cout << "note " << note_obj << " allNotes " << allNotes_obj[i] << endl;
-
         //find the note
-    if (note_obj == allNotes_obj[i])
+    if (note_var == allNotes_var[i])
         {
-        notePosition_obj = i;
-
-        //note_obj = allNotes_obj[i];
+        notePosition_var = i;
 
         return;
         }
     }
 }
 
+
+
+/*
+    Get the frequency of the note, from knowing the letter of the note, and the octave (for standard notes only)
+    (we also have a valid notePosition_var)
+ */
 
 void Note::calculateFrequency()
 {
@@ -79,21 +98,17 @@ void Note::calculateFrequency()
         (so if our note is B4, then the difference is 2 - A4, A+4, B4.. two steps)
 
         and we have to consider the octave as well, so if our note is B3, then
-        we have the 2 plus the octave (there are 12 notes in total)
-        so we get 10 as the difference (2 - 12)
+        we have the 2 minus the octave (there are 12 notes in total)
+        so we get -10 as the difference (2 - 12)
     */
 
 
 
-
-
-int diffOfNotes = notePosition_obj - 12 * (4 - octave_obj);
+int diffOfNotes = notePosition_var - 12 * (4 - octave_var);
 
     //I just got this formula off wikipedia so... :)
     //in theory, you can use any frequency for music.. although in western music we're 'limited' to a set of notes (calculated with this formula)
-frequency_obj = 440 * std::pow(2, diffOfNotes / 12.0);
-
-//cout << "calcFreq: note position " << notePosition_obj << " freq " << frequency_obj << endl;
+frequency_var = 440 * std::pow(2, diffOfNotes / 12.0);
 }
 
 
@@ -106,9 +121,9 @@ frequency_obj = 440 * std::pow(2, diffOfNotes / 12.0);
 bool Note::calculateNote ()
 {
     //do the same formula in the calculateFrequency() function
-    //but now we're looking for the diffOfNotes, and have the frequency_obj
+    //but now we're looking for the diffOfNotes, and have the frequency_var
     //diff = 12 * log2 (freq / 440)
-double diffOfNotes_temp = 12.0 * (std::log10(frequency_obj / 440) / std::log10(2));
+double diffOfNotes_temp = 12.0 * (std::log10(frequency_var / 440) / std::log10(2));
 
 
 int diffOfNotes = diffOfNotes_temp;
@@ -118,12 +133,12 @@ int diffOfNotes = diffOfNotes_temp;
     //since there may be some calculation errors, we're giving it a range, not doing a equality check
 if ((diffOfNotes_temp - diffOfNotes) < 0.1)
     {
-    isNamedNote_obj = true;
+    isNamedNote_var = true;
     }
 
 else
     {
-    isNamedNote_obj = false;
+    isNamedNote_var = false;
     }
 
 
@@ -134,7 +149,7 @@ if (diffOfNotes_temp - diffOfNotes > 0.5)
     }
 
 
-    //now we need the notePosition_obj and the octave_obj
+    //now we need the notePosition_var and the octave_var
     //since we have the difference of notes, we can get these values
     //we know that to get from one note to the octave, there's 12 steps (notes)
     //so just substract 12 to get the number of octaves, and the rest is the notePosition
@@ -164,53 +179,53 @@ else
         }
     }
 
-octave_obj = octave;
+octave_var = octave;
 
     //after we remove all the octaves, whats left is the notePosition
-notePosition_obj = diffOfNotes;
+notePosition_var = diffOfNotes;
 
 
     //now get the string representing the note
-note_obj = allNotes_obj[notePosition_obj];
+note_var = allNotes_var[notePosition_var];
 
 
-return isNamedNote_obj;
+return isNamedNote_var;
 }
 
 
 
 int Note::getOctave () const
 {
-return octave_obj;
+return octave_var;
 }
 
 
 
 std::string Note::getNote () const
 {
-return note_obj;
+return note_var;
 }
 
 
 double Note::getFrequency() const
 {
-return frequency_obj;
+return frequency_var;
 }
 
 
 void Note::operator ++ (int a)
 {
-notePosition_obj++;
+notePosition_var++;
 
     //we're past the length of the array, start from the beginning (and 1 more octave)
-if (notePosition_obj == numberOfNotes_obj)
+if (notePosition_var == numberOfNotes_var)
     {
-    notePosition_obj = 0;
+    notePosition_var = 0;
 
-    octave_obj++;
+    octave_var++;
     }
 
-note_obj = allNotes_obj[notePosition_obj];
+note_var = allNotes_var[notePosition_var];
 
 
 calculateFrequency();
@@ -219,16 +234,18 @@ calculateFrequency();
 
 void Note::operator -- (int a)
 {
-notePosition_obj--;
+notePosition_var--;
 
-if (notePosition_obj < 0)
+    //one less octave
+if (notePosition_var < 0)
     {
-    notePosition_obj = numberOfNotes_obj - 1;
+        //last note in the array
+    notePosition_var = numberOfNotes_var - 1;
 
-    octave_obj--;
+    octave_var--;
     }
 
-note_obj = allNotes_obj[notePosition_obj];
+note_var = allNotes_var[notePosition_var];
 
 calculateFrequency();
 }

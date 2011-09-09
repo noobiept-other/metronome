@@ -9,7 +9,7 @@ class Sound
 {
 	public:
 
-		Sound(double normalFrequency = 440); //440 Hz - A4
+		Sound(double normalFrequency = 440, double strongFrequency = 587.33); //440 Hz - A4 | 587.33 - D5
 
 
         void setFrequency (int frequency);
@@ -34,19 +34,16 @@ class Sound
 
 	private:
 
-		Glib::RefPtr<Gst::Pipeline> m_pipeline;
-		Glib::RefPtr<Gst::Element> m_source;
-		Glib::RefPtr<Gst::Element> m_sink;
+		Glib::RefPtr<Gst::Pipeline> pipeline_var;
+		Glib::RefPtr<Gst::Element> source_var;
+		Glib::RefPtr<Gst::Element> sink_var;
 
 
-		double normalFrequency_obj;
-		double strongFrequency_obj;
-
-            //the difference in the above frequencies
-        const int diffFrequency_obj;
+		double normalFrequency_var;
+		double strongFrequency_var;
 
 
-        bool isPlaying_obj;
+        bool isPlaying_var;
 
 };
 

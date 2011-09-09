@@ -4,11 +4,6 @@
 #include <gtkmm.h>
 
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
 class Animation : public Gtk::DrawingArea
 {
     public:
@@ -19,6 +14,7 @@ class Animation : public Gtk::DrawingArea
             //starts the animation
         void start();
 
+            //starts with the alternate color (for the strong beats)
         void start_strongBeat();
 
             //ends it
@@ -33,7 +29,7 @@ class Animation : public Gtk::DrawingArea
         void setColor (Gdk::RGBA newColor);
 
             //values from 0 to 1
-        void setColor (int red, int green, int blue, int alpha);    //HERE n parece k funciona bem - gtkmm bug
+        void setColor (int red, int green, int blue, int alpha);
 
 
         void setStrongColor (Gdk::RGBA newColor);
@@ -41,8 +37,8 @@ class Animation : public Gtk::DrawingArea
 
     protected:
 
-        virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
 
+        virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
 
 
     private:
@@ -51,15 +47,15 @@ class Animation : public Gtk::DrawingArea
         void forceReDraw();
 
             //when we're on the tempo, change to this color
-        Gdk::RGBA activeColor;
+        Gdk::RGBA activeColor_var;
 
             //or this, when its the strong beat
-        Gdk::RGBA strongBeatColor;
+        Gdk::RGBA strongBeatColor_var;
 
             //otherwise, just draw the black color
-        const Gdk::RGBA black;
+        const Gdk::RGBA black_var;
 
-        Gdk::RGBA tempColor;
+        Gdk::RGBA tempColor_var;
 
 };
 

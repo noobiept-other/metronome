@@ -38,6 +38,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="`pkg-config --cflags gtkmm-3.0 --libs gtkmm-3.0 --libs gstreamermm-0.10`" />
 			<Add option="-fexceptions" />

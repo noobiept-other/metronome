@@ -1,6 +1,10 @@
 #include "tuner.h"
 
 
+#include "configurations.h"
+
+extern Configurations CONFIGURATIONS;
+
 Tuner::Tuner()
 
     : container(3, 2)
