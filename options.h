@@ -5,8 +5,11 @@
 #include <gtkmm.h>
 
 #include "SecondaryWindow.h"
-#include "configurations.h"
 
+/*
+    The options window - when a value is changed, we emit a signal with the value, so that
+    that change can be set (on Main)
+ */
 
 class Options : public SecondaryWindow
 {
@@ -22,6 +25,7 @@ class Options : public SecondaryWindow
         sigc::signal<void, int> signal_onStrongFrequencyChange();
 
         sigc::signal<void, int> signal_onBeatDurationChange();
+
 
     protected:
 
@@ -46,25 +50,25 @@ class Options : public SecondaryWindow
 
             //layout stuff
 
-        Gtk::Table container;
+        Gtk::Table container_gui;
 
-            Gtk::HBox beatDurationContainer;
+            Gtk::HBox beatDurationContainer_gui;
 
-                Gtk::Label beatDurationLabel;
-                Gtk::SpinButton changeBeatDuration;
-                Gtk::Label milisecondsLabel;
+                Gtk::Label beatDurationLabel_gui;
+                Gtk::SpinButton changeBeatDuration_gui;
+                Gtk::Label milisecondsLabel_gui;
 
-            Gtk::HBox normalFreqContainer;
+            Gtk::HBox normalFreqContainer_gui;
 
-                Gtk::Label normalLabel;
-                Gtk::SpinButton changeNormalFrequency;
-                Gtk::Label normalHz;
+                Gtk::Label normalLabel_gui;
+                Gtk::SpinButton changeNormalFrequency_gui;
+                Gtk::Label normalHz_gui;
 
-            Gtk::HBox strongFreqContainer;
+            Gtk::HBox strongFreqContainer_gui;
 
-                Gtk::Label strongLabel;
-                Gtk::SpinButton changeStrongFrequency;
-                Gtk::Label strongHz;
+                Gtk::Label strongLabel_gui;
+                Gtk::SpinButton changeStrongFrequency_gui;
+                Gtk::Label strongHz_gui;
 
 
 };

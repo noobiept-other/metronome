@@ -2,7 +2,6 @@
 #define CONFIGURATIONS_GUARD
 
 #include <gtkmm.h>
-#include "note.h"
 
 #include <string>
 #include <iostream>

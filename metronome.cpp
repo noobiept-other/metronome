@@ -3,30 +3,18 @@
 
 Metronome::Metronome (int bpm, int duration, double frequency, int strongBeats)
 
-    : Tempo (bpm, duration),
-      Sound (frequency),
+    : Tempo       (bpm, duration),
+      Sound       (frequency),
       animeWindow (bpm),
 
-      strongBeats_obj(strongBeats),
-      countBeats_obj(0)
+      strongBeats_var (strongBeats),
+      countBeats_var  (0)
 
 {
 
 }
 
-/*
-void Metronome::start ()
-{
-    //don't start the metronome when the tuner is opened
-if (tuner.isOpened() == true)
-    {
-    return;
-    }
 
-    //carry on
-Tempo::start();
-}
-*/
 
 void Metronome::setBpm(int bpm)
 {
@@ -36,22 +24,26 @@ Tempo::setBpm(bpm);
 }
 
 
+/*
+    Its called when we're on the tempo, it starts the sound and the animation
+ */
 
 void Metronome::firstFunction()
 {
     //the strong beats only matter when >1, otherwise its always the normal state
-if (strongBeats_obj != 1)
+if (strongBeats_var != 1)
     {
-    countBeats_obj++;
+    countBeats_var++;
 
          //play the strong beat (on the first beat)
-    if (countBeats_obj == 1)
+    if (countBeats_var == 1)
         {
         Sound::play_strongBeat();
 
         animeWindow.start_strongBeat();
         }
 
+        //normal beat
     else
         {
         Sound::play();
@@ -60,10 +52,10 @@ if (strongBeats_obj != 1)
         }
 
 
-    if (countBeats_obj == strongBeats_obj)
+    if (countBeats_var == strongBeats_var)
         {
             //reset the counter
-        countBeats_obj = 0;
+        countBeats_var = 0;
         }
     }
 
@@ -78,6 +70,7 @@ else
 }
 
 
+
 void Metronome::secondFunction()
 {
 Sound::stopPlaying();
@@ -88,22 +81,18 @@ animeWindow.stop();
 
 void Metronome::setStrongBeats (int strongBeats)
 {
-strongBeats_obj = strongBeats;
+strongBeats_var = strongBeats;
 
 
     //reset the counter
-countBeats_obj = 0;
+countBeats_var = 0;
 }
 
 
 int Metronome::getStrongBeats () const
 {
-return strongBeats_obj;
+return strongBeats_var;
 }
-
-
-
-
 
 
 
@@ -122,8 +111,3 @@ else
     }
 }
 
-
-bool Metronome::isAnimeOpened () const
-{
-return animeWindow.isOpened();
-}

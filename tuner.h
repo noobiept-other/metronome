@@ -9,13 +9,6 @@
 #include "note.h"
 
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
-
-
 
 class Tuner : public SecondaryWindow, public Sound
 {
@@ -23,21 +16,19 @@ class Tuner : public SecondaryWindow, public Sound
 
         Tuner();
 
+            //overriding from SecondaryWindow (so that it starts playing from the start)
         virtual void open();
 
 
-      //  bool isPlaying () const;
-
 
         void setNoteFrequency (double frequency);
-        //double getNoteFrequency () const;
+
 
         void play();
 
-        //void stop();
-
 
         void loadConfigurations ();
+
 
     protected:
 
@@ -50,7 +41,7 @@ class Tuner : public SecondaryWindow, public Sound
 
             // :::: signals :::: //
 
-        //sigc::connection a_connection;
+
         sigc::connection chooseFrequency_connection;
 
 
@@ -66,55 +57,46 @@ class Tuner : public SecondaryWindow, public Sound
 
 
             //note chosen from the RadioButton's
-        //Note standardNote;
+        Note note_var;
 
             //note chosen on the SpinButton (changing the sound frequency)
-        Note freeNote;
-
-            //the one that is playing
-        //Note activeNote;
-Note note;
+        Note freeNote_var;
 
 
-        //Sound sound;
+            // :::: Layout elements :::: //
 
+        Gtk::Table container_gui;
 
-            //layout elements
+            Gtk::HBox notesContainer_gui;
 
-        Gtk::Table container;
+                Gtk::RadioButton a_gui;
+                Gtk::RadioButton a_plus_gui;
+                Gtk::RadioButton b_gui;
+                Gtk::RadioButton c_gui;
+                Gtk::RadioButton c_plus_gui;
+                Gtk::RadioButton d_gui;
+                Gtk::RadioButton d_plus_gui;
+                Gtk::RadioButton e_gui;
+                Gtk::RadioButton f_gui;
+                Gtk::RadioButton f_plus_gui;
+                Gtk::RadioButton g_gui;
+                Gtk::RadioButton g_plus_gui;
 
-            Gtk::HBox notesContainer;
+            Gtk::HBox octaveContainer_gui;
 
-                Gtk::RadioButton a;
-                Gtk::RadioButton a_plus;
-                Gtk::RadioButton b;  //HERE devia ser ToggleButton ?..
-                Gtk::RadioButton c;
-                Gtk::RadioButton c_plus;
-                Gtk::RadioButton d;
-                Gtk::RadioButton d_plus;
-                Gtk::RadioButton e;
-                Gtk::RadioButton f;
-                Gtk::RadioButton f_plus;
-                Gtk::RadioButton g;
-                Gtk::RadioButton g_plus;
+                Gtk::Label octave_gui;
+                Gtk::SpinButton chooseOctave_gui;
 
-            Gtk::HBox octaveContainer;
+            Gtk::HBox frequencyContainer_gui;
 
-                Gtk::Label octave;
-                Gtk::SpinButton chooseOctave;
+                Gtk::Label frequency_gui;
+                Gtk::SpinButton chooseFrequency_gui;
+                Gtk::Label hertz_gui;
 
-            Gtk::HBox frequencyContainer;
+            Gtk::HBox playContainer_gui;
 
-                Gtk::Label frequency;
-                Gtk::SpinButton chooseFrequency;
-                Gtk::Label hertz;
-
-            Gtk::HBox playContainer;
-
-                Gtk::Button startPlaying;   //HERE ter algo k mostre k a variavel tem a ver com o layout (no nome)
+                Gtk::Button startPlaying_gui;
                 Gtk::Button stopPlaying_gui;
-
-
 
 };
 

@@ -3,10 +3,19 @@
 
 #include <gtkmm.h>
 
+/*
+    Sets up a tempo that calls one function from time to time (set by the bpm - beats per minute)
+    A second function is called, some time after the first function (depends on the duration)
+ */
 
 class Tempo
     {
     public:
+
+        /*
+            bpm      -> beats per minute
+            duration -> of the beat (in miliseconds)
+         */
 
         Tempo (int bpm = 60, int duration = 200);
 
@@ -15,7 +24,7 @@ class Tempo
         virtual void stop();
 
 
-        virtual void setBpm(int bpm);
+        virtual void setBpm (int bpm);
 
         int getBpm() const;
 
@@ -33,7 +42,10 @@ class Tempo
 
     protected:
 
+            //what is executed when we're on tempo (depends on the bpm)
         virtual void firstFunction() = 0;
+
+            //what is executed some time later (depends on the duration)
         virtual void secondFunction() = 0;
 
 
@@ -41,17 +53,17 @@ class Tempo
 
         bool keepRunning();
 
-        void calculate_miliseconds(int bpm);
+        void calculateMiliseconds(int bpm);
 
         bool stopFunction();
 
 
-        int bpm_obj;
-        int duration_obj;
-        int inMiliseconds_obj;
+        int bpm_var;
+        int duration_var;
+        int inMiliseconds_var;
 
-		sigc::connection timer_obj;
-		bool isPlaying_obj;
+		sigc::connection timer_var;
+		bool isPlaying_var;
 
     };
 

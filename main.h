@@ -32,38 +32,34 @@
 
         ter a possibilidade de ter diferentes tipos de som (ver audiotestsrc - gstreamer)
 
-
-        window.set_icon() ou .set_icon_from_file()
-            (e fazer o icon)
+        nas opcoes, se estiver um SpinButton em foco, o Esc da janela nao funciona (nao fecha a janela)
 
 
+        passar os setStrongBeats() do Main para o Metronome
 
-        reorganizar o codigo...
 
         a configurations, ter uma funcao friend das classes, em vez de ter set/get functions (e n ter global a variavel)
 
+        passar o loadConfigurations() do Main para o Configurations (tem os erros ao compilar.. nao encontra as classes..)
+            (e ter Main como friend class)
+
+        window.set_icon() ou .set_icon_from_file()
+            (e fazer o icon)
 
  */
 
 
 #include <gtkmm.h>
-#include <gstreamermm.h>
 
 #include <iostream>
 #include <string>
 #include <fstream>
 
 
-using std::cout;
-using std::endl;
-
-using std::string;
 
 #include "metronome.h"
+#include "options.h"
 #include "tuner.h"
-#include "note.h"
-#include "configurations.h"
-
 
 
 class Main : public Gtk::Window, public Metronome
@@ -83,8 +79,6 @@ class Main : public Gtk::Window, public Metronome
         void openTuner();
 
 
-        //Configurations configurations;
-
     protected:
 
             //override from Gtk::Window
@@ -92,10 +86,9 @@ class Main : public Gtk::Window, public Metronome
 
         virtual void updateTempo();
 
-            //called when the tuner is closed
+            //called when the tuner_var is closed
         void onTunerHide();
 
-        //void test();
 
     private:
 
@@ -111,52 +104,53 @@ class Main : public Gtk::Window, public Metronome
 
         void setStrongBeats_fromSpinButton ();
 
-        //HERE hack - to cancel multiple events when changing the strong beats
-        bool changingStrongBeats;
+            //hack - to cancel multiple events when changing the strong beats
+        bool changingStrongBeats_var;
 
 
             // :::: Variables :::: //
 
 
-        Options optionsPage;
+        Options optionsPage_var;
 
-        Tuner tuner;
-        //Metronome metronome;
-            //when we open the tuner, we save in this variable whether the metronome was playing, so that when
+        Tuner tuner_var;
+
+
+            //when we open the tuner_var, we save in this variable whether the metronome was playing, so that when
             //closing the tuner window, we can restart the metronome
         bool wasPlaying_var;
 
             // :::: Layout :::: //
 
             //2 row and 2 columns
-        Gtk::Table mainTable;
+        Gtk::Table mainTable_gui;
 
-            Gtk::Table tempoContainer;
+            Gtk::Table tempoContainer_gui;
 
-                Gtk::Label tempoName;
-                Gtk::SpinButton changeTempo;
-                Gtk::Label tempoBpm;
+                Gtk::Label tempoName_gui;
+                Gtk::SpinButton changeTempo_gui;
+                Gtk::Label tempoBpm_gui;
 
-            Gtk::Table strongBeat;
+            Gtk::Table strongBeat_gui;
 
-                Gtk::Label strongBeatLabel;
+                Gtk::Label strongBeatLabel_gui;
 
-                Gtk::RadioButton oneBeat;
-                Gtk::RadioButton twoBeats;
-                Gtk::RadioButton threeBeats;
-                Gtk::RadioButton fourBeats;
-                Gtk::SpinButton otherBeat;
+                Gtk::RadioButton oneBeat_gui;
+                Gtk::RadioButton twoBeats_gui;
+                Gtk::RadioButton threeBeats_gui;
+                Gtk::RadioButton fourBeats_gui;
+                Gtk::SpinButton otherBeat_gui;
 
-            Gtk::HBox startStopContainer;
+            Gtk::HBox startStopContainer_gui;
 
                 Gtk::Button start_gui;
-                Gtk::Button stop;
+                Gtk::Button stop_gui;
 
-            Gtk::HBox otherContainer;
+            Gtk::HBox otherContainer_gui;
 
                 Gtk::Button openOptions_gui;
                 Gtk::Button openTuner_gui;
-                Gtk::Button openAnimation;
+                Gtk::Button openAnimation_gui;
 
 };
 

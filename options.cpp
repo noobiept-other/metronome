@@ -1,17 +1,18 @@
 #include "options.h"
 
+#include "configurations.h"
 
 extern Configurations CONFIGURATIONS;
 
 
 Options::Options()
 
-    : container (3, 1)
+    : container_gui (3, 1)
 
 {
     // :::: Beat duration :::: //
 
-beatDurationLabel.set_label ("Beat duration");
+beatDurationLabel_gui.set_label ("Beat duration");
 
 
 Glib::RefPtr<Gtk::Adjustment> beatDurationAdjustment (
@@ -22,26 +23,26 @@ Glib::RefPtr<Gtk::Adjustment> beatDurationAdjustment (
 
                                                      );
 
-changeBeatDuration.set_adjustment(beatDurationAdjustment);
+changeBeatDuration_gui.set_adjustment (beatDurationAdjustment);
 
-changeBeatDuration.set_numeric (true);
-changeBeatDuration.set_digits (3);
-
-
-milisecondsLabel.set_label ("ms");
+changeBeatDuration_gui.set_numeric (true);
+changeBeatDuration_gui.set_digits (3);
 
 
-beatDurationContainer.pack_start(beatDurationLabel);
-beatDurationContainer.pack_start(changeBeatDuration);
-beatDurationContainer.pack_start(milisecondsLabel);
+milisecondsLabel_gui.set_label ("ms");
 
-beatDurationContainer.set_spacing(10);
+
+beatDurationContainer_gui.pack_start (beatDurationLabel_gui);
+beatDurationContainer_gui.pack_start (changeBeatDuration_gui);
+beatDurationContainer_gui.pack_start (milisecondsLabel_gui);
+
+beatDurationContainer_gui.set_spacing (10);
 
 
 
     // :::: Normal beat frequency :::: //
 
-normalLabel.set_label ("Normal beat frequency");
+normalLabel_gui.set_label ("Normal beat frequency");
 
 
 
@@ -53,26 +54,26 @@ Glib::RefPtr<Gtk::Adjustment> normalFreqAdjustment (
 
                                                    );
 
-changeNormalFrequency.set_adjustment(normalFreqAdjustment);
+changeNormalFrequency_gui.set_adjustment (normalFreqAdjustment);
 
-changeNormalFrequency.set_numeric (true);
-changeNormalFrequency.set_digits (3);
-
-
-normalHz.set_label ("Hz");
+changeNormalFrequency_gui.set_numeric (true);
+changeNormalFrequency_gui.set_digits (3);
 
 
-normalFreqContainer.pack_start(normalLabel);
-normalFreqContainer.pack_start(changeNormalFrequency);
-normalFreqContainer.pack_start(normalHz);
+normalHz_gui.set_label ("Hz");
 
-normalFreqContainer.set_spacing(10);
+
+normalFreqContainer_gui.pack_start (normalLabel_gui);
+normalFreqContainer_gui.pack_start (changeNormalFrequency_gui);
+normalFreqContainer_gui.pack_start (normalHz_gui);
+
+normalFreqContainer_gui.set_spacing (10);
 
 
     // :::: Strong beat frequency :::: //
 
 
-strongLabel.set_label ("Strong beat frequency");
+strongLabel_gui.set_label ("Strong beat frequency");
 
 
 
@@ -84,52 +85,52 @@ Glib::RefPtr<Gtk::Adjustment> strongFreqAdjustment (
 
                                                    );
 
-changeStrongFrequency.set_adjustment(strongFreqAdjustment);
+changeStrongFrequency_gui.set_adjustment (strongFreqAdjustment);
 
-changeStrongFrequency.set_numeric (true);
-changeStrongFrequency.set_digits (3);
-
-
-strongHz.set_label ("Hz");
+changeStrongFrequency_gui.set_numeric (true);
+changeStrongFrequency_gui.set_digits (3);
 
 
-strongFreqContainer.pack_start(strongLabel);
-strongFreqContainer.pack_start(changeStrongFrequency);
-strongFreqContainer.pack_start(strongHz);
+strongHz_gui.set_label ("Hz");
 
 
-strongFreqContainer.set_spacing(10);
+strongFreqContainer_gui.pack_start (strongLabel_gui);
+strongFreqContainer_gui.pack_start (changeStrongFrequency_gui);
+strongFreqContainer_gui.pack_start (strongHz_gui);
+
+
+strongFreqContainer_gui.set_spacing (10);
 
     // :::: Container :::: //
 
 
-container.set_col_spacings(40);
-container.set_row_spacings(20);
+container_gui.set_col_spacings (40);
+container_gui.set_row_spacings (20);
 
-container.attach (beatDurationContainer, 0, 1, 0, 1);
-container.attach (normalFreqContainer, 0, 1, 1, 2);
-container.attach (strongFreqContainer, 0, 1, 2, 3);
+container_gui.attach (beatDurationContainer_gui, 0, 1, 0, 1);
+container_gui.attach (normalFreqContainer_gui, 0, 1, 1, 2);
+container_gui.attach (strongFreqContainer_gui, 0, 1, 2, 3);
 
     // :::: Window :::: //
 
-this->add (container);
+this->add (container_gui);
 
-this->set_title("Options");
+this->set_title ("Options");
 
-this->set_resizable(false);
+this->set_resizable (false);
 
-this->set_border_width(10);
+this->set_border_width (10);
 
-this->show_all_children();
+this->show_all_children ();
 
 
 
     // :::: Events :::: //
 
-changeNormalFrequency.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onNormalFrequencyChange ) );
-changeStrongFrequency.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onStrongFrequencyChange ) );
+changeNormalFrequency_gui.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onNormalFrequencyChange ) );
+changeStrongFrequency_gui.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onStrongFrequencyChange ) );
 
-changeBeatDuration.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onBeatDurationChange ) );
+changeBeatDuration_gui.signal_value_changed().connect ( sigc::mem_fun ( *this, &Options::onBeatDurationChange ) );
 
 }
 
@@ -138,11 +139,11 @@ changeBeatDuration.signal_value_changed().connect ( sigc::mem_fun ( *this, &Opti
 
 void Options::loadConfigurations ()
 {
-changeBeatDuration.set_value ( CONFIGURATIONS.beatDuration );
+changeBeatDuration_gui.set_value ( CONFIGURATIONS.beatDuration );
 
-changeNormalFrequency.set_value ( CONFIGURATIONS.normalFrequency );
+changeNormalFrequency_gui.set_value ( CONFIGURATIONS.normalFrequency );
 
-changeStrongFrequency.set_value ( CONFIGURATIONS.strongFrequency );
+changeStrongFrequency_gui.set_value ( CONFIGURATIONS.strongFrequency );
 }
 
 
@@ -170,37 +171,20 @@ return the_signal_onBeatDurationChange;
 
 void Options::onNormalFrequencyChange ()
 {
-the_signal_onNormalFrequencyChange.emit ( changeNormalFrequency.get_value_as_int() );
+the_signal_onNormalFrequencyChange.emit ( changeNormalFrequency_gui.get_value_as_int() );
 }
 
 
 
 void Options::onStrongFrequencyChange ()
 {
-the_signal_onStrongFrequencyChange.emit ( changeStrongFrequency.get_value_as_int() );
+the_signal_onStrongFrequencyChange.emit ( changeStrongFrequency_gui.get_value_as_int() );
 }
 
 
 
 void Options::onBeatDurationChange ()
 {
-the_signal_onBeatDurationChange.emit ( changeBeatDuration.get_value_as_int() );
+the_signal_onBeatDurationChange.emit ( changeBeatDuration_gui.get_value_as_int() );
 }
-
-
-
-//HERE nao funciona, pq a window n ganha focus (esta nos spinbuttons)
-/*
-bool Options::onKeyRelease(GdkEventKey *event)
-{
-if (event->keyval == GDK_KEY_Escape)
-    {
-    isOpened_var = false;
-
-    hide();
-    }
-
-return true;
-}
-*/
 

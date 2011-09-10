@@ -3,12 +3,12 @@
 
 Tempo::Tempo (int bpm, int duration)
 
-    : bpm_obj       (bpm),
-      duration_obj  (duration),
-      isPlaying_obj (false)
+    : bpm_var       (bpm),
+      duration_var  (duration),
+      isPlaying_var (false)
 
 {
-calculate_miliseconds(bpm);
+calculateMiliseconds(bpm);
 }
 
 
@@ -17,22 +17,21 @@ calculate_miliseconds(bpm);
 
 void Tempo::start()
 {
-if (isPlaying_obj == true)
+if (isPlaying_var == true)
     {
     return;
     }
 
-isPlaying_obj = true;
+isPlaying_var = true;
 
 firstFunction();
 
+    //call keepRunning accordingly to the bpm that is set (inMiliseconds_var is the bpm in miliseconds)
+timer_var = Glib::signal_timeout().connect( sigc::mem_fun( *this, &Tempo::keepRunning ), inMiliseconds_var );
 
-timer_obj = Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::keepRunning), inMiliseconds_obj);
 
-
-	// stop it after some miliseconds
-Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::stopFunction),
-	                               duration_obj);
+	// stop it after some miliseconds (the duration of the beat)
+Glib::signal_timeout().connect( sigc::mem_fun( *this, &Tempo::stopFunction ), duration_var );
 }
 
 
@@ -40,9 +39,9 @@ Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::stopFunction),
 
 void Tempo::stop()
 {
-isPlaying_obj = false;
+isPlaying_var = false;
 
-timer_obj.disconnect();
+timer_var.disconnect();
 }
 
 
@@ -52,10 +51,10 @@ bool Tempo::keepRunning()
 {
 firstFunction();
 
-	//stop it after 200ms
-Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::stopFunction),
-	                               duration_obj);
+	//stop it after some miliseconds (the duration of the beat)
+Glib::signal_timeout().connect( sigc::mem_fun( *this, &Tempo::stopFunction ), duration_var );
 
+    //keeps the tempo going, if we return false it stops it
 return true;
 }
 
@@ -64,6 +63,7 @@ bool Tempo::stopFunction()
 {
 secondFunction();
 
+    //we only want it to run once, so we stop it (it will be setup again when the keepRunning is called)
 return false;
 }
 
@@ -71,17 +71,17 @@ return false;
 
 void Tempo::setBpm(int bpm)
 {
-bpm_obj = bpm;
+bpm_var = bpm;
 
-calculate_miliseconds (bpm);
+calculateMiliseconds (bpm);
 
 
-
-if (isPlaying_obj == true)
+    //re-start the timer
+if (isPlaying_var == true)
 	{
-	timer_obj.disconnect();
+	timer_var.disconnect();
 
-	timer_obj = Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::keepRunning), inMiliseconds_obj);
+	timer_var = Glib::signal_timeout().connect(sigc::mem_fun(*this, &Tempo::keepRunning), inMiliseconds_var);
 	}
 
 }
@@ -90,7 +90,7 @@ if (isPlaying_obj == true)
 
 int Tempo::getBpm() const
 {
-return bpm_obj;
+return bpm_var;
 }
 
 
@@ -98,7 +98,7 @@ return bpm_obj;
 
 void Tempo::setDuration (int duration)
 {
-duration_obj = duration;
+duration_var = duration;
 }
 
 
@@ -106,7 +106,7 @@ duration_obj = duration;
 
 int Tempo::getDuration () const
 {
-return duration_obj;
+return duration_var;
 }
 
 
@@ -114,20 +114,20 @@ return duration_obj;
 
 bool Tempo::isPlaying() const
 {
-return isPlaying_obj;
+return isPlaying_var;
 }
 
 
 void Tempo::operator ++ (int a)
 {
-setBpm (bpm_obj + 1);
+setBpm (bpm_var + 1);
 }
 
 
 
 void Tempo::operator -- (int a)
 {
-setBpm (bpm_obj - 1);
+setBpm (bpm_var - 1);
 }
 
 
@@ -143,7 +143,7 @@ setBpm (bpm_obj - 1);
     In miliseconds -> interval * 1000
  */
 
-void Tempo::calculate_miliseconds (int bpm)
+void Tempo::calculateMiliseconds (int bpm)
 {
-inMiliseconds_obj = (1 / (bpm / 60.0)) * 1000;
+inMiliseconds_var = (1 / (bpm / 60.0)) * 1000;
 }

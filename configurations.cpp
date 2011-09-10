@@ -23,7 +23,7 @@ animationWindow = false;
 mainPosition_x = -1;
 mainPosition_y = -1;
 optionsPosition_x = -1; //-1 because if not provided by the external file, then let the position be calculated
-optionsPosition_y = -1;     //HERE uma class para isto?..
+optionsPosition_y = -1;
 tunerPosition_x = -1;
 tunerPosition_y = -1;
 animationPosition_x = -1;
@@ -33,9 +33,9 @@ isPlaying_metro = true;
 bpm             = 60;
 strongBeats     = 4;
 
-beatDuration    = 200;   //200 ms
-normalFrequency = 440;   //A4 - 440 Hz
-strongFrequency = 440 + 150; //HERE hmmm
+beatDuration    = 200;      //200 ms
+normalFrequency = 440;      //A4 - 440 Hz
+strongFrequency = 587.33;   //D5 - 587.33 Hz
 
 normalColor.set_rgba (0, 0, 1, 1);    //blue color
 strongColor.set_rgba (1, 0, 0, 1);    //red color
@@ -368,7 +368,13 @@ std::stringstream stream (theNumber);
 
 double number = 0;
 
-stream >> number;   //HERE testar qd nao encontra um numero...
+stream >> number;
+
+    //abort the loading process
+if (stream.fail() == true)
+    {
+    throw -1;
+    }
 
 return number;
 }

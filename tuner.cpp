@@ -5,156 +5,162 @@
 
 extern Configurations CONFIGURATIONS;
 
+
+
 Tuner::Tuner()
 
-    : container(3, 2)
+    : container_gui (3, 2)
 
 {
     // :::: Notes :::: //
 
-     a.set_label("A" );
-a_plus.set_label("A#");
-     b.set_label("B" );
-     c.set_label("C" );
-c_plus.set_label("C#");
-     d.set_label("D" );
-d_plus.set_label("D#");
-     e.set_label("E" );
-     f.set_label("F" );
-f_plus.set_label("F#");
-     g.set_label("G" );
-g_plus.set_label("G#");
+     a_gui.set_label("A" );
+a_plus_gui.set_label("A#");
+     b_gui.set_label("B" );
+     c_gui.set_label("C" );
+c_plus_gui.set_label("C#");
+     d_gui.set_label("D" );
+d_plus_gui.set_label("D#");
+     e_gui.set_label("E" );
+     f_gui.set_label("F" );
+f_plus_gui.set_label("F#");
+     g_gui.set_label("G" );
+g_plus_gui.set_label("G#");
 
 
-Gtk::RadioButton::Group group = a.get_group ();
+Gtk::RadioButton::Group group = a_gui.get_group ();
 
-a_plus.set_group(group);
-     b.set_group(group);
-     c.set_group(group);
-c_plus.set_group(group);
-     d.set_group(group);
-d_plus.set_group(group);
-     e.set_group(group);
-     f.set_group(group);
-f_plus.set_group(group);
-     g.set_group(group);
-g_plus.set_group(group);
+a_plus_gui.set_group (group);
+     b_gui.set_group (group);
+     c_gui.set_group (group);
+c_plus_gui.set_group (group);
+     d_gui.set_group (group);
+d_plus_gui.set_group (group);
+     e_gui.set_group (group);
+     f_gui.set_group (group);
+f_plus_gui.set_group (group);
+     g_gui.set_group (group);
+g_plus_gui.set_group (group);
 
-a.set_active();
+a_gui.set_active();
 
 
-notesContainer.pack_start(a);
-notesContainer.pack_start(a_plus);
-notesContainer.pack_start(b);
-notesContainer.pack_start(c);
-notesContainer.pack_start(c_plus);
-notesContainer.pack_start(d);
-notesContainer.pack_start(d_plus);
-notesContainer.pack_start(e);
-notesContainer.pack_start(f);
-notesContainer.pack_start(f_plus);
-notesContainer.pack_start(g);
-notesContainer.pack_start(g_plus);
+notesContainer_gui.pack_start (a_gui);
+notesContainer_gui.pack_start (a_plus_gui);
+notesContainer_gui.pack_start (b_gui);
+notesContainer_gui.pack_start (c_gui);
+notesContainer_gui.pack_start (c_plus_gui);
+notesContainer_gui.pack_start (d_gui);
+notesContainer_gui.pack_start (d_plus_gui);
+notesContainer_gui.pack_start (e_gui);
+notesContainer_gui.pack_start (f_gui);
+notesContainer_gui.pack_start (f_plus_gui);
+notesContainer_gui.pack_start (g_gui);
+notesContainer_gui.pack_start (g_plus_gui);
 
 
 
     // :::: Octave :::: //
 
-octave.set_label("Octave");
+octave_gui.set_label ("Octave");
 
     //default 4 (for the A4 note)
 Glib::RefPtr<Gtk::Adjustment> octaveAdjustment (Gtk::Adjustment::create(4, 1, 8, 1, 2, 0));
 
-chooseOctave.set_adjustment(octaveAdjustment);
-chooseOctave.set_numeric (true);
+chooseOctave_gui.set_adjustment (octaveAdjustment);
+chooseOctave_gui.set_numeric (true);
 
 
-octaveContainer.pack_start(octave);
-octaveContainer.pack_start(chooseOctave);
+octaveContainer_gui.pack_start (octave_gui);
+octaveContainer_gui.pack_start (chooseOctave_gui);
 
 
 
     // :::: Frequency :::: //
 
-frequency.set_label("Frequency");
+frequency_gui.set_label ("Frequency");
 
-    //440 Hz (A4 note)  //HERE 20 a 20000 se calhar eh muito
-Glib::RefPtr<Gtk::Adjustment> freqAdjustment (Gtk::Adjustment::create(440, 20, 20000, 1, 10, 0));
+    //440 Hz (A4 note)
+Glib::RefPtr<Gtk::Adjustment> freqAdjustment (
 
-chooseFrequency.set_adjustment(freqAdjustment);
+      Gtk::Adjustment::create(CONFIGURATIONS.noteFrequency_tuner,
+                              CONFIGURATIONS.frequencyLowerLimit,
+                              CONFIGURATIONS.frequencyUpperLimit, 1, 10, 0)
 
-chooseFrequency.set_numeric (true);
-chooseFrequency.set_digits (3);
+                                             );
 
 
-frequencyContainer.pack_start(frequency);
-frequencyContainer.pack_start(chooseFrequency);
+chooseFrequency_gui.set_adjustment (freqAdjustment);
 
-hertz.set_label("Hz");
+chooseFrequency_gui.set_numeric (true);
+chooseFrequency_gui.set_digits (3);
+
+
+frequencyContainer_gui.pack_start (frequency_gui);
+frequencyContainer_gui.pack_start (chooseFrequency_gui);
+
+hertz_gui.set_label ("Hz");
 
 
     // :::: Play :::: //
 
-startPlaying.set_label("Play");
-stopPlaying_gui.set_label("Stop");
+startPlaying_gui.set_label ("Play");
+ stopPlaying_gui.set_label ("Stop");
 
-playContainer.pack_start(startPlaying);
-playContainer.pack_start(stopPlaying_gui);
+
+playContainer_gui.pack_start (startPlaying_gui);
+playContainer_gui.pack_start (stopPlaying_gui);
 
 
     // :::: Container :::: //
 
-container.set_col_spacings(40);
-container.set_row_spacings(20);
+container_gui.set_col_spacings (40);
+container_gui.set_row_spacings (20);
 
-container.attach (notesContainer, 0, 2, 0, 1);
-container.attach (octaveContainer, 0, 1, 1, 2);
-container.attach (frequencyContainer, 1, 2, 1, 2);
-container.attach (playContainer, 0, 2, 2, 3);
+container_gui.attach (notesContainer_gui, 0, 2, 0, 1);
+container_gui.attach (octaveContainer_gui, 0, 1, 1, 2);
+container_gui.attach (frequencyContainer_gui, 1, 2, 1, 2);
+container_gui.attach (playContainer_gui, 0, 2, 2, 3);
 
     // :::: Window :::: //
 
-this->set_title("Tuner");
+this->set_title ("Tuner");
 
-this->set_resizable(false);
+this->set_resizable (false);
 
-this->set_border_width(10);
+this->set_border_width (10);
 
-this->add (container);
+this->add (container_gui);
 
 this->show_all_children();
 
 
     // :::: Events :::: //
 
-    //when closing the window
-//this->signal_hide().connect( sigc::mem_fun(*this, &Tuner::onHide) );
 
-
-     a.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
-a_plus.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A+" ) );
-     b.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "B"  ) );
-     c.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "C"  ) );
-c_plus.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "C+" ) );
-     d.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "D"  ) );
-d_plus.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "D+" ) );
-     e.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "E"  ) );
-     f.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "F"  ) );
-f_plus.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "F+" ) );
-     g.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "G"  ) );
-g_plus.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "G+" ) );
+     a_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
+a_plus_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A+" ) );
+     b_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "B"  ) );
+     c_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "C"  ) );
+c_plus_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "C+" ) );
+     d_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "D"  ) );
+d_plus_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "D+" ) );
+     e_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "E"  ) );
+     f_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "F"  ) );
+f_plus_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "F+" ) );
+     g_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "G"  ) );
+g_plus_gui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "G+" ) );
 
 
 
-chooseOctave.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onOctaveChange) );
-
-    //HERE alguma maneira de nao ter a funcao a ser chamada constantemente... esperar k o utilizador pare de mudar os valores
-    //e soh depois chamar
-chooseFrequency_connection = chooseFrequency.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+chooseOctave_gui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onOctaveChange) );
 
 
-startPlaying.signal_clicked().connect ( sigc::mem_fun (*this, &Tuner::play) );
- stopPlaying_gui.signal_clicked().connect ( sigc::mem_fun(*this,  &Tuner::stopPlaying) );
+chooseFrequency_connection = chooseFrequency_gui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+
+
+startPlaying_gui.signal_clicked().connect ( sigc::mem_fun (*this, &Tuner::play) );
+ stopPlaying_gui.signal_clicked().connect ( sigc::mem_fun (*this, &Tuner::stopPlaying) );
 
 }
 
@@ -171,18 +177,12 @@ play();
 
 void Tuner::play()
 {
-Sound::setFrequency (note.getFrequency());
+Sound::setFrequency (note_var.getFrequency());
 
 Sound::play();
 }
 
 
-/*
-void Tuner::stop()
-{
-sound.stopPlaying();
-}
-*/
 
 /*
     Changes the named note, not the octave
@@ -192,46 +192,38 @@ sound.stopPlaying();
 
 void Tuner::changeNote (std::string noteLetter)
 {
-cout << "Tuner::changeNote\n";
+     a_gui.set_inconsistent (false);
+a_plus_gui.set_inconsistent (false);
+     b_gui.set_inconsistent (false);
+     c_gui.set_inconsistent (false);
+c_plus_gui.set_inconsistent (false);
+     d_gui.set_inconsistent (false);
+d_plus_gui.set_inconsistent (false);
+     e_gui.set_inconsistent (false);
+     f_gui.set_inconsistent (false);
+f_plus_gui.set_inconsistent (false);
+     g_gui.set_inconsistent (false);
+g_plus_gui.set_inconsistent (false);
 
 
-     a.set_inconsistent (false);
-a_plus.set_inconsistent (false);
-     b.set_inconsistent (false);
-     c.set_inconsistent (false);
-c_plus.set_inconsistent (false);
-     d.set_inconsistent (false);
-d_plus.set_inconsistent (false);
-     e.set_inconsistent (false);
-     f.set_inconsistent (false);
-f_plus.set_inconsistent (false);
-     g.set_inconsistent (false);
-g_plus.set_inconsistent (false);
+int octave = chooseOctave_gui.get_value_as_int ();
+
+note_var.newNote (noteLetter, octave);
 
 
-int octave = chooseOctave.get_value_as_int ();
-
-note.newNote (noteLetter, octave);
-
-
-//cout << "note " << noteLetter << " freq " << note.getFrequency() << endl;
-
-double frequency = note.getFrequency();
+double frequency = note_var.getFrequency();
 
 
     //so that it doesn't trigger another event, when changing the value
 chooseFrequency_connection.disconnect ();
 
     //update the value of the Gtk::SpinButton, showing the current frequency
-chooseFrequency.set_value (frequency);
+chooseFrequency_gui.set_value (frequency);
 
     //restore the event
-chooseFrequency_connection = chooseFrequency.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+chooseFrequency_connection = chooseFrequency_gui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
 
 play ();
-/*
-setFrequency(frequency);
-play();*/
 }
 
 
@@ -240,47 +232,38 @@ play();*/
 
 void Tuner::onOctaveChange()
 {
-cout << "Tuner::onOctaveChange\n";
+     a_gui.set_inconsistent (false);
+a_plus_gui.set_inconsistent (false);
+     b_gui.set_inconsistent (false);
+     c_gui.set_inconsistent (false);
+c_plus_gui.set_inconsistent (false);
+     d_gui.set_inconsistent (false);
+d_plus_gui.set_inconsistent (false);
+     e_gui.set_inconsistent (false);
+     f_gui.set_inconsistent (false);
+f_plus_gui.set_inconsistent (false);
+     g_gui.set_inconsistent (false);
+g_plus_gui.set_inconsistent (false);
 
-     a.set_inconsistent (false);
-a_plus.set_inconsistent (false);
-     b.set_inconsistent (false);
-     c.set_inconsistent (false);
-c_plus.set_inconsistent (false);
-     d.set_inconsistent (false);
-d_plus.set_inconsistent (false);
-     e.set_inconsistent (false);
-     f.set_inconsistent (false);
-f_plus.set_inconsistent (false);
-     g.set_inconsistent (false);
-g_plus.set_inconsistent (false);
+std::string noteLetter = note_var.getNote();
 
-std::string noteLetter = note.getNote();
 
-//cout << "onOctaveChange: noteLetter " << noteLetter;
-
-//cout << " chooseOctave value " << chooseOctave.get_value_as_int() << endl;
-
-note.newNote(noteLetter, chooseOctave.get_value_as_int());
+note_var.newNote(noteLetter, chooseOctave_gui.get_value_as_int());
 
 
 
-double frequency = note.getFrequency();
+double frequency = note_var.getFrequency();
 
 
     //cancel the event, so that it isn't called when changing the value below
 chooseFrequency_connection.disconnect ();
 
     //update the value of the Gtk::SpinButton, showing the current frequency
-chooseFrequency.set_value (frequency);
+chooseFrequency_gui.set_value (frequency);
 
-chooseFrequency_connection = chooseFrequency.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+chooseFrequency_connection = chooseFrequency_gui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
 
 
-/*
-sound.setFrequency(frequency);
-sound.play();
-*/
 play();
 }
 
@@ -289,26 +272,24 @@ play();
 
 void Tuner::onFrequencyChange()
 {
-cout << "Tuner::onFrequencyChange\n";
-
-freeNote.newNote (chooseFrequency.get_value());
+freeNote_var.newNote (chooseFrequency_gui.get_value());
 
 
-     a.set_inconsistent (true);
-a_plus.set_inconsistent (true);
-     b.set_inconsistent (true);
-     c.set_inconsistent (true);
-c_plus.set_inconsistent (true);
-     d.set_inconsistent (true);
-d_plus.set_inconsistent (true);
-     e.set_inconsistent (true);
-     f.set_inconsistent (true);
-f_plus.set_inconsistent (true);
-     g.set_inconsistent (true);
-g_plus.set_inconsistent (true);
+     a_gui.set_inconsistent (true);
+a_plus_gui.set_inconsistent (true);
+     b_gui.set_inconsistent (true);
+     c_gui.set_inconsistent (true);
+c_plus_gui.set_inconsistent (true);
+     d_gui.set_inconsistent (true);
+d_plus_gui.set_inconsistent (true);
+     e_gui.set_inconsistent (true);
+     f_gui.set_inconsistent (true);
+f_plus_gui.set_inconsistent (true);
+     g_gui.set_inconsistent (true);
+g_plus_gui.set_inconsistent (true);
 
 
-Sound::setFrequency(freeNote.getFrequency());
+Sound::setFrequency(freeNote_var.getFrequency());
 Sound::play();
 }
 
@@ -319,34 +300,23 @@ Sound::play();
     Stop the metronome's sound when closing the window
  */
 
-void Tuner::on_hide()    //HERE override
+void Tuner::on_hide()
 {
 this->stopPlaying();
 
 SecondaryWindow::on_hide();
 }
 
-/*
-bool Tuner::isPlaying () const
-{
-return sound.isPlaying();
-}
-*/
 
-/*
-double Tuner::getNoteFrequency () const
-{
-return note.getFrequency ();
-}
-*/
+
 
 void Tuner::setNoteFrequency (double frequency)
 {
-note.newNote(frequency);
+note_var.newNote (frequency);
 
-Sound::setFrequency(frequency);
+Sound::setFrequency (frequency);
 
-chooseFrequency.set_value (frequency);
+chooseFrequency_gui.set_value (frequency);
 }
 
 
@@ -359,7 +329,5 @@ setNoteFrequency ( CONFIGURATIONS.noteFrequency_tuner );
     //when changing the note frequency, it triggers an event which starts the tuner
 stopPlaying ();
 
-std::string noteName = note.getNote ();
-
-//if (noteName == "A")
+std::string noteName = note_var.getNote ();
 }
