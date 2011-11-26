@@ -65,21 +65,21 @@ class AnimeWindow : public SecondaryWindow
             // :::: Layout stuff :::: //
 
 
-        Gtk::Table container_gui;
+        Gtk::Table container_ui;
 
-            Animation animation_gui;
+            Animation animation_ui;
 
-            Gtk::HBox buttonsContainer_gui;
+            Gtk::HBox buttonsContainer_ui;
 
-                Gtk::Label currentBpm_gui;
+                Gtk::Label currentBpm_ui;
 
-                Gtk::Label normalColor_gui;
-                Gtk::ColorButton selectNormalColor_gui;
+                Gtk::Label normalColor_ui;
+                Gtk::ColorButton selectNormalColor_ui;
 
-                Gtk::Label strongBeatColor_gui;
-                Gtk::ColorButton selectStrongColor_gui;
+                Gtk::Label strongBeatColor_ui;
+                Gtk::ColorButton selectStrongColor_ui;
 
-                Gtk::Button changeFullScreen_gui;
+                Gtk::Button changeFullScreen_ui;
 
 };
 

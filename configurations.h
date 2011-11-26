@@ -35,6 +35,7 @@ class Configurations
 
             //metronome
         bool isPlaying_metro;
+        bool wasPlaying_metro;
         int bpm;
         int strongBeats;
 

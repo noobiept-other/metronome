@@ -30,23 +30,24 @@ return 0;
 
 
 
+
 Main::Main ()
 
     : changingStrongBeats_var (false),
 
-      wasPlaying_var (true),
+      wasPlaying_var (false),
 
-      mainTable_gui (2, 2),
-      tempoContainer_gui (1, 3),
-      strongBeat_gui (1, 6)
+      mainTable_ui (2, 2),
+      tempoContainer_ui (1, 3),
+      strongBeat_ui (1, 6)
 
 {
     // :::: Tempo related :::: //
 
 
-tempoName_gui.set_label ("Tempo: ");
+tempoName_ui.set_label ("Tempo: ");
 
-tempoBpm_gui.set_label ("bpm");
+tempoBpm_ui.set_label ("bpm");
 
 
     //start at 60, with limits from 30 to 300 - step is 1
@@ -58,42 +59,42 @@ Glib::RefPtr<Gtk::Adjustment> tempoAdjustment (
 
                                               );
 
-changeTempo_gui.set_adjustment (tempoAdjustment);
-changeTempo_gui.set_numeric (true);
+changeTempo_ui.set_adjustment (tempoAdjustment);
+changeTempo_ui.set_numeric (true);
 
 
 
-tempoContainer_gui.attach (tempoName_gui, 0, 1, 0, 1);
-tempoContainer_gui.attach (changeTempo_gui, 1, 2, 0, 1);
-tempoContainer_gui.attach (tempoBpm_gui, 2, 3, 0, 1);
+tempoContainer_ui.attach (tempoName_ui, 0, 1, 0, 1);
+tempoContainer_ui.attach (changeTempo_ui, 1, 2, 0, 1);
+tempoContainer_ui.attach (tempoBpm_ui, 2, 3, 0, 1);
 
-tempoContainer_gui.set_col_spacings (10);
+tempoContainer_ui.set_col_spacings (10);
 
 
 
     // :::: Strong beat :::: //
 
 
-strongBeat_gui.set_col_spacings (10);
+strongBeat_ui.set_col_spacings (10);
 
 
-strongBeatLabel_gui.set_label ("Strong beat");
+strongBeatLabel_ui.set_label ("Strong beat");
 
 
-oneBeat_gui.set_label ("1");
+oneBeat_ui.set_label ("1");
 
-twoBeats_gui.set_label ("2");
+twoBeats_ui.set_label ("2");
 
-threeBeats_gui.set_label ("3");
+threeBeats_ui.set_label ("3");
 
-fourBeats_gui.set_label ("4");
+fourBeats_ui.set_label ("4");
 
 
-Gtk::RadioButton::Group group = oneBeat_gui.get_group();
+Gtk::RadioButton::Group group = oneBeat_ui.get_group();
 
-twoBeats_gui.set_group   (group);
-threeBeats_gui.set_group (group);
-fourBeats_gui.set_group  (group);
+twoBeats_ui.set_group   (group);
+threeBeats_ui.set_group (group);
+fourBeats_ui.set_group  (group);
 
 
 Glib::RefPtr<Gtk::Adjustment> otherBeatAdjustment (
@@ -104,48 +105,48 @@ Glib::RefPtr<Gtk::Adjustment> otherBeatAdjustment (
 
                                                   );
 
-otherBeat_gui.set_adjustment (otherBeatAdjustment);
-otherBeat_gui.set_numeric (true);
+otherBeat_ui.set_adjustment (otherBeatAdjustment);
+otherBeat_ui.set_numeric (true);
 
 
 
-strongBeat_gui.attach (strongBeatLabel_gui, 0, 1, 0, 1);
-strongBeat_gui.attach (oneBeat_gui, 1, 2, 0, 1);
-strongBeat_gui.attach (twoBeats_gui, 2, 3, 0, 1);
-strongBeat_gui.attach (threeBeats_gui, 3, 4, 0, 1);
-strongBeat_gui.attach (fourBeats_gui, 4, 5, 0, 1);
-strongBeat_gui.attach (otherBeat_gui, 5, 6, 0, 1);
+strongBeat_ui.attach (strongBeatLabel_ui, 0, 1, 0, 1);
+strongBeat_ui.attach (oneBeat_ui, 1, 2, 0, 1);
+strongBeat_ui.attach (twoBeats_ui, 2, 3, 0, 1);
+strongBeat_ui.attach (threeBeats_ui, 3, 4, 0, 1);
+strongBeat_ui.attach (fourBeats_ui, 4, 5, 0, 1);
+strongBeat_ui.attach (otherBeat_ui, 5, 6, 0, 1);
 
 
 
-    // :::: Start/stop_gui :::: //
+    // :::: Start/stop_ui :::: //
 
 
-start_gui.set_label ("start");
+start_ui.set_label ("start");
 
 
-stop_gui.set_label ("stop");
+stop_ui.set_label ("stop");
 
 
-startStopContainer_gui.pack_start(start_gui);
-startStopContainer_gui.pack_start(stop_gui);
+startStopContainer_ui.pack_start(start_ui);
+startStopContainer_ui.pack_start(stop_ui);
 
 
 
     // :::: Secondary Windows :::: //
 
 
-openOptions_gui.set_label ("options");
+openOptions_ui.set_label ("options");
 
 
-openTuner_gui.set_label ("tuner");
+openTuner_ui.set_label ("tuner");
 
-openAnimation_gui.set_label ("animation");
+openAnimation_ui.set_label ("animation");
 
 
-otherContainer_gui.pack_start (openOptions_gui);
-otherContainer_gui.pack_start (openTuner_gui);
-otherContainer_gui.pack_start (openAnimation_gui);
+otherContainer_ui.pack_start (openOptions_ui);
+otherContainer_ui.pack_start (openTuner_ui);
+otherContainer_ui.pack_start (openAnimation_ui);
 
 
 
@@ -153,14 +154,14 @@ otherContainer_gui.pack_start (openAnimation_gui);
     // :::: Main container :::: //
 
 
-mainTable_gui.set_col_spacings (40);
-mainTable_gui.set_row_spacings (20);
+mainTable_ui.set_col_spacings (40);
+mainTable_ui.set_row_spacings (20);
 
 
-mainTable_gui.attach (tempoContainer_gui, 0, 1, 0, 1);
-mainTable_gui.attach (strongBeat_gui, 1, 2, 0, 1);
-mainTable_gui.attach (startStopContainer_gui, 0, 1, 1, 2);
-mainTable_gui.attach (otherContainer_gui, 1, 2, 1, 2);
+mainTable_ui.attach (tempoContainer_ui, 0, 1, 0, 1);
+mainTable_ui.attach (strongBeat_ui, 1, 2, 0, 1);
+mainTable_ui.attach (startStopContainer_ui, 0, 1, 1, 2);
+mainTable_ui.attach (otherContainer_ui, 1, 2, 1, 2);
 
 
 
@@ -168,31 +169,31 @@ mainTable_gui.attach (otherContainer_gui, 1, 2, 1, 2);
 
     // :::: Set the events :::: //
 
-start_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::start) );
- stop_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Metronome::stop ) );
+start_ui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::start) );
+ stop_ui.signal_clicked().connect ( sigc::mem_fun(*this, &Metronome::stop ) );
 
 
 
 
-changeTempo_gui.signal_value_changed().connect ( sigc::mem_fun ( *this, &Main::updateTempo ) );
+changeTempo_ui.signal_value_changed().connect ( sigc::mem_fun ( *this, &Main::updateTempo ) );
 
 
 
 
-   oneBeat_gui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &oneBeat_gui,    1 ));
-  twoBeats_gui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &twoBeats_gui,   2 ));
-threeBeats_gui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &threeBeats_gui, 3 ));
- fourBeats_gui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &fourBeats_gui,  4 ));
+   oneBeat_ui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &oneBeat_ui,    1 ));
+  twoBeats_ui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &twoBeats_ui,   2 ));
+threeBeats_ui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &threeBeats_ui, 3 ));
+ fourBeats_ui.signal_clicked ().connect ( sigc::bind<Gtk::RadioButton*, int>( sigc::mem_fun(*this, &Main::setStrongBeats), &fourBeats_ui,  4 ));
 
-otherBeat_gui.signal_value_changed ().connect ( sigc::mem_fun ( *this, &Main::setStrongBeats_fromSpinButton ) );
+otherBeat_ui.signal_value_changed ().connect ( sigc::mem_fun ( *this, &Main::setStrongBeats_fromSpinButton ) );
 
 
 
     // :::: Secondary Windows :::: //
 
-  openOptions_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openOptions         ) );
-    openTuner_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openTuner           ) );
-openAnimation_gui.signal_clicked().connect ( sigc::mem_fun(*this, &Metronome::openAnimeWindow) );
+  openOptions_ui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openOptions         ) );
+    openTuner_ui.signal_clicked().connect ( sigc::mem_fun(*this, &Main::openTuner           ) );
+openAnimation_ui.signal_clicked().connect ( sigc::mem_fun(*this, &Metronome::openAnimeWindow) );
 
 
 tuner_var.signal_hide().connect ( sigc::mem_fun ( *this, &Main::onTunerHide ) );
@@ -209,7 +210,7 @@ optionsPage_var.signal_onBeatDurationChange    ().connect ( sigc::mem_fun ( *thi
 
     // :::: Main Gtk::Window :::: //
 
-this->add (mainTable_gui);
+this->add (mainTable_ui);
 
 this->set_title ("Metronome");
 
@@ -251,12 +252,12 @@ setBpm (CONFIGURATIONS.bpm);
     //set the inconsistent state
 if (CONFIGURATIONS.strongBeats > 4)
     {
-    oneBeat_gui.set_inconsistent (true);
-    twoBeats_gui.set_inconsistent (true);
-    threeBeats_gui.set_inconsistent (true);
-    fourBeats_gui.set_inconsistent (true);
+    oneBeat_ui.set_inconsistent (true);
+    twoBeats_ui.set_inconsistent (true);
+    threeBeats_ui.set_inconsistent (true);
+    fourBeats_ui.set_inconsistent (true);
 
-    otherBeat_gui.set_value (CONFIGURATIONS.strongBeats);
+    otherBeat_ui.set_value (CONFIGURATIONS.strongBeats);
     }
 
 else
@@ -265,22 +266,22 @@ else
         {
         case 1:
 
-            oneBeat_gui.set_active ();
+            oneBeat_ui.set_active ();
             break;
 
         case 2:
 
-            twoBeats_gui.set_active ();
+            twoBeats_ui.set_active ();
             break;
 
         case 3:
 
-            threeBeats_gui.set_active ();
+            threeBeats_ui.set_active ();
             break;
 
         case 4:
 
-            fourBeats_gui.set_active ();
+            fourBeats_ui.set_active ();
             break;
         }
     }
@@ -353,7 +354,11 @@ if (CONFIGURATIONS.tunerPosition_x >= 0)
     //open the tuner window from the start
 if (CONFIGURATIONS.tunerWindow == true)
     {
-    openTuner (); //HERE ao fechar a janela, o metronomo esta sempre parado... (a cena do wasPlaying...)
+    openTuner ();
+
+        //the metronome could have been playing (before opening the tuner window, so lets just update the variable)
+    this->wasPlaying_var = CONFIGURATIONS.wasPlaying_metro;
+
 
     if (CONFIGURATIONS.isPlaying_tuner == false)
         {
@@ -400,7 +405,7 @@ Metronome::start();
 
 void Main::updateTempo()
 {
-int value = changeTempo_gui.get_value_as_int();
+int value = changeTempo_ui.get_value_as_int();
 
 this->setBpm (value);
 }
@@ -425,45 +430,45 @@ changingStrongBeats_var = true;
 
 
 
-int value = otherBeat_gui.get_value_as_int ();
+int value = otherBeat_ui.get_value_as_int ();
 
     //cancel the active RadioButton (if there's one)
 if (value > 4)
     {
-    oneBeat_gui.set_inconsistent (true);
-    twoBeats_gui.set_inconsistent (true);
-    threeBeats_gui.set_inconsistent (true);
-    fourBeats_gui.set_inconsistent (true);
+    oneBeat_ui.set_inconsistent (true);
+    twoBeats_ui.set_inconsistent (true);
+    threeBeats_ui.set_inconsistent (true);
+    fourBeats_ui.set_inconsistent (true);
     }
 
     // (value <= 4) - set the apropriate RadioButton active
 else
     {
-    oneBeat_gui.set_inconsistent (false);
-    twoBeats_gui.set_inconsistent (false);
-    threeBeats_gui.set_inconsistent (false);
-    fourBeats_gui.set_inconsistent (false);
+    oneBeat_ui.set_inconsistent (false);
+    twoBeats_ui.set_inconsistent (false);
+    threeBeats_ui.set_inconsistent (false);
+    fourBeats_ui.set_inconsistent (false);
 
     switch (value)
         {
             case 1:
 
-                oneBeat_gui.set_active (true);
+                oneBeat_ui.set_active (true);
                 break;
 
             case 2:
 
-                twoBeats_gui.set_active (true);
+                twoBeats_ui.set_active (true);
                 break;
 
             case 3:
 
-                threeBeats_gui.set_active (true);
+                threeBeats_ui.set_active (true);
                 break;
 
             case 4:
 
-                fourBeats_gui.set_active (true);
+                fourBeats_ui.set_active (true);
                 break;
         }
     }
@@ -502,17 +507,17 @@ changingStrongBeats_var = true;
     //then remove the inconsistent state
 if (getStrongBeats() > 4)
     {
-    oneBeat_gui.set_inconsistent (false);
-    twoBeats_gui.set_inconsistent (false);
-    threeBeats_gui.set_inconsistent (false);
-    fourBeats_gui.set_inconsistent (false);
+    oneBeat_ui.set_inconsistent (false);
+    twoBeats_ui.set_inconsistent (false);
+    threeBeats_ui.set_inconsistent (false);
+    fourBeats_ui.set_inconsistent (false);
     }
 
 
     Metronome::setStrongBeats (beat);
 
     //update the SpinButton
-otherBeat_gui.set_value (beat);
+otherBeat_ui.set_value (beat);
 
 
 
@@ -682,6 +687,7 @@ if (config.is_open() == true)
 
     config << "\nMetronome\n";
     config << "    isPlaying_metro: " << Tempo::isPlaying() << "\n";
+    config << "    wasPlaying_metro: " << this->wasPlaying_var << "\n";
     config << "    bpm: " << getBpm() << "\n";
     config << "    strongBeats: " << getStrongBeats() << "\n";
 

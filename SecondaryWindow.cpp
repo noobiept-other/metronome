@@ -26,7 +26,7 @@ y_position_var = (screenHeight / 2) - (250 / 2);
 
     // :::: Events :::: //
 
-this->add_events( Gdk::KEY_PRESS_MASK );
+this->add_events( Gdk::KEY_RELEASE_MASK );
 
 this->signal_key_release_event().connect ( sigc::mem_fun( *this, &SecondaryWindow::onKeyRelease ) );
 }
@@ -73,7 +73,7 @@ bool SecondaryWindow::onKeyRelease (GdkEventKey *event)
 {
 if (event->keyval == GDK_KEY_Escape)
     {
-    on_hide();
+    hide();
     }
 
 return true;

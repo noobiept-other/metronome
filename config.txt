@@ -1,0 +1,41 @@
+Metronome - configuration file
+
+Opened windows
+    options: 0
+    tuner: 0
+    animation: 0
+
+Window's position
+    main-x: 600
+    main-y: 141
+    options-x: -1
+    options-y: -1
+    tuner-x: -1
+    tuner-y: -1
+    animation-x: -1
+    animation-y: -1
+
+Metronome
+    isPlaying_metro: 1
+    wasPlaying_metro: 0
+    bpm: 60
+    strongBeats: 4
+
+Options
+    beatDuration: 200
+    normalFrequency: 440
+    strongFrequency: 587.33
+
+Animation
+    normalColor-red: 0
+    normalColor-green: 0
+    normalColor-blue: 1
+    normalColor-alpha: 1
+    strongColor-red: 1
+    strongColor-green: 0
+    strongColor-blue: 0
+    strongColor-alpha: 1
+
+Tuner
+    isPlaying_tuner: 0
+    noteFrequency_tuner: 830.609

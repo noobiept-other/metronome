@@ -7,12 +7,19 @@ class Note
 {
     public:
 
-            //construct with a 'normal' note (in western music, at least)
-            //default: A4 (440 Hz)
+        /*!
+            construct with a 'normal' note (in western music, at least)
+            default: A4 (440 Hz)
+         */
+
         Note(std::string note, int octave);
 
-            //or with a frequency (keep in mind that the frequency may not match a named note)
-            //default: A4 (440 Hz)
+
+        /*!
+            or with a frequency (keep in mind that the frequency may not match a named note)
+            default: A4 (440 Hz)
+         */
+
         Note (double frequency = 440);
 
 

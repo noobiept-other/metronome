@@ -10142,7 +10142,7 @@
 	<glibmm.h>
 	<gtkmm/bin.h>
 
-1315670979 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
+1322347620 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.cpp
 	"main.h"
 	"configurations.h"
 
@@ -15197,7 +15197,7 @@
 	<gtkmm/bin.h>
 	<gtkmm/scrollable.h>
 
-1315602119 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.h
+1322346914 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.h
 	<gstreamermm.h>
 
 1298848507 /usr/include/gstreamermm-0.10/gstreamermm.h
@@ -15637,7 +15637,7 @@
 	<glibmm/object.h>
 	<libxml++/nodes/node.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/nodes/node.h
+1315806331 /usr/include/libxml++-2.6/libxml++/nodes/node.h
 	<libxml++/noncopyable.h>
 	<libxml++/exceptions/exception.h>
 	<glibmm/ustring.h>
@@ -15645,14 +15645,14 @@
 	<map>
 	<vector>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/noncopyable.h
+1315806331 /usr/include/libxml++-2.6/libxml++/noncopyable.h
 
-1298717203 /usr/include/libxml++-2.6/libxml++/exceptions/exception.h
+1315806331 /usr/include/libxml++-2.6/libxml++/exceptions/exception.h
 	<exception>
 	<glibmm/ustring.h>
 	<libxml++config.h>
 
-1298717203 /usr/lib64/libxml++-2.6/include/libxml++config.h
+1315806331 /usr/lib64/libxml++-2.6/include/libxml++config.h
 	<glibmmconfig.h>
 
 1298848505 /usr/include/gstreamermm-0.10/gstreamermm/clock.h
@@ -16045,39 +16045,40 @@
 	<gstreamermm/object.h>
 	<libxml++/document.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/document.h
+1315806331 /usr/include/libxml++-2.6/libxml++/document.h
 	<libxml++/exceptions/parse_error.h>
 	<libxml++/exceptions/internal_error.h>
 	<libxml++/nodes/element.h>
 	<libxml++/dtd.h>
 	<ostream>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/exceptions/parse_error.h
+1315806331 /usr/include/libxml++-2.6/libxml++/exceptions/parse_error.h
 	<libxml++/exceptions/exception.h>
 	<exception>
 	<glibmm/ustring.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/exceptions/internal_error.h
+1315806331 /usr/include/libxml++-2.6/libxml++/exceptions/internal_error.h
 	<libxml++/exceptions/exception.h>
 	<exception>
 	<glibmm/ustring.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/nodes/element.h
+1315806331 /usr/include/libxml++-2.6/libxml++/nodes/element.h
 	<libxml++/nodes/node.h>
 	<libxml++/attribute.h>
 	<libxml++/nodes/commentnode.h>
+	<libxml++/nodes/cdatanode.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/attribute.h
+1315806331 /usr/include/libxml++-2.6/libxml++/attribute.h
 	<glibmm/ustring.h>
 	<libxml++/nodes/node.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/nodes/commentnode.h
+1315806331 /usr/include/libxml++-2.6/libxml++/nodes/commentnode.h
 	<libxml++/nodes/contentnode.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/nodes/contentnode.h
+1315806331 /usr/include/libxml++-2.6/libxml++/nodes/contentnode.h
 	<libxml++/nodes/node.h>
 
-1298717203 /usr/include/libxml++-2.6/libxml++/dtd.h
+1315806331 /usr/include/libxml++-2.6/libxml++/dtd.h
 	<libxml++/attribute.h>
 	<list>
 	<map>
@@ -16659,7 +16660,7 @@
 1312558360 /usr/include/bits/local_lim.h
 	<linux/limits.h>
 
-1313468225 /usr/include/linux/limits.h
+1321047760 /usr/include/linux/limits.h
 
 1312558360 /usr/include/bits/posix2_lim.h
 
@@ -16903,10 +16904,10 @@
 1312558360 /usr/include/sys/sysmacros.h
 	<features.h>
 
-1311180203 /usr/include/ft2build.h
+1319126846 /usr/include/ft2build.h
 	<freetype/config/ftheader.h>
 
-1311180203 /usr/include/freetype2/freetype/config/ftheader.h
+1319126846 /usr/include/freetype2/freetype/config/ftheader.h
 
 1297204003 /usr/include/fontconfig/fontconfig.h
 	<sys/types.h>
@@ -16953,18 +16954,18 @@
 1312558352 /usr/include/bits/errno.h
 	<linux/errno.h>
 
-1313468225 /usr/include/linux/errno.h
+1321047760 /usr/include/linux/errno.h
 	<asm/errno.h>
 
-1313468226 /usr/include/asm/errno.h
+1321047761 /usr/include/asm/errno.h
 	<asm-generic/errno.h>
 
-1313468223 /usr/include/asm-generic/errno.h
+1321047758 /usr/include/asm-generic/errno.h
 	<asm-generic/errno-base.h>
 
-1313468223 /usr/include/asm-generic/errno-base.h
+1321047758 /usr/include/asm-generic/errno-base.h
 
-1315602424 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.cpp
+1322346945 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/sound.cpp
 	"sound.h"
 
 1315607397 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tempo.cpp
@@ -16984,36 +16985,38 @@
 1315534413 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.cpp
 	"animation.h"
 
-1315531130 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.h
+1321743032 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animation.h
 	<gtkmm.h>
 
-1315535062 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.h
+1322345151 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.h
 	<gtkmm.h>
 	"SecondaryWindow.h"
 	"animation.h"
 
-1315535950 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.cpp
+1322344787 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/animeWindow.cpp
 	"animeWindow.h"
 	<sstream>
 	"configurations.h"
 
 1314294926 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/random.h
 
-1315604151 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.h
+1322348129 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.h
 	<gtkmm.h>
 	"SecondaryWindow.h"
+	"mySpinButton.h"
 
-1315607330 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
+1322344114 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/options.cpp
 	"options.h"
 	"configurations.h"
 
-1315608918 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
+1322344305 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.h
 	<gtkmm.h>
 	"SecondaryWindow.h"
+	"mySpinButton.h"
 	"sound.h"
 	"note.h"
 
-1315609727 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
+1322346874 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/tuner.cpp
 	"tuner.h"
 	"configurations.h"
 
@@ -17021,10 +17024,10 @@
 	"note.h"
 	<cmath>
 
-1315620058 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
+1315725063 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/note.h
 	<string>
 
-1315671184 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
+1322347792 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/main.h
 	<gtkmm.h>
 	<iostream>
 	<string>
@@ -17033,19 +17036,31 @@
 	"options.h"
 	"tuner.h"
 
-1315528169 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
+1321743013 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.h
 	<gtkmm.h>
 
-1315602989 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
+1322344065 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/SecondaryWindow.cpp
 	"SecondaryWindow.h"
 	<iostream>
 
-1315607971 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.cpp
+1322347419 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.cpp
 	"configurations.h"
 
-1315671193 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.h
+1322347337 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/configurations.h
 	<gtkmm.h>
 	<string>
 	<iostream>
 	<fstream>
+
+1315806331 /usr/include/libxml++-2.6/libxml++/nodes/cdatanode.h
+	<libxml++/nodes/contentnode.h>
+
+1322344162 source:/home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/mySpinButton.cpp
+	"mySpinButton.h"
+
+1322344251 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/mySpinButton.h
+	<gtkmm.h>
+
+1322345058 /home/noobiept/Dropbox/programming/gtkmm/gtkmm_test/myColorButton.h
+	<gtkmm.h>
 

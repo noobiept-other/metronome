@@ -71,13 +71,13 @@ isPlaying_var = false;
 
 
 
-void Sound::setFrequency (int frequency)
+void Sound::setFrequency (double frequency)
 {
 normalFrequency_var = frequency;
 }
 
 
-void Sound::setStrongFrequency (int frequency)
+void Sound::setStrongFrequency (double frequency)
 {
 strongFrequency_var = frequency;
 }

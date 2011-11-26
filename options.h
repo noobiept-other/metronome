@@ -5,6 +5,7 @@
 #include <gtkmm.h>
 
 #include "SecondaryWindow.h"
+#include "mySpinButton.h"
 
 /*
     The options window - when a value is changed, we emit a signal with the value, so that
@@ -47,28 +48,27 @@ class Options : public SecondaryWindow
 
 
 
-
             //layout stuff
 
-        Gtk::Table container_gui;
+        Gtk::Table container_ui;
 
-            Gtk::HBox beatDurationContainer_gui;
+            Gtk::HBox beatDurationContainer_ui;
 
-                Gtk::Label beatDurationLabel_gui;
-                Gtk::SpinButton changeBeatDuration_gui;
-                Gtk::Label milisecondsLabel_gui;
+                Gtk::Label beatDurationLabel_ui;
+                MySpinButton changeBeatDuration_ui;
+                Gtk::Label milisecondsLabel_ui;
 
-            Gtk::HBox normalFreqContainer_gui;
+            Gtk::HBox normalFreqContainer_ui;
 
-                Gtk::Label normalLabel_gui;
-                Gtk::SpinButton changeNormalFrequency_gui;
-                Gtk::Label normalHz_gui;
+                Gtk::Label normalLabel_ui;
+                MySpinButton changeNormalFrequency_ui;
+                Gtk::Label normalHz_ui;
 
-            Gtk::HBox strongFreqContainer_gui;
+            Gtk::HBox strongFreqContainer_ui;
 
-                Gtk::Label strongLabel_gui;
-                Gtk::SpinButton changeStrongFrequency_gui;
-                Gtk::Label strongHz_gui;
+                Gtk::Label strongLabel_ui;
+                MySpinButton changeStrongFrequency_ui;
+                Gtk::Label strongHz_ui;
 
 
 };

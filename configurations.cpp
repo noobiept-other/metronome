@@ -29,9 +29,10 @@ tunerPosition_y = -1;
 animationPosition_x = -1;
 animationPosition_y = -1;
 
-isPlaying_metro = true;
-bpm             = 60;
-strongBeats     = 4;
+isPlaying_metro  = true;
+wasPlaying_metro = false;
+bpm              = 60;
+strongBeats      = 4;
 
 beatDuration    = 200;      //200 ms
 normalFrequency = 440;      //A4 - 440 Hz
@@ -191,6 +192,18 @@ if (config.is_open() == true)
     if (value == 0)
         {
         this->isPlaying_metro = false;
+        }
+
+
+        // :: wasPlaying :: //
+
+    getline (config, line);
+
+    value = getPropertyValue(line, "wasPlaying_metro");
+
+    if (value != 0)
+        {
+        this->wasPlaying_metro = true;
         }
 
         // :: Bpm :: //

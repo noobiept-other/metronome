@@ -12,9 +12,9 @@ class Sound
 		Sound(double normalFrequency = 440, double strongFrequency = 587.33); //440 Hz - A4 | 587.33 - D5
 
 
-        void setFrequency (int frequency);
+        void setFrequency (double frequency);
 
-        void setStrongFrequency (int frequency);
+        void setStrongFrequency (double frequency);
 
 
         void play();

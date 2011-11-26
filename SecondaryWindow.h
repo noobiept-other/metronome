@@ -25,6 +25,7 @@ class SecondaryWindow : public Gtk::Window
             //if setPosition() is not called, when it will set the window in the middle of the screen
         SecondaryWindow ();
 
+
         virtual void open();
 
         bool isOpened() const;

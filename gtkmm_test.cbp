@@ -73,6 +73,8 @@
 		<Unit filename="main.h" />
 		<Unit filename="metronome.cpp" />
 		<Unit filename="metronome.h" />
+		<Unit filename="mySpinButton.cpp" />
+		<Unit filename="mySpinButton.h" />
 		<Unit filename="note.cpp" />
 		<Unit filename="note.h" />
 		<Unit filename="options.cpp" />

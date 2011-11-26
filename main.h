@@ -17,8 +17,8 @@
 
         gtkmm related class variables (for the buttons, containers, etc):
 
-            ending in _gui (from, graphical user interface)
-                (like example_gui)
+            ending in _ui (from, user interface)
+                (like example_ui)
 
         normal class variables (that don't conform with anything above):
 
@@ -30,21 +30,26 @@
     To doo:
 
 
-        ter a possibilidade de ter diferentes tipos de som (ver audiotestsrc - gstreamer)
+        - ter a possibilidade de ter diferentes tipos de som (ver audiotestsrc - gstreamer)
 
-        nas opcoes, se estiver um SpinButton em foco, o Esc da janela nao funciona (nao fecha a janela)
-
-
-        passar os setStrongBeats() do Main para o Metronome
+        - Nos Gtk::ColorButton, ele fecha a janela on_key_press, e depois ao largar-se a tecla (on_key_release)
+            fecha de seguida a AnimeWindow... por a fechar apenas on_key_release os Gtk::ColorButton
 
 
-        a configurations, ter uma funcao friend das classes, em vez de ter set/get functions (e n ter global a variavel)
+        - passar os setStrongBeats() do Main para o Metronome
 
-        passar o loadConfigurations() do Main para o Configurations (tem os erros ao compilar.. nao encontra as classes..)
+
+        - a configurations, ter uma funcao friend das classes, em vez de ter set/get functions (e n ter global a variavel)
+
+        - passar o loadConfigurations() do Main para o Configurations (tem os erros ao compilar.. nao encontra as classes..)
             (e ter Main como friend class)
 
-        window.set_icon() ou .set_icon_from_file()
+        - window.set_icon() ou .set_icon_from_file()
             (e fazer o icon)
+
+
+        - gravar no ficheiro: property="value" ?..
+		    ou estilo json
 
  */
 
@@ -69,7 +74,7 @@ class Main : public Gtk::Window, public Metronome
         Main();
 
             //saves the state of the program (which windows were open, the options, etc)
-        ~Main();
+        virtual ~Main();
 
         virtual void start();
 
@@ -123,34 +128,34 @@ class Main : public Gtk::Window, public Metronome
             // :::: Layout :::: //
 
             //2 row and 2 columns
-        Gtk::Table mainTable_gui;
+        Gtk::Table mainTable_ui;
 
-            Gtk::Table tempoContainer_gui;
+            Gtk::Table tempoContainer_ui;
 
-                Gtk::Label tempoName_gui;
-                Gtk::SpinButton changeTempo_gui;
-                Gtk::Label tempoBpm_gui;
+                Gtk::Label tempoName_ui;
+                Gtk::SpinButton changeTempo_ui;
+                Gtk::Label tempoBpm_ui;
 
-            Gtk::Table strongBeat_gui;
+            Gtk::Table strongBeat_ui;
 
-                Gtk::Label strongBeatLabel_gui;
+                Gtk::Label strongBeatLabel_ui;
 
-                Gtk::RadioButton oneBeat_gui;
-                Gtk::RadioButton twoBeats_gui;
-                Gtk::RadioButton threeBeats_gui;
-                Gtk::RadioButton fourBeats_gui;
-                Gtk::SpinButton otherBeat_gui;
+                Gtk::RadioButton oneBeat_ui;
+                Gtk::RadioButton twoBeats_ui;
+                Gtk::RadioButton threeBeats_ui;
+                Gtk::RadioButton fourBeats_ui;
+                Gtk::SpinButton otherBeat_ui;
 
-            Gtk::HBox startStopContainer_gui;
+            Gtk::HBox startStopContainer_ui;
 
-                Gtk::Button start_gui;
-                Gtk::Button stop_gui;
+                Gtk::Button start_ui;
+                Gtk::Button stop_ui;
 
-            Gtk::HBox otherContainer_gui;
+            Gtk::HBox otherContainer_ui;
 
-                Gtk::Button openOptions_gui;
-                Gtk::Button openTuner_gui;
-                Gtk::Button openAnimation_gui;
+                Gtk::Button openOptions_ui;
+                Gtk::Button openTuner_ui;
+                Gtk::Button openAnimation_ui;
 
 };
 

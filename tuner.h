@@ -4,6 +4,7 @@
 #include <gtkmm.h>
 
 #include "SecondaryWindow.h"
+#include "mySpinButton.h"
 
 #include "sound.h"
 #include "note.h"
@@ -15,6 +16,7 @@ class Tuner : public SecondaryWindow, public Sound
     public:
 
         Tuner();
+
 
             //overriding from SecondaryWindow (so that it starts playing from the start)
         virtual void open();
@@ -65,38 +67,38 @@ class Tuner : public SecondaryWindow, public Sound
 
             // :::: Layout elements :::: //
 
-        Gtk::Table container_gui;
+        Gtk::Table container_ui;
 
-            Gtk::HBox notesContainer_gui;
+            Gtk::HBox notesContainer_ui;
 
-                Gtk::RadioButton a_gui;
-                Gtk::RadioButton a_plus_gui;
-                Gtk::RadioButton b_gui;
-                Gtk::RadioButton c_gui;
-                Gtk::RadioButton c_plus_gui;
-                Gtk::RadioButton d_gui;
-                Gtk::RadioButton d_plus_gui;
-                Gtk::RadioButton e_gui;
-                Gtk::RadioButton f_gui;
-                Gtk::RadioButton f_plus_gui;
-                Gtk::RadioButton g_gui;
-                Gtk::RadioButton g_plus_gui;
+                Gtk::RadioButton a_ui;
+                Gtk::RadioButton a_plus_ui;
+                Gtk::RadioButton b_ui;
+                Gtk::RadioButton c_ui;
+                Gtk::RadioButton c_plus_ui;
+                Gtk::RadioButton d_ui;
+                Gtk::RadioButton d_plus_ui;
+                Gtk::RadioButton e_ui;
+                Gtk::RadioButton f_ui;
+                Gtk::RadioButton f_plus_ui;
+                Gtk::RadioButton g_ui;
+                Gtk::RadioButton g_plus_ui;
 
-            Gtk::HBox octaveContainer_gui;
+            Gtk::HBox octaveContainer_ui;
 
-                Gtk::Label octave_gui;
-                Gtk::SpinButton chooseOctave_gui;
+                Gtk::Label octave_ui;
+                MySpinButton chooseOctave_ui;
 
-            Gtk::HBox frequencyContainer_gui;
+            Gtk::HBox frequencyContainer_ui;
 
-                Gtk::Label frequency_gui;
-                Gtk::SpinButton chooseFrequency_gui;
-                Gtk::Label hertz_gui;
+                Gtk::Label frequency_ui;
+                MySpinButton chooseFrequency_ui;
+                Gtk::Label hertz_ui;
 
-            Gtk::HBox playContainer_gui;
+            Gtk::HBox playContainer_ui;
 
-                Gtk::Button startPlaying_gui;
-                Gtk::Button stopPlaying_gui;
+                Gtk::Button startPlaying_ui;
+                Gtk::Button stopPlaying_ui;
 
 };
 

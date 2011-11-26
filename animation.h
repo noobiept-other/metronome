@@ -10,7 +10,6 @@ class Animation : public Gtk::DrawingArea
 
         Animation();
 
-
             //starts the animation
         void start();
 
