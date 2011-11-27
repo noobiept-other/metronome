@@ -124,6 +124,8 @@ this->set_border_width (10);
 this->show_all_children ();
 
 
+this->set_icon_from_file("images/options.png");
+
 
     // :::: Events :::: //
 

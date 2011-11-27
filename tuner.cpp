@@ -135,6 +135,9 @@ this->add (container_ui);
 this->show_all_children();
 
 
+this->set_icon_from_file("images/tuner.png");
+
+
     // :::: Events :::: //
 
 

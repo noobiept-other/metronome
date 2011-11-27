@@ -78,6 +78,8 @@ this->add (container_ui);
 this->show_all_children();
 
 
+this->set_icon_from_file("images/animation.png");
+
     // :::: Set the events :::: //
 
 

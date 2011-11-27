@@ -44,9 +44,6 @@
         - passar o loadConfigurations() do Main para o Configurations (tem os erros ao compilar.. nao encontra as classes..)
             (e ter Main como friend class)
 
-        - window.set_icon() ou .set_icon_from_file()
-            (e fazer o icon)
-
 
         - gravar no ficheiro: property="value" ?..
 		    ou estilo json
