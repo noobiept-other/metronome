@@ -1,7 +1,31 @@
+/*
+
+	Copyright - 2011 - Pedro Ferreira
+
+	This file is part of Metronome.
+
+    Metronome is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Metronome is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Metronome.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+
 #ifndef TUNER_GUARD
 #define TUNER_GUARD
 
 #include <gtkmm.h>
+
+#include <sstream>
 
 #include "SecondaryWindow.h"
 #include "mySpinButton.h"
@@ -23,13 +47,21 @@ class Tuner : public SecondaryWindow, public Sound
 
 
 
-        void setNoteFrequency (double frequency);
+        void setNote( double frequency, bool updateUi );
+        void setNote( std::string noteName, int octave, bool updateUi );
+        void setNote( int notePosition, int octave, bool updateUi );
+
+            //returns a string in the form: "noteName octave" or an empty string if it isn't a named note
+        std::string getNote();
+
+
+            //changes the arguments value to have the current note that is set
+            //is it isn't a named note, when it will have negative values
+        void getNote( int* notePosition, int* octave );
 
 
         void play();
 
-
-        void loadConfigurations ();
 
 
     protected:
@@ -60,9 +92,6 @@ class Tuner : public SecondaryWindow, public Sound
 
             //note chosen from the RadioButton's
         Note note_var;
-
-            //note chosen on the SpinButton (changing the sound frequency)
-        Note freeNote_var;
 
 
             // :::: Layout elements :::: //

@@ -1,3 +1,25 @@
+/*
+
+	Copyright - 2011 - Pedro Ferreira
+
+	This file is part of Metronome.
+
+    Metronome is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Metronome is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Metronome.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+
 #include "main.h"
 
 #include "configurations.h"
@@ -346,7 +368,18 @@ if (CONFIGURATIONS.animationWindow == true)
 
     // :: Tuner :: //
 
-tuner_var.loadConfigurations ();
+    //not a named note, load with the frequency instead
+if (CONFIGURATIONS.notePosition_tuner < 0 || CONFIGURATIONS.noteOctave_tuner < 0)
+    {
+    tuner_var.setNote ( CONFIGURATIONS.noteFrequency_tuner, true );
+    }
+
+else
+    {
+    tuner_var.setNote( CONFIGURATIONS.notePosition_tuner, CONFIGURATIONS.noteOctave_tuner, true );
+    }
+
+
 
 
     //when there's no configuration file, this will have the -1 value
@@ -720,6 +753,14 @@ if (config.is_open() == true)
     config << "\nTuner\n";
 
     config << "    isPlaying_tuner: " << tuner_var.isPlaying () << "\n";
+
+    int notePosition, noteOctave;
+
+    tuner_var.getNote( &notePosition, &noteOctave );
+
+    config << "    notePosition_tuner: " << notePosition << "\n";
+    config << "    noteOctave_tuner: " << noteOctave << "\n";
+
     config << "    noteFrequency_tuner: " << tuner_var.getNormalFrequency () << "\n";
 
     config.close ();

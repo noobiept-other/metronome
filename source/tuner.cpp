@@ -1,3 +1,25 @@
+/*
+
+	Copyright - 2011 - Pedro Ferreira
+
+	This file is part of Metronome.
+
+    Metronome is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Metronome is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Metronome.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+
 #include "tuner.h"
 
 
@@ -195,37 +217,10 @@ Sound::play();
 
 void Tuner::changeNote (std::string noteLetter)
 {
-     a_ui.set_inconsistent (false);
-a_plus_ui.set_inconsistent (false);
-     b_ui.set_inconsistent (false);
-     c_ui.set_inconsistent (false);
-c_plus_ui.set_inconsistent (false);
-     d_ui.set_inconsistent (false);
-d_plus_ui.set_inconsistent (false);
-     e_ui.set_inconsistent (false);
-     f_ui.set_inconsistent (false);
-f_plus_ui.set_inconsistent (false);
-     g_ui.set_inconsistent (false);
-g_plus_ui.set_inconsistent (false);
-
-
 int octave = chooseOctave_ui.get_value_as_int ();
 
-note_var.newNote (noteLetter, octave);
+Tuner::setNote( noteLetter, octave, false );
 
-
-double frequency = note_var.getFrequency();
-
-
-
-    //so that it doesn't trigger another event, when changing the value
-chooseFrequency_connection.disconnect ();
-
-    //update the value of the Gtk::SpinButton, showing the current frequency
-chooseFrequency_ui.set_value (frequency);
-
-    //restore the event
-chooseFrequency_connection = chooseFrequency_ui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
 
 play ();
 }
@@ -236,65 +231,26 @@ play ();
 
 void Tuner::onOctaveChange()
 {
-     a_ui.set_inconsistent (false);
-a_plus_ui.set_inconsistent (false);
-     b_ui.set_inconsistent (false);
-     c_ui.set_inconsistent (false);
-c_plus_ui.set_inconsistent (false);
-     d_ui.set_inconsistent (false);
-d_plus_ui.set_inconsistent (false);
-     e_ui.set_inconsistent (false);
-     f_ui.set_inconsistent (false);
-f_plus_ui.set_inconsistent (false);
-     g_ui.set_inconsistent (false);
-g_plus_ui.set_inconsistent (false);
+
 
 std::string noteLetter = note_var.getNote();
 
-
-note_var.newNote(noteLetter, chooseOctave_ui.get_value_as_int());
-
-
-
-double frequency = note_var.getFrequency();
-
-
-    //cancel the event, so that it isn't called when changing the value below
-chooseFrequency_connection.disconnect ();
-
-    //update the value of the Gtk::SpinButton, showing the current frequency
-chooseFrequency_ui.set_value (frequency);
-
-chooseFrequency_connection = chooseFrequency_ui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+Tuner::setNote( noteLetter, chooseOctave_ui.get_value_as_int(), false );
 
 
 play();
 }
 
 
-
+/*
+    Called when the frequency is changed directly (in the SpinButton)
+ */
 
 void Tuner::onFrequencyChange()
 {
-freeNote_var.newNote (chooseFrequency_ui.get_value());
+setNote( chooseFrequency_ui.get_value(), true );
 
-
-     a_ui.set_inconsistent (true);
-a_plus_ui.set_inconsistent (true);
-     b_ui.set_inconsistent (true);
-     c_ui.set_inconsistent (true);
-c_plus_ui.set_inconsistent (true);
-     d_ui.set_inconsistent (true);
-d_plus_ui.set_inconsistent (true);
-     e_ui.set_inconsistent (true);
-     f_ui.set_inconsistent (true);
-f_plus_ui.set_inconsistent (true);
-     g_ui.set_inconsistent (true);
-g_plus_ui.set_inconsistent (true);
-
-
-Sound::setFrequency(freeNote_var.getFrequency());
-Sound::play();
+play();
 }
 
 
@@ -313,25 +269,206 @@ SecondaryWindow::on_hide();
 
 
 
+/*
 
-void Tuner::setNoteFrequency (double frequency)
+ */
+
+void Tuner::setNote( int notePosition, int octave, bool updateUi )
 {
-note_var.newNote (frequency);
+Tuner::setNote( Note::allNotes_var[notePosition], octave, updateUi );
+}
 
-Sound::setFrequency (frequency);
 
+
+/*
+
+ */
+
+void Tuner::setNote( std::string noteName, int octave, bool updateUi )
+{
+    //when we change to a random frequency, the RadioButton's state is changed to inconsistent
+    //when we change back to a named note, we have to revert this
+if (a_ui.get_inconsistent() == true)
+    {
+         a_ui.set_inconsistent (false);
+    a_plus_ui.set_inconsistent (false);
+         b_ui.set_inconsistent (false);
+         c_ui.set_inconsistent (false);
+    c_plus_ui.set_inconsistent (false);
+         d_ui.set_inconsistent (false);
+    d_plus_ui.set_inconsistent (false);
+         e_ui.set_inconsistent (false);
+         f_ui.set_inconsistent (false);
+    f_plus_ui.set_inconsistent (false);
+         g_ui.set_inconsistent (false);
+    g_plus_ui.set_inconsistent (false);
+    }
+
+
+
+note_var.newNote(noteName, octave);
+
+
+
+double frequency = note_var.getFrequency();
+
+
+    //cancel the event, so that it isn't called when changing the value below
+chooseFrequency_connection.disconnect ();
+
+    //update the value of the Gtk::SpinButton, showing the current frequency
 chooseFrequency_ui.set_value (frequency);
+
+chooseFrequency_connection = chooseFrequency_ui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+
+
+if ( updateUi == true )
+    {
+        //update the octave
+    chooseOctave_ui.set_value( octave );
+
+        //and the RadioButton that is selected
+    switch( note_var.getPosition() )
+        {
+        case 0:
+
+            a_ui.set_active();
+            break;
+
+        case 1:
+
+            a_plus_ui.set_active();
+            break;
+
+        case 2:
+
+            b_ui.set_active();
+            break;
+
+        case 3:
+
+            c_ui.set_active();
+            break;
+
+        case 4:
+
+            c_plus_ui.set_active();
+            break;
+
+        case 5:
+
+            d_ui.set_active();
+            break;
+
+        case 6:
+
+            d_plus_ui.set_active();
+            break;
+
+        case 7:
+
+            e_ui.set_active();
+            break;
+
+        case 8:
+
+            f_ui.set_active();
+            break;
+
+        case 9:
+
+            f_plus_ui.set_active();
+            break;
+
+        case 10:
+
+            g_ui.set_active();
+            break;
+
+        case 11:
+
+            g_plus_ui.set_active();
+            break;
+
+        }
+    }
 }
 
 
 
 
-void Tuner::loadConfigurations ()
+
+
+
+/*
+
+ */
+
+void Tuner::setNote( double frequency, bool updateUi )
 {
-setNoteFrequency ( CONFIGURATIONS.noteFrequency_tuner );
+note_var.newNote (frequency);
 
-    //when changing the note frequency, it triggers an event which starts the tuner
-stopPlaying ();
 
-std::string noteName = note_var.getNote ();
+    //cancel the event, so that it isn't called when changing the value below
+chooseFrequency_connection.disconnect ();
+
+    //update the value of the Gtk::SpinButton, showing the current frequency
+chooseFrequency_ui.set_value (frequency);
+
+chooseFrequency_connection = chooseFrequency_ui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
+
+
+
+if (updateUi == true)
+    {
+        //assuming its never a named note
+         a_ui.set_inconsistent (true);
+    a_plus_ui.set_inconsistent (true);
+         b_ui.set_inconsistent (true);
+         c_ui.set_inconsistent (true);
+    c_plus_ui.set_inconsistent (true);
+         d_ui.set_inconsistent (true);
+    d_plus_ui.set_inconsistent (true);
+         e_ui.set_inconsistent (true);
+         f_ui.set_inconsistent (true);
+    f_plus_ui.set_inconsistent (true);
+         g_ui.set_inconsistent (true);
+    g_plus_ui.set_inconsistent (true);
+    }
+}
+
+
+
+/*
+    returns a string in the form: "noteName octave" or an empty string if it isn't a named note
+ */
+
+std::string Tuner::getNote()
+{
+std::string note = note_var.getNote();
+
+    //it isn't a named note
+if (note == "")
+    {
+    return note;
+    }
+
+    //else, make the string and return it
+std::stringstream stream;
+
+stream << note << " " << note_var.getOctave();
+
+return stream.str();
+}
+
+
+/*
+    changes the arguments value to have the current note that is set
+    is it isn't a named note, when it will have negative values
+ */
+
+void Tuner::getNote( int* notePosition, int* octave )
+{
+*notePosition = note_var.getPosition();
+*octave = note_var.getOctave();
 }

@@ -1,3 +1,25 @@
+/*
+
+	Copyright - 2011 - Pedro Ferreira
+
+	This file is part of Metronome.
+
+    Metronome is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Metronome is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Metronome.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+
 #include "note.h"
 
 #include <cmath>
@@ -196,14 +218,24 @@ return isNamedNote_var;
 
 int Note::getOctave () const
 {
-return octave_var;
+if (isNamedNote_var == true)
+    {
+    return octave_var;
+    }
+
+return -1;
 }
 
 
 
 std::string Note::getNote () const
 {
-return note_var;
+if (isNamedNote_var == true)
+    {
+    return note_var;
+    }
+
+return "";
 }
 
 
@@ -248,4 +280,19 @@ if (notePosition_var < 0)
 note_var = allNotes_var[notePosition_var];
 
 calculateFrequency();
+}
+
+
+/*
+    Returns the position of the note (considering: 0 -> "A", 1 -> "A#", ...)
+ */
+
+int Note::getPosition() const
+{
+if (isNamedNote_var == true)
+    {
+    return notePosition_var;
+    }
+
+return -1;
 }

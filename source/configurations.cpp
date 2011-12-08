@@ -1,3 +1,25 @@
+/*
+
+	Copyright - 2011 - Pedro Ferreira
+
+	This file is part of Metronome.
+
+    Metronome is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Metronome is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with Metronome.  If not, see <http://www.gnu.org/licenses/>.
+
+ */
+
+
 #include "configurations.h"
 
 
@@ -42,6 +64,8 @@ normalColor.set_rgba (0, 0, 1, 1);    //blue color
 strongColor.set_rgba (1, 0, 0, 1);    //red color
 
 isPlaying_tuner = false;
+notePosition_tuner = 0;
+noteOctave_tuner = 4;
 noteFrequency_tuner = 440;
 }
 
@@ -330,6 +354,19 @@ if (config.is_open() == true)
     value = getPropertyValue (line, "isPlaying_tuner");
 
     this->isPlaying_tuner = value;
+
+        // :: note position :: //
+
+    getline(config, line);
+
+    this->notePosition_tuner = getPropertyValue (line, "notePosition_tuner");
+
+        // :: note octave :: //
+
+    getline (config, line);
+
+    this->noteOctave_tuner = getPropertyValue (line, "noteOctave_tuner");
+
 
         // :: Note frequency :: //
 
