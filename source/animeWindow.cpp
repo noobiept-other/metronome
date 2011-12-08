@@ -44,19 +44,20 @@ selectStrongColor_ui.set_rgba(animation_ui.getStrongColor());
 
     // :::: Buttons container :::: //
 
-buttonsContainer_ui.set_spacing(10);
+buttonsContainer_ui.set_row_spacing (10);
+buttonsContainer_ui.set_row_homogeneous( true );
+buttonsContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
+
+buttonsContainer_ui.add (currentBpm_ui);
+
+buttonsContainer_ui.add (normalColor_ui);
+buttonsContainer_ui.add (selectNormalColor_ui);
+
+buttonsContainer_ui.add (strongBeatColor_ui);
+buttonsContainer_ui.add (selectStrongColor_ui);
 
 
-buttonsContainer_ui.pack_start (currentBpm_ui);
-
-buttonsContainer_ui.pack_start(normalColor_ui);
-buttonsContainer_ui.pack_start(selectNormalColor_ui);
-
-buttonsContainer_ui.pack_start(strongBeatColor_ui);
-buttonsContainer_ui.pack_start(selectStrongColor_ui);
-
-
-buttonsContainer_ui.pack_start(changeFullScreen_ui);
+buttonsContainer_ui.add (changeFullScreen_ui);
 
 container_ui.attach (animation_ui, 0, 1, 0, 1);
 
@@ -82,6 +83,7 @@ this->set_icon_from_file("images/animation.png");
 
     // :::: Set the events :::: //
 
+    // buttons
 
 selectNormalColor_ui.signal_color_set().connect( sigc::mem_fun(*this, &AnimeWindow::onColorSet) );
 
@@ -90,6 +92,10 @@ selectStrongColor_ui.signal_color_set().connect( sigc::mem_fun(*this, &AnimeWind
 
 changeFullScreen_ui.signal_clicked().connect( sigc::mem_fun(*this, &AnimeWindow::fullScreen) );
 
+
+    // animation
+
+animation_ui.signal_button_press_event().connect( sigc::mem_fun( *this, &AnimeWindow::animationEvents ) );
 
 
     // keyboard events
@@ -157,6 +163,10 @@ if (isFullScreen_var == true)
     {
     isFullScreen_var = false;
 
+        //show the buttons //HERE not working
+    //buttonsContainer_ui.show_now();
+
+
     this->unfullscreen();
     }
 
@@ -164,6 +174,10 @@ if (isFullScreen_var == true)
 else
     {
     isFullScreen_var = true;
+
+        //hide the buttons  //HERE this does though
+    //buttonsContainer_ui.hide();
+
 
     this->fullscreen();   //from Gtk::Window
     }
@@ -223,6 +237,36 @@ if (event->keyval == GDK_KEY_Escape)
 
 return true;
 }
+
+
+//#include <iostream>
+//using namespace::std;
+
+/*
+    When double-clicking on the animation, we open/close the fullscreen
+
+    //HERE - its not working
+ */
+
+bool AnimeWindow::animationEvents( GdkEventButton *event )
+{
+//cout << "animation events\n";
+
+    //when double-clicking
+if ( event->type == GDK_2BUTTON_PRESS )
+    {
+    //cout << "2button press \n";
+
+        //open/close the fullscreen
+    fullScreen();
+
+    return true;
+    }
+
+
+return false;
+}
+
 
 
 

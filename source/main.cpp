@@ -127,9 +127,11 @@ start_ui.set_label ("start");
 
 stop_ui.set_label ("stop");
 
+startStopContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
+startStopContainer_ui.set_row_homogeneous( true );
 
-startStopContainer_ui.pack_start(start_ui);
-startStopContainer_ui.pack_start(stop_ui);
+startStopContainer_ui.add (start_ui);
+startStopContainer_ui.add (stop_ui);
 
 
 
@@ -143,10 +145,12 @@ openTuner_ui.set_label ("tuner");
 
 openAnimation_ui.set_label ("animation");
 
+otherContainer_ui.set_row_homogeneous( true );
+otherContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
-otherContainer_ui.pack_start (openOptions_ui);
-otherContainer_ui.pack_start (openTuner_ui);
-otherContainer_ui.pack_start (openAnimation_ui);
+otherContainer_ui.add (openOptions_ui);
+otherContainer_ui.add (openTuner_ui);
+otherContainer_ui.add (openAnimation_ui);
 
 
 

@@ -17,6 +17,7 @@ tempColor_var.set_rgba(0, 0, 0, 1);
 
 
 
+
 void Animation::start ()
 {
 tempColor_var = activeColor_var;

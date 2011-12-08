@@ -49,6 +49,7 @@ class AnimeWindow : public SecondaryWindow
 
         virtual bool onKeyRelease(GdkEventKey *event);
 
+        bool animationEvents( GdkEventButton *event );
 
     private:
 
@@ -69,7 +70,7 @@ class AnimeWindow : public SecondaryWindow
 
             Animation animation_ui;
 
-            Gtk::HBox buttonsContainer_ui;
+            Gtk::Grid buttonsContainer_ui;
 
                 Gtk::Label currentBpm_ui;
 
