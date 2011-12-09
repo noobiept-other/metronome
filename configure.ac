@@ -1,7 +1,7 @@
 ## Metronome
 
 AC_INIT([Metronome], [1.0], [a@b.c],
-        [metronome], [http://www.bitbucket.org])
+        [metronome], [https://bitbucket.org/drk4/metronome/wiki/])
 AC_PREREQ([2.59])
 AM_INIT_AUTOMAKE([1.10 -Wall no-define])
 
