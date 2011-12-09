@@ -31,7 +31,9 @@ extern Configurations CONFIGURATIONS;
 
 Tuner::Tuner()
 
-    : container_ui (3, 2)
+    : cancelEvents_var (false),
+      container_ui (3, 2)
+
 
 {
     // :::: Notes :::: //
@@ -162,7 +164,7 @@ this->set_icon_from_file("images/tuner.png");
 
     // :::: Events :::: //
 
-
+//HERE -- podia ser ints em vez de strings
      a_ui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A"  ) );
 a_plus_ui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "A+" ) );
      b_ui.signal_clicked().connect ( sigc::bind<std::string>( sigc::mem_fun (*this, &Tuner::changeNote), "B"  ) );
@@ -217,6 +219,12 @@ Sound::play();
 
 void Tuner::changeNote (std::string noteLetter)
 {
+    //unwanted events
+if (cancelEvents_var == true)
+    {
+    return;
+    }
+
 int octave = chooseOctave_ui.get_value_as_int ();
 
 Tuner::setNote( noteLetter, octave, false );
@@ -231,7 +239,11 @@ play ();
 
 void Tuner::onOctaveChange()
 {
-
+    //unwanted events
+if (cancelEvents_var == true)
+    {
+    return;
+    }
 
 std::string noteLetter = note_var.getNote();
 
@@ -248,6 +260,12 @@ play();
 
 void Tuner::onFrequencyChange()
 {
+    //unwanted events
+if (cancelEvents_var == true)
+    {
+    return;
+    }
+
 setNote( chooseFrequency_ui.get_value(), true );
 
 play();
@@ -286,6 +304,10 @@ Tuner::setNote( Note::allNotes_var[notePosition], octave, updateUi );
 
 void Tuner::setNote( std::string noteName, int octave, bool updateUi )
 {
+    //cancel events that happen due to updating the ui
+cancelEvents_var = true;
+
+
     //when we change to a random frequency, the RadioButton's state is changed to inconsistent
     //when we change back to a named note, we have to revert this
 if (a_ui.get_inconsistent() == true)
@@ -313,13 +335,10 @@ note_var.newNote(noteName, octave);
 double frequency = note_var.getFrequency();
 
 
-    //cancel the event, so that it isn't called when changing the value below
-chooseFrequency_connection.disconnect ();
 
     //update the value of the Gtk::SpinButton, showing the current frequency
 chooseFrequency_ui.set_value (frequency);
 
-chooseFrequency_connection = chooseFrequency_ui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
 
 
 if ( updateUi == true )
@@ -392,6 +411,10 @@ if ( updateUi == true )
 
         }
     }
+
+
+    //back to normal
+cancelEvents_var = false;
 }
 
 
@@ -406,16 +429,15 @@ if ( updateUi == true )
 
 void Tuner::setNote( double frequency, bool updateUi )
 {
+    //cancel events that happen due to updating the ui
+cancelEvents_var = true;
+
 note_var.newNote (frequency);
 
 
-    //cancel the event, so that it isn't called when changing the value below
-chooseFrequency_connection.disconnect ();
 
     //update the value of the Gtk::SpinButton, showing the current frequency
 chooseFrequency_ui.set_value (frequency);
-
-chooseFrequency_connection = chooseFrequency_ui.signal_value_changed().connect ( sigc::mem_fun (*this, &Tuner::onFrequencyChange) );
 
 
 
@@ -435,6 +457,9 @@ if (updateUi == true)
          g_ui.set_inconsistent (true);
     g_plus_ui.set_inconsistent (true);
     }
+
+    //back to normal
+cancelEvents_var = false;
 }
 
 

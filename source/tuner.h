@@ -89,6 +89,10 @@ class Tuner : public SecondaryWindow, public Sound
         void onFrequencyChange();
 
 
+            //when updating the ui, it may trigger unwanted events
+            //so we set this variable to true before changing stuff (and to false after)
+        bool cancelEvents_var;
+
 
             //note chosen from the RadioButton's
         Note note_var;
