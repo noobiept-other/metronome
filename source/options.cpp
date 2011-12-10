@@ -28,9 +28,6 @@ extern Configurations CONFIGURATIONS;
 
 
 Options::Options()
-
-    : container_ui (3, 1)
-
 {
     // :::: Beat duration :::: //
 
@@ -53,13 +50,15 @@ changeBeatDuration_ui.set_digits (3);
 
 milisecondsLabel_ui.set_label ("ms");
 
+/*
+beatDurationContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
 beatDurationContainer_ui.pack_start (beatDurationLabel_ui);
 beatDurationContainer_ui.pack_start (changeBeatDuration_ui);
 beatDurationContainer_ui.pack_start (milisecondsLabel_ui);
 
 beatDurationContainer_ui.set_spacing (10);
-
+*/
 
 
     // :::: Normal beat frequency :::: //
@@ -84,13 +83,15 @@ changeNormalFrequency_ui.set_digits (3);
 
 normalHz_ui.set_label ("Hz");
 
+/*
+normalFreqContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
 normalFreqContainer_ui.pack_start (normalLabel_ui);
 normalFreqContainer_ui.pack_start (changeNormalFrequency_ui);
 normalFreqContainer_ui.pack_start (normalHz_ui);
 
 normalFreqContainer_ui.set_spacing (10);
-
+*/
 
     // :::: Strong beat frequency :::: //
 
@@ -115,6 +116,8 @@ changeStrongFrequency_ui.set_digits (3);
 
 strongHz_ui.set_label ("Hz");
 
+/*
+strongFreqContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
 strongFreqContainer_ui.pack_start (strongLabel_ui);
 strongFreqContainer_ui.pack_start (changeStrongFrequency_ui);
@@ -123,15 +126,28 @@ strongFreqContainer_ui.pack_start (strongHz_ui);
 
 strongFreqContainer_ui.set_spacing (10);
 
+*/
+
     // :::: Container :::: //
 
+container_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
-container_ui.set_col_spacings (40);
-container_ui.set_row_spacings (20);
+container_ui.set_column_spacing (20);
+container_ui.set_row_spacing (20);
 
-container_ui.attach (beatDurationContainer_ui, 0, 1, 0, 1);
-container_ui.attach (normalFreqContainer_ui, 0, 1, 1, 2);
-container_ui.attach (strongFreqContainer_ui, 0, 1, 2, 3);
+
+container_ui.attach (beatDurationLabel_ui, 0, 0, 1, 1);
+container_ui.attach (changeBeatDuration_ui, 1, 0, 1, 1);
+container_ui.attach (milisecondsLabel_ui, 2, 0, 1, 1);
+
+container_ui.attach (normalLabel_ui, 0, 1, 1, 1);
+container_ui.attach (changeNormalFrequency_ui, 1, 1, 1, 1);
+container_ui.attach (normalHz_ui, 2, 1, 1, 1);
+
+container_ui.attach (strongLabel_ui, 0, 2, 1, 1);
+container_ui.attach (changeStrongFrequency_ui, 1, 2, 1, 1);
+container_ui.attach (strongHz_ui, 2, 2, 1, 1);
+
 
     // :::: Window :::: //
 

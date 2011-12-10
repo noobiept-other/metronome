@@ -92,7 +92,7 @@ class AnimeWindow : public SecondaryWindow
 
             Animation animation_ui;
 
-            Gtk::Grid buttonsContainer_ui;
+            Gtk::Box buttonsContainer_ui;
 
                 Gtk::Label currentBpm_ui;
 

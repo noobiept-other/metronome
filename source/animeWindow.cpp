@@ -66,8 +66,8 @@ selectStrongColor_ui.set_rgba(animation_ui.getStrongColor());
 
     // :::: Buttons container :::: //
 
-buttonsContainer_ui.set_row_spacing (10);
-buttonsContainer_ui.set_row_homogeneous( true );
+buttonsContainer_ui.set_spacing (10);
+buttonsContainer_ui.set_homogeneous( true );
 buttonsContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
 buttonsContainer_ui.add (currentBpm_ui);

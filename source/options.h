@@ -72,25 +72,19 @@ class Options : public SecondaryWindow
 
             //layout stuff
 
-        Gtk::Table container_ui;
+        Gtk::Grid container_ui;
 
-            Gtk::HBox beatDurationContainer_ui;
+            Gtk::Label beatDurationLabel_ui;
+            Gtk::Label normalLabel_ui;
+            Gtk::Label strongLabel_ui;
 
-                Gtk::Label beatDurationLabel_ui;
-                MySpinButton changeBeatDuration_ui;
-                Gtk::Label milisecondsLabel_ui;
+            MySpinButton changeBeatDuration_ui;
+            MySpinButton changeNormalFrequency_ui;
+            MySpinButton changeStrongFrequency_ui;
 
-            Gtk::HBox normalFreqContainer_ui;
-
-                Gtk::Label normalLabel_ui;
-                MySpinButton changeNormalFrequency_ui;
-                Gtk::Label normalHz_ui;
-
-            Gtk::HBox strongFreqContainer_ui;
-
-                Gtk::Label strongLabel_ui;
-                MySpinButton changeStrongFrequency_ui;
-                Gtk::Label strongHz_ui;
+            Gtk::Label milisecondsLabel_ui;
+            Gtk::Label normalHz_ui;
+            Gtk::Label strongHz_ui;
 
 
 };

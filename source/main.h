@@ -74,7 +74,7 @@
         - double-click na Animation para ir para fullscreen (n esta a funcionar)
 
         - esconder os butoes qd a Animation esta em fullscreen, e voltar a por qd sai (tb n)
-		
+
 		- melhorar o icon
 
  */
@@ -172,12 +172,12 @@ class Main : public Gtk::Window, public Metronome
                 Gtk::RadioButton fourBeats_ui;
                 Gtk::SpinButton otherBeat_ui;
 
-            Gtk::Grid startStopContainer_ui;
+            Gtk::Box startStopContainer_ui;
 
                 Gtk::Button start_ui;
                 Gtk::Button stop_ui;
 
-            Gtk::Grid otherContainer_ui;
+            Gtk::Box otherContainer_ui;
 
                 Gtk::Button openOptions_ui;
                 Gtk::Button openTuner_ui;

@@ -102,7 +102,7 @@ class Tuner : public SecondaryWindow, public Sound
 
         Gtk::Table container_ui;
 
-            Gtk::HBox notesContainer_ui;
+            Gtk::Box notesContainer_ui;
 
                 Gtk::RadioButton a_ui;
                 Gtk::RadioButton a_plus_ui;
@@ -117,18 +117,18 @@ class Tuner : public SecondaryWindow, public Sound
                 Gtk::RadioButton g_ui;
                 Gtk::RadioButton g_plus_ui;
 
-            Gtk::HBox octaveContainer_ui;
+            Gtk::Box octaveContainer_ui;
 
                 Gtk::Label octave_ui;
                 MySpinButton chooseOctave_ui;
 
-            Gtk::HBox frequencyContainer_ui;
+            Gtk::Box frequencyContainer_ui;
 
                 Gtk::Label frequency_ui;
                 MySpinButton chooseFrequency_ui;
                 Gtk::Label hertz_ui;
 
-            Gtk::HBox playContainer_ui;
+            Gtk::Box playContainer_ui;
 
                 Gtk::Button startPlaying_ui;
                 Gtk::Button stopPlaying_ui;

@@ -69,6 +69,9 @@ g_plus_ui.set_group (group);
 a_ui.set_active();
 
 
+notesContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
+notesContainer_ui.set_homogeneous( true );
+
 notesContainer_ui.pack_start (a_ui);
 notesContainer_ui.pack_start (a_plus_ui);
 notesContainer_ui.pack_start (b_ui);
@@ -93,6 +96,10 @@ Glib::RefPtr<Gtk::Adjustment> octaveAdjustment (Gtk::Adjustment::create(4, 1, 8,
 
 chooseOctave_ui.set_adjustment (octaveAdjustment);
 chooseOctave_ui.set_numeric (true);
+
+
+octaveContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
+octaveContainer_ui.set_homogeneous( true );
 
 
 octaveContainer_ui.pack_start (octave_ui);
@@ -120,6 +127,10 @@ chooseFrequency_ui.set_numeric (true);
 chooseFrequency_ui.set_digits (3);
 
 
+
+frequencyContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
+frequencyContainer_ui.set_homogeneous( true );
+
 frequencyContainer_ui.pack_start (frequency_ui);
 frequencyContainer_ui.pack_start (chooseFrequency_ui);
 
@@ -131,6 +142,9 @@ hertz_ui.set_label ("Hz");
 startPlaying_ui.set_label ("Play");
  stopPlaying_ui.set_label ("Stop");
 
+
+playContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
+playContainer_ui.set_homogeneous( true );
 
 playContainer_ui.pack_start (startPlaying_ui);
 playContainer_ui.pack_start (stopPlaying_ui);
