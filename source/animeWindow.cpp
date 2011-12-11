@@ -117,6 +117,8 @@ changeFullScreen_ui.signal_clicked().connect( sigc::mem_fun(*this, &AnimeWindow:
 
     // animation
 
+animation_ui.add_events( Gdk::BUTTON_PRESS_MASK );
+
 animation_ui.signal_button_press_event().connect( sigc::mem_fun( *this, &AnimeWindow::animationEvents ) );
 
 
@@ -261,24 +263,17 @@ return true;
 }
 
 
-//#include <iostream>
-//using namespace::std;
+
 
 /*
     When double-clicking on the animation, we open/close the fullscreen
-
-    //HERE - its not working
  */
 
 bool AnimeWindow::animationEvents( GdkEventButton *event )
 {
-//cout << "animation events\n";
-
     //when double-clicking
 if ( event->type == GDK_2BUTTON_PRESS )
     {
-    //cout << "2button press \n";
-
         //open/close the fullscreen
     fullScreen();
 

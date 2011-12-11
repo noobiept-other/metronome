@@ -71,9 +71,7 @@
 		    ou estilo json
 
 
-        - double-click na Animation para ir para fullscreen (n esta a funcionar)
-
-        - esconder os butoes qd a Animation esta em fullscreen, e voltar a por qd sai (tb n)
+        - esconder os butoes qd a Animation esta em fullscreen, e voltar a por qd sai (n esta a funcionar)
 
 		- melhorar o icon
 
