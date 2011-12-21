@@ -50,16 +50,6 @@ changeBeatDuration_ui.set_digits (3);
 
 milisecondsLabel_ui.set_label ("ms");
 
-/*
-beatDurationContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
-
-beatDurationContainer_ui.pack_start (beatDurationLabel_ui);
-beatDurationContainer_ui.pack_start (changeBeatDuration_ui);
-beatDurationContainer_ui.pack_start (milisecondsLabel_ui);
-
-beatDurationContainer_ui.set_spacing (10);
-*/
-
 
     // :::: Normal beat frequency :::: //
 
@@ -83,15 +73,7 @@ changeNormalFrequency_ui.set_digits (3);
 
 normalHz_ui.set_label ("Hz");
 
-/*
-normalFreqContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
-normalFreqContainer_ui.pack_start (normalLabel_ui);
-normalFreqContainer_ui.pack_start (changeNormalFrequency_ui);
-normalFreqContainer_ui.pack_start (normalHz_ui);
-
-normalFreqContainer_ui.set_spacing (10);
-*/
 
     // :::: Strong beat frequency :::: //
 
@@ -116,17 +98,7 @@ changeStrongFrequency_ui.set_digits (3);
 
 strongHz_ui.set_label ("Hz");
 
-/*
-strongFreqContainer_ui.set_orientation( Gtk::ORIENTATION_HORIZONTAL );
 
-strongFreqContainer_ui.pack_start (strongLabel_ui);
-strongFreqContainer_ui.pack_start (changeStrongFrequency_ui);
-strongFreqContainer_ui.pack_start (strongHz_ui);
-
-
-strongFreqContainer_ui.set_spacing (10);
-
-*/
 
     // :::: Container :::: //
 

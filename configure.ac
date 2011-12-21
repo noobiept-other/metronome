@@ -7,6 +7,7 @@ AM_INIT_AUTOMAKE([1.10 -Wall no-define])
 
 PKG_CHECK_MODULES([DEPENDENCIES], [gtkmm-3.0 >= 3.0.0 gstreamermm-0.10 >= 0.10.0])
 
+CXXFLAGS=-O2
 
 AC_CONFIG_HEADERS([config.h])
 AC_PROG_CXX
